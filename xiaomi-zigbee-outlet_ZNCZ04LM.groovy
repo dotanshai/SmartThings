@@ -15,6 +15,9 @@
  *  Based on original device handler by Lazcad / RaveTam
  *  Updates and contributions to code by a4refillpad, bspranger, marcos-mvs, mike-debney, Tiago_Goncalves, and veeceeoh
  *
+ *   Global forum post can be found here :
+ *  https://community.smartthings.com/t/xiaomi-mi-smart-plug-new-model-device-handler/196375/29	
+ *
  */
 
 metadata {
@@ -55,7 +58,7 @@ metadata {
 			}
 		}
 		valueTile("temperature", "device.temperature", width: 2, height: 2) {
-			state("temperature", label:'${currentValue}°',
+			state("temperature", label:'${currentValue}Â°',
 				backgroundColors:[
 					[value: 31, color: "#153591"],
 					[value: 44, color: "#1e9cbb"],
@@ -157,7 +160,7 @@ private Map parseReportAttributeMessage(String description) {
 		def tempScale = getTemperatureScale()
 		def tempValue = zigbee.parseHATemperatureValue("temperature: " + (convertHexToInt(descMap.value) / 2), "temperature: ", tempScale) + (tempOffset ? tempOffset : 0)
 		resultMap = createEvent(name: "temperature", value: tempValue, unit: tempScale, translatable: true)
-		log.debug "${device.displayName}: Reported temperature is ${resultMap.value}°$tempScale"
+		log.debug "${device.displayName}: Reported temperature is ${resultMap.value}Â°$tempScale"
 	}
 	else if (descMap.cluster == "0008" && descMap.attrId == "0000") {
 		resultMap = createEvent(name: "switch", value: "off")
