@@ -27,6 +27,9 @@
  *  + Most ZigBee repeater devices (generally mains-powered ZigBee devices) are NOT compatible with Xiaomi/Aqara devices, causing them to drop off the network.
  *  + Only XBee ZigBee modules, the IKEA Tradfri Outlet / Tradfri Bulb, and ST user @iharyadi's custom multi-sensor ZigBee repeater device are confirmed to be compatible.
  *
+ *  Global forum post can be found here :
+ *  https://community.smartthings.com/t/hub-firmware-release-notes-25-26/156497
+ *
  */
 
  import groovy.json.JsonOutput
