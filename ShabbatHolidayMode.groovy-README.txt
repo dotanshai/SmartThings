@@ -1,0 +1,12 @@
+For detection the geonameid
+
+ https://www.hebcal.com/hebcal/ Follow the link
+
+In the category "Candle lighting times" 
+Choose your city name for example (Jerusalem, Israel)
+
+Then click create Calendar
+
+In the address bar (URL), look for the geonameid number (the city of Jerusalem, for example, will appear as the number 281184)
+
+The number that appears to you must be filled in the geonameid field
