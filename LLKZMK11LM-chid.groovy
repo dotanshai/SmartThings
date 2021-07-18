@@ -8,13 +8,16 @@
  */
 
 metadata {
-	definition (name: "Aqara LLKZMK11LM Child Switch", namespace: "Leza", author: "LPT", vid:"generic-switch-power-energy") {
-        capability "Actuator"
+
+	definition (name: "Aqara LLKZMK11LM 2 Channel Zigbee Relay Child", namespace: "Leza", author: "Yashik", vid:"generic-switch") {
+		capability "Actuator"
 		capability "Switch"
-        capability "Temperature Measurement"
-        capability "Voltage Measurement"
+		capability "Polling"
 		capability "Sensor"
 		capability "Refresh"
+		capability "Health Check"
+
+        command    "refresh"
 	}
     
     simulator { }
@@ -32,18 +35,12 @@ metadata {
 			}
 		}
 		
-		valueTile("voltage", "device.voltage", width: 2, height: 2) {
-			state "voltage", label:'${currentValue} V', icon:"st.Appliances.appliances17"
-		}
-		valueTile("temperature", "device.temperature", width: 2, height: 2) {
-			state "temperature", label:'${currentValue} °C', icon:"st.Weather.weather2"
-		}
-		standardTile("refresh", "device.refresh", width: 2, height: 2) {
+		standardTile("refresh", "refresh", width: 2, height: 2) {
 			state "default", label:'Refresh', action: "refresh", icon:"st.secondary.refresh-icon"
 		}
 
 		main (["switch"])
-		details(["switch", "voltage", "temperature", "refresh"])
+		details(["switch", "refresh"])
 	}
 }
 
@@ -67,12 +64,14 @@ def updated() {
 }
 
 def on() {
-	logDebug "child on: ${device}"
-	parent.childOn(device.deviceNetworkId)	
+	logDebug "child on: " + device.dump() + " parent=" + parent.dump()
+    if ( parent ) {
+		parent.childOn(device.deviceNetworkId)
+    }
 }
 
 def off() {
-	logDebug "child off: ${device}"
+	logDebug "child off: " + device.dump() + " parent=" + parent.dump()
 	parent.childOff(device.deviceNetworkId)	
 }
 
@@ -82,5 +81,9 @@ def refresh() {
 }
 
 private logDebug(msg) {
-	parent.logDebug("$msg")
+    if ( parent ) {
+		parent.logDebug("$msg")
+	} else {
+		log.debug "${msg}"
+	}
 }
