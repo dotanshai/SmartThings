@@ -1,0 +1,127 @@
+{
+  "name": "Delay",
+  "attributes": {
+    "delayHours": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "setDelayHours",
+      "enumCommands": []
+    },
+    "delayMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 59
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "setDelayMinutes",
+      "enumCommands": []
+    },
+    "selectedDelayMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1440
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "enumCommands": []
+    },
+    "delayStatus": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "idle",
+              "scheduled"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "enumCommands": []
+    }
+  },
+  "commands": {
+    "setDelayHours": {
+      "name": "setDelayHours",
+      "arguments": [
+        {
+          "name": "delayHours",
+          "optional": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24
+          }
+        }
+      ]
+    },
+    "setDelayMinutes": {
+      "name": "setDelayMinutes",
+      "arguments": [
+        {
+          "name": "delayMinutes",
+          "optional": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 59
+          }
+        }
+      ]
+    },
+    "startDelay30": {
+      "name": "startDelay30",
+      "arguments": []
+    },
+    "startDelay60": {
+      "name": "startDelay60",
+      "arguments": []
+    },
+    "startDelay120": {
+      "name": "startDelay120",
+      "arguments": []
+    },
+    "startDelayCustom": {
+      "name": "startDelayCustom",
+      "arguments": []
+    },
+    "cancelDelay": {
+      "name": "cancelDelay",
+      "arguments": []
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "Next {{timerMinutes.value}} min"
+      }
+    ],
+    "actions": [],
+    "panelItems": []
+  },
+  "detailView": [
+    {
+      "label": "Timer minutes for next ON",
+      "displayType": "slider",
+      "slider": {
+        "range": [
+          0,
+          120
+        ],
+        "step": 1,
+        "command": "setTimerMinutes",
+        "argumentType": "integer",
+        "value": "timerMinutes.value",
+        "valueType": "integer"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Timer minutes",
+        "displayType": "numberField",
+        "numberField": {
+          "value": "timerMinutes.value",
+          "valueType": "integer",
+          "range": [
+            0,
+            120
+          ]
+        }
+      }
+    ],
+    "actions": [
+      {
+        "label": "Set timer minutes",
+        "displayType": "numberField",
+        "numberField": {
+          "command": "setTimerMinutes",
+          "argumentType": "integer",
+          "range": [
+            0,
+            120
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "Timer Minutes",
+  "attributes": {
+    "timerMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 120
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "setTimerMinutes",
+      "enumCommands": []
+    }
+  },
+  "commands": {
+    "setTimerMinutes": {
+      "name": "setTimerMinutes",
+      "arguments": [
+        {
+          "name": "timerMinutes",
+          "optional": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 120
+          }
+        }
+      ]
+    }
+  }
+}

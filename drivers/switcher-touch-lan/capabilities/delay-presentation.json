@@ -1,0 +1,109 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{delayHours.value}}h {{delayMinutes.value}}m / {{delayStatus.value}}"
+      }
+    ],
+    "actions": [],
+    "panelItems": []
+  },
+  "detailView": [
+    {
+      "label": "Hours",
+      "displayType": "numberField",
+      "numberField": {
+        "value": "delayHours.value",
+        "command": "setDelayHours",
+        "range": [
+          0,
+          24
+        ],
+        "valueType": "integer",
+        "argumentType": "integer"
+      }
+    },
+    {
+      "label": "Minutes",
+      "displayType": "numberField",
+      "numberField": {
+        "value": "delayMinutes.value",
+        "command": "setDelayMinutes",
+        "range": [
+          0,
+          59
+        ],
+        "valueType": "integer",
+        "argumentType": "integer"
+      }
+    },
+    {
+      "label": "Selected delay",
+      "displayType": "state",
+      "state": {
+        "label": "{{selectedDelayMinutes.value}} minutes"
+      }
+    },
+    {
+      "label": "Delay status",
+      "displayType": "state",
+      "state": {
+        "label": "{{delayStatus.value}}"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Hours",
+        "displayType": "numberField",
+        "numberField": {
+          "value": "delayHours.value",
+          "valueType": "integer",
+          "range": [
+            0,
+            24
+          ]
+        }
+      },
+      {
+        "label": "Minutes",
+        "displayType": "numberField",
+        "numberField": {
+          "value": "delayMinutes.value",
+          "valueType": "integer",
+          "range": [
+            0,
+            59
+          ]
+        }
+      }
+    ],
+    "actions": [
+      {
+        "label": "Set hours",
+        "displayType": "numberField",
+        "numberField": {
+          "command": "setDelayHours",
+          "argumentType": "integer",
+          "range": [
+            0,
+            24
+          ]
+        }
+      },
+      {
+        "label": "Set minutes",
+        "displayType": "numberField",
+        "numberField": {
+          "command": "setDelayMinutes",
+          "argumentType": "integer",
+          "range": [
+            0,
+            59
+          ]
+        }
+      }
+    ]
+  }
+}

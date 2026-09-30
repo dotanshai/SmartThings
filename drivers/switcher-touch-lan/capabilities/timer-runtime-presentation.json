@@ -1,0 +1,56 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "Left {{remainingMinutes.value}} / Done {{elapsedMinutes.value}} min"
+      }
+    ],
+    "actions": [],
+    "panelItems": []
+  },
+  "detailView": [
+    {
+      "label": "Time remaining",
+      "displayType": "state",
+      "state": {
+        "label": "{{remainingMinutes.value}} minutes"
+      }
+    },
+    {
+      "label": "Time elapsed",
+      "displayType": "state",
+      "state": {
+        "label": "{{elapsedMinutes.value}} minutes"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Time remaining",
+        "displayType": "numberField",
+        "numberField": {
+          "value": "remainingMinutes.value",
+          "valueType": "integer",
+          "range": [
+            0,
+            120
+          ]
+        }
+      },
+      {
+        "label": "Time elapsed",
+        "displayType": "numberField",
+        "numberField": {
+          "value": "elapsedMinutes.value",
+          "valueType": "integer",
+          "range": [
+            0,
+            120
+          ]
+        }
+      }
+    ],
+    "actions": []
+  }
+}

@@ -19,6 +19,7 @@ Install from the **Shai D. Shared Drivers** channel:
 | Zigbee Switch SD | [129 Zigbee models](drivers/zigbee-switch-sd#supported-devices) |
 | Zigbee Siren SD | [13 Zigbee models](drivers/zigbee-siren-sd#supported-devices) |
 | Switcher Breeze | [LAN](drivers/switcher-breeze#supported-devices) |
+| Switcher Touch LAN (community driver) | [LAN](drivers/switcher-touch-lan#supported-devices) |
 | Dolphin Boiler SD (LAN) (source only, not in channel) | [LAN](drivers/dolphin-boiler-sd-lan#supported-devices) |
 
 ## Schema Connectors (cloud, AWS Lambda)

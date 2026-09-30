@@ -1,0 +1,101 @@
+name: "switcher-touch-lan"
+components:
+  - id: main
+    label: "Switcher Water Heater"
+    capabilities:
+      - id: switch
+        version: 1
+      - id: __ST_CAP_NAMESPACE__.timerMinutes
+        version: 1
+      - id: __ST_CAP_NAMESPACE__.timerRuntime
+        version: 1
+      - id: powerMeter
+        version: 1
+      - id: currentMeasurement
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: WaterHeater
+        categoryType: manufacturer
+
+  - id: delay
+    label: "Delay"
+    capabilities:
+      - id: switch
+        version: 1
+      - id: __ST_CAP_NAMESPACE__.delay
+        version: 1
+    categories:
+      - name: Switch
+        categoryType: manufacturer
+
+
+  - id: info
+    label: "Info"
+    capabilities:
+      - id: __ST_CAP_NAMESPACE__.ip
+        version: 1
+      - id: __ST_CAP_NAMESPACE__.deviceId
+        version: 1
+      - id: __ST_CAP_NAMESPACE__.deviceKey
+        version: 1
+      - id: __ST_CAP_NAMESPACE__.deviceType
+        version: 1
+    categories:
+      - name: Others
+        categoryType: manufacturer
+
+preferences:
+  - name: deviceIp
+    title: "Manual IP Override"
+    description: "Optional. Leave empty when the device was discovered automatically."
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: deviceId
+    title: "Manual Device ID Override"
+    description: "Optional. Leave empty when the device was discovered automatically."
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: deviceKey
+    title: "Manual Device Key Override"
+    description: "Optional advanced field. Leave empty for standard local TCP login."
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+
+  - name: scanPrefix
+    title: "Manual Scan Prefix Override"
+    description: "Optional. Leave empty for automatic subnet detection. Advanced users may enter a subnet prefix ending with a dot."
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+
+  - name: defaultMinutes
+    title: "Default ON minutes"
+    description: "Used when pressing ON while Timer Minutes is 0. Capped to 120 minutes."
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 120
+      default: 120
+  - name: monitorInterval
+    title: "Local monitor interval seconds"
+    description: "How often the driver checks the Switcher state locally, including manual/app changes."
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 30
+      maximum: 300
+      default: 30

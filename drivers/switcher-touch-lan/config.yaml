@@ -1,0 +1,5 @@
+name: "switcher-touch-lan"
+packageKey: "switcher-touch-lan"
+permissions:
+  lan: {}
+  discovery: {}
