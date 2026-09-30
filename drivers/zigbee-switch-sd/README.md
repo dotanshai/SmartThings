@@ -1,3 +1,7 @@
+# Zigbee Switch SD
+
+Install from the **Shai D. Shared Drivers** channel: [Join the channel](https://bestow-regional.api.smartthings.com/invite/Q1jP7By0KVlL)
+
 ## (NEW RELEASE) Version 6.5 for the Edge Beta Driver: Zigbee Switc Mc
 
 ## Improvements:
