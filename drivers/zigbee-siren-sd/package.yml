@@ -1,0 +1,6 @@
+name: zigbee_siren_sd_metrics_v2
+packageKey: zigbee_siren_sd_metrics_v2
+permissions:
+  zigbee: {}
+description: "Zigbee Siren driver with signal metrics and duration"
+vendorSupportInformation: "TS0224, TS0216, TS0219, Heiman, Frient, Develco, Sercomm"

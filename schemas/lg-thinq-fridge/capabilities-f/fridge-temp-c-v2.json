@@ -1,0 +1,28 @@
+{
+  "id": "fridgeTemperatureC",
+  "version": 1,
+  "status": "proposed",
+  "name": "Fridge Temperature C",
+  "attributes": {
+    "temperatureC": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number", "minimum": 1, "maximum": 8, "multipleOf": 0.1 },
+          "unit": { "type": "string", "enum": ["C"], "default": "C" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setTemperatureC"
+    }
+  },
+  "commands": {
+    "setTemperatureC": {
+      "name": "setTemperatureC",
+      "arguments": [
+        { "name": "temperature", "optional": false, "schema": { "type": "number", "minimum": 1, "maximum": 8, "multipleOf": 0.1 } }
+      ]
+    }
+  }
+}

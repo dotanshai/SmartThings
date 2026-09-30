@@ -1,0 +1,29 @@
+name: Arad Water Meter v10
+components:
+  - id: main
+    capabilities:
+      - id: vehiclepatch55148.meterMeasurements
+      - id: vehiclepatch55148.meterExpenses
+      - id: vehiclepatch55148.meterRateSettings
+      - id: vehiclepatch55148.meterWarnings
+    categories:
+      - name: FlowSensor
+view:
+  dashboard:
+    states:
+      - capability: vehiclepatch55148.meterMeasurements
+    actions: []
+  detailView:
+    - capability: vehiclepatch55148.meterMeasurements
+    - capability: vehiclepatch55148.meterExpenses
+    - capability: vehiclepatch55148.meterRateSettings
+    - capability: vehiclepatch55148.meterWarnings
+  automation:
+    conditions:
+      - capability: vehiclepatch55148.meterMeasurements
+      - capability: vehiclepatch55148.meterExpenses
+      - capability: vehiclepatch55148.meterRateSettings
+      - capability: vehiclepatch55148.meterWarnings
+    actions:
+      - capability: vehiclepatch55148.meterRateSettings
+      - capability: vehiclepatch55148.meterWarnings

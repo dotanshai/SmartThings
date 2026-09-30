@@ -1,0 +1,1 @@
+{"tag":"en","label":"Sleep","attributes":{"switch":{"label":"Sleep","displayTemplate":"{{attribute}} of {{device.label}} is {{value}}","i18n":{"value":{"on":{"label":"On"},"off":{"label":"Off"}}}}},"commands":{"setSwitch":{"label":"Sleep","arguments":{}}}}

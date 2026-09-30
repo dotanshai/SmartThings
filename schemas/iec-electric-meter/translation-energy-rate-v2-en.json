@@ -1,0 +1,9 @@
+{
+  "tag": "en",
+  "label": "IEC Energy Rate",
+  "attributes": {
+    "rate": {
+      "label": "IEC Energy Rate"
+    }
+  }
+}

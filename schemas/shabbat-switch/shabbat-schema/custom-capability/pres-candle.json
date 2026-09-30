@@ -1,0 +1,7 @@
+{
+  "detailView": [
+    { "label": "הדלקת נרות / Candle Lighting", "displayType": "state", "state": { "label": "{{candleLighting.value}}" } }
+  ],
+  "id": "vehiclepatch55148.shabbatCandleLighting",
+  "version": 1
+}

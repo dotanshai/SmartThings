@@ -1,0 +1,106 @@
+id: smarthome4u-4gang-switch-curtain-multi-v2
+name: smarthome4u-4gang-switch-curtain-multi-v2
+
+components:
+  - id: curtain1
+    label: Curtain A (col 1+3)
+    capabilities:
+      - id: windowShade
+      - id: refresh
+    categories:
+      - name: Blind
+
+  - id: curtain2
+    label: Curtain B (col 2+4)
+    capabilities:
+      - id: windowShade
+    categories:
+      - name: Blind
+
+  - id: channeltype1
+    label: "Channel Type — Left Col (1+3)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype2
+    label: "Channel Type — Right Col (2+4)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: multiTileMode
+    title: Multi-Tile Dashboard
+    description: "OFF = single tile with dashboard button\nON = separate tile per channel"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "off": "Off (single tile)"
+        "on":  "On (all detected channels)"
+      default: "off"
+
+  - name: curtainDuration1
+    title: Curtain A Duration (seconds)
+    description: "How long the left curtain motor runs for open/close (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+  - name: curtainDuration2
+    title: Curtain B Duration (seconds)
+    description: "How long the right curtain motor runs for open/close (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: Create child switch devices
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 5d4ddf14-a39b-3521-b613-b7d631f9a7ca

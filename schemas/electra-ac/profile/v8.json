@@ -1,0 +1,126 @@
+{
+    "id": "4400f391-09cb-4366-b290-69512ff4a2d7",
+    "name": "Tadiran AC v8",
+    "metadata": {
+        "vid": "f4acc28e-f134-35aa-83ac-39badc5504a8",
+        "mnmn": "SmartThingsCommunity"
+    },
+    "migrationStatus": "NOT_MIGRATED",
+    "status": "PUBLISHED",
+    "preferences": [],
+    "components": [
+        {
+            "label": "main",
+            "id": "main",
+            "capabilities": [
+                {
+                    "id": "switch",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "refresh",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "healthCheck",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "temperatureMeasurement",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "thermostatCoolingSetpoint",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acTemperature",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acMode",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acFanSpeed",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acSwingUpDown",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acSwingLeftRight",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acLight",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acTurbo",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acMute",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acDeviceId",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acStatus",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.acStatus2",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                }
+            ],
+            "categories": [
+                {
+                    "name": "AirConditioner",
+                    "categoryType": "manufacturer"
+                }
+            ],
+            "optional": false
+        }
+    ],
+    "owner": {
+        "ownerType": "USER",
+        "ownerId": "5735eb68-f726-4d67-8f8e-0dcdd2bf977a"
+    }
+}

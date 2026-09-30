@@ -1,0 +1,1 @@
+{"tag":"he","label":"אוויר חוזר","attributes":{"temperature":{"label":"טמפרטורת אוויר חוזר","displayTemplate":"{{attribute}} של {{device.label}} היא {{value}}"}},"commands":{}}

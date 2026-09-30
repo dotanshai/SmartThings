@@ -1,0 +1,206 @@
+{
+    "mnmn": "SmartThingsCommunity",
+    "vid": "9748cb31-6d85-3beb-9caf-c258fffbd646",
+    "version": "0.0.1",
+    "type": "profile",
+    "dashboard": {
+        "states": [
+            {
+                "component": "main",
+                "capability": "switch",
+                "version": 1,
+                "idx": 0,
+                "group": "main",
+                "values": [],
+                "composite": true
+            },
+            {
+                "component": "main",
+                "capability": "vehiclepatch55148.washerStatus",
+                "version": 1,
+                "idx": 0,
+                "group": "main",
+                "values": [
+                    {
+                        "label": " {{machineStateDisplay.value}}"
+                    }
+                ],
+                "composite": true
+            }
+        ],
+        "actions": [
+            {
+                "component": "main",
+                "capability": "switch",
+                "version": 1,
+                "idx": 0,
+                "group": "main",
+                "inline": null
+            }
+        ],
+        "basicPlus": []
+    },
+    "detailView": [
+        {
+            "component": "main",
+            "capability": "switch",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "main",
+            "capability": "refresh",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "main",
+            "capability": "vehiclepatch55148.washerStatus",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "main",
+            "capability": "vehiclepatch55148.laundryError",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "main",
+            "capability": "vehiclepatch55148.cycleTimers",
+            "version": 1,
+            "values": [],
+            "patch": [],
+            "visibleCondition": {
+                "component": "main",
+                "capability": "vehiclepatch55148.cycleTimers",
+                "version": 1,
+                "value": "timersVisible.value",
+                "valueType": "string",
+                "operator": "EQUALS",
+                "operand": "show",
+                "hideOnUnmatch": true
+            }
+        },
+        {
+            "component": "main",
+            "capability": "vehiclepatch55148.remoteReady",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "main",
+            "capability": "vehiclepatch55148.laundryCycles",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "main",
+            "capability": "vehiclepatch55148.deviceId",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "main",
+            "capability": "healthCheck",
+            "version": 1,
+            "values": [],
+            "patch": []
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "component": "main",
+                "capability": "switch",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "vehiclepatch55148.washerStatus",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "vehiclepatch55148.laundryError",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "vehiclepatch55148.cycleTimers",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "vehiclepatch55148.remoteReady",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "vehiclepatch55148.laundryCycles",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "vehiclepatch55148.deviceId",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "healthCheck",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            }
+        ],
+        "actions": [
+            {
+                "component": "main",
+                "capability": "switch",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "healthCheck",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            }
+        ]
+    },
+    "presentationId": "9748cb31-6d85-3beb-9caf-c258fffbd646",
+    "manufacturerName": "SmartThingsCommunity"
+}

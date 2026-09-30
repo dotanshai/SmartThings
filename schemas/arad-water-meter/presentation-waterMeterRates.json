@@ -1,0 +1,39 @@
+{
+  "dashboard": { "states": [], "actions": [], "basicPlus": [] },
+  "detailView": [
+    {
+      "label": "{{i18n.attributes.lowRateConsumptionThreshold.label}}",
+      "displayType": "numberField",
+      "numberField": { "command": "setLowRateConsumptionThreshold", "value": "lowRateConsumptionThreshold.value", "unit": "lowRateConsumptionThreshold.unit", "range": [0, 100] }
+    },
+    {
+      "label": "{{i18n.attributes.lowRateCost.label}}",
+      "displayType": "numberField",
+      "numberField": { "command": "setLowRateCost", "value": "lowRateCost.value", "unit": "lowRateCost.unit", "range": [0, 30] }
+    },
+    {
+      "label": "{{i18n.attributes.highRateCost.label}}",
+      "displayType": "numberField",
+      "numberField": { "command": "setHighRateCost", "value": "highRateCost.value", "unit": "highRateCost.unit", "range": [0, 30] }
+    },
+    {
+      "label": "{{i18n.attributes.sewageCost.label}}",
+      "displayType": "numberField",
+      "numberField": { "command": "setSewageCost", "value": "sewageCost.value", "unit": "sewageCost.unit", "range": [0, 30] }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      { "label": "{{i18n.attributes.lowRateConsumptionThreshold.label}}", "displayType": "numberField", "numberField": { "value": "lowRateConsumptionThreshold.value", "unit": "lowRateConsumptionThreshold.unit", "range": [0, 100] } },
+      { "label": "{{i18n.attributes.lowRateCost.label}}", "displayType": "numberField", "numberField": { "value": "lowRateCost.value", "unit": "lowRateCost.unit", "range": [0, 30] } },
+      { "label": "{{i18n.attributes.highRateCost.label}}", "displayType": "numberField", "numberField": { "value": "highRateCost.value", "unit": "highRateCost.unit", "range": [0, 30] } },
+      { "label": "{{i18n.attributes.sewageCost.label}}", "displayType": "numberField", "numberField": { "value": "sewageCost.value", "unit": "sewageCost.unit", "range": [0, 30] } }
+    ],
+    "actions": [
+      { "label": "{{i18n.attributes.lowRateConsumptionThreshold.label}}", "displayType": "numberField", "numberField": { "command": "setLowRateConsumptionThreshold", "value": "lowRateConsumptionThreshold.value", "unit": "lowRateConsumptionThreshold.unit", "range": [0, 100] } },
+      { "label": "{{i18n.attributes.lowRateCost.label}}", "displayType": "numberField", "numberField": { "command": "setLowRateCost", "value": "lowRateCost.value", "unit": "lowRateCost.unit", "range": [0, 30] } },
+      { "label": "{{i18n.attributes.highRateCost.label}}", "displayType": "numberField", "numberField": { "command": "setHighRateCost", "value": "highRateCost.value", "unit": "highRateCost.unit", "range": [0, 30] } },
+      { "label": "{{i18n.attributes.sewageCost.label}}", "displayType": "numberField", "numberField": { "command": "setSewageCost", "value": "sewageCost.value", "unit": "sewageCost.unit", "range": [0, 30] } }
+    ]
+  }
+}

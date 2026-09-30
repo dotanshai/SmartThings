@@ -1,0 +1,9 @@
+{
+  "detailView": [
+    {
+      "label": "Connection Capacity",
+      "displayType": "state",
+      "state": { "label": "{{capacity.value}}" }
+    }
+  ]
+}

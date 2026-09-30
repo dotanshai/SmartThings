@@ -1,0 +1,50 @@
+{
+  "id": "expressMode",
+  "version": 1,
+  "status": "proposed",
+  "name": "Express Mode",
+  "attributes": {
+    "expressModeEnabled": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "boolean" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setExpressMode",
+      "enumCommands": [
+        { "command": "on", "value": true },
+        { "command": "off", "value": false }
+      ]
+    },
+    "switch": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "enum": ["on", "off"] }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setSwitch"
+    }
+  },
+  "commands": {
+    "setExpressMode": {
+      "name": "setExpressMode",
+      "arguments": [
+        { "name": "enabled", "optional": false, "schema": { "type": "boolean" } }
+      ]
+    },
+    "on": { "name": "on", "arguments": [] },
+    "off": { "name": "off", "arguments": [] },
+    "setSwitch": {
+      "name": "setSwitch",
+      "arguments": [
+        { "name": "value", "optional": false, "schema": { "type": "string", "enum": ["on", "off"] } }
+      ]
+    }
+  }
+}

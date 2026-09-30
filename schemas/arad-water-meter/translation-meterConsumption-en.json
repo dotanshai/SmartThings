@@ -1,0 +1,13 @@
+{
+  "tag": "en",
+  "label": "Water Meter",
+  "attributes": {
+    "lastRead": { "label": "Last Read" },
+    "dailyConsumption": { "label": "Today" },
+    "yesterdayConsumption": { "label": "Yesterday" },
+    "monthlyConsumption": { "label": "Monthly" },
+    "monthlyForecast": { "label": "Forecast" },
+    "highRateConsumption": { "label": "High Rate" },
+    "lowRateConsumption": { "label": "Low Rate" }
+  }
+}

@@ -1,0 +1,100 @@
+name: googletv.v1
+components:
+  - id: main
+    capabilities:
+      - id: switch
+        version: 1
+      - id: audioVolume
+        version: 1
+      - id: audioMute
+        version: 1
+      - id: mediaPlayback
+        version: 1
+      - id: mediaTrackControl
+        version: 1
+      - id: tvChannel
+        version: 1
+      - id: keypadInput
+        version: 1
+      - id: mediaPresets
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Television
+  - id: liveTv
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: home
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: screensaver
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: dpadUp
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: dpadDown
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: dpadLeft
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: dpadRight
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: dpadCenter
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: back
+    capabilities:
+      - id: momentary
+        version: 1
+metadata:
+  deviceType: Television
+  ocfDeviceType: oic.d.tv
+preferences:
+  - name: "ipAddress"
+    title: "TV IP address"
+    description: "Fixed/reserved LAN IP address of the Google TV, e.g. 192.168.1.50. Set this first."
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 0
+      maxLength: 15
+      default: ""
+  - name: "macAddress"
+    title: "TV MAC address (for power-on)"
+    description: "e.g. AA:BB:CC:DD:EE:FF. Needed to turn the TV on from fully off via Wake-on-LAN; Wake-on-LAN must also be enabled in the TV's network settings."
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 0
+      maxLength: 17
+      default: ""
+  - name: "pairingCode"
+    title: "Pairing code"
+    description: "Leave blank until the TV shows a 6-character code on screen (after you set the IP address above), then enter it here."
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 0
+      maxLength: 6
+      default: ""
+  - name: "customApps"
+    title: "Custom apps"
+    description: "Add apps not in the list. Format: Name|market://launch?id=<package>, Name2|... Find the package name on the TV under Settings > Apps > (the app) > it's shown right under the app name."
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 0
+      maxLength: 255
+      default: ""

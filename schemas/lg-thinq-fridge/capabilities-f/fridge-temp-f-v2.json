@@ -1,0 +1,28 @@
+{
+  "id": "fridgeTemperatureF",
+  "version": 1,
+  "status": "proposed",
+  "name": "Fridge Temperature F",
+  "attributes": {
+    "temperatureF": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number", "minimum": 33, "maximum": 46, "multipleOf": 0.1 },
+          "unit": { "type": "string", "enum": ["F"], "default": "F" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setTemperatureF"
+    }
+  },
+  "commands": {
+    "setTemperatureF": {
+      "name": "setTemperatureF",
+      "arguments": [
+        { "name": "temperature", "optional": false, "schema": { "type": "number", "minimum": 33, "maximum": 46, "multipleOf": 0.1 } }
+      ]
+    }
+  }
+}

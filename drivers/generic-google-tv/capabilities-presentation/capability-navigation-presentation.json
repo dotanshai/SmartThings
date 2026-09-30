@@ -1,0 +1,128 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Up",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "dpadUp"
+      }
+    },
+    {
+      "label": "Down",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "dpadDown"
+      }
+    },
+    {
+      "label": "Left",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "dpadLeft"
+      }
+    },
+    {
+      "label": "Right",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "dpadRight"
+      }
+    },
+    {
+      "label": "Select",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "dpadCenter"
+      }
+    },
+    {
+      "label": "Home",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "home"
+      }
+    },
+    {
+      "label": "Back",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "back"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": [
+      {
+        "label": "Up",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "dpadUp", "value": "Up", "type": "active" }
+          ]
+        }
+      },
+      {
+        "label": "Down",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "dpadDown", "value": "Down", "type": "active" }
+          ]
+        }
+      },
+      {
+        "label": "Left",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "dpadLeft", "value": "Left", "type": "active" }
+          ]
+        }
+      },
+      {
+        "label": "Right",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "dpadRight", "value": "Right", "type": "active" }
+          ]
+        }
+      },
+      {
+        "label": "Select",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "dpadCenter", "value": "Select", "type": "active" }
+          ]
+        }
+      },
+      {
+        "label": "Home",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "home", "value": "Home", "type": "active" }
+          ]
+        }
+      },
+      {
+        "label": "Back",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "back", "value": "Back", "type": "active" }
+          ]
+        }
+      }
+    ]
+  },
+  "id": "vehiclepatch55148.tvNavigation",
+  "version": 1
+}

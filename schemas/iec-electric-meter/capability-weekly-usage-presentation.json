@@ -1,0 +1,9 @@
+{
+  "detailView": [
+    {
+      "label": "Weekly Usage",
+      "displayType": "state",
+      "state": { "label": "{{value.value}}" }
+    }
+  ]
+}

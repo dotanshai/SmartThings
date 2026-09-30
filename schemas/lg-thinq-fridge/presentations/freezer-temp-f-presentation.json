@@ -1,0 +1,13 @@
+{
+  "detailView": [
+    { "label": "Freezer Temperature", "displayType": "numberField", "numberField": { "value": "temperatureF.value", "command": "setTemperatureF", "range": [-21, -13], "step": 0.1, "unit": "temperatureF.unit" } }
+  ],
+  "automation": {
+    "conditions": [
+      { "label": "Freezer Temperature", "displayType": "numberField", "numberField": { "value": "temperatureF.value", "range": [-21, -13], "step": 0.1, "unit": "temperatureF.unit" } }
+    ],
+    "actions": [
+      { "label": "Set Freezer Temperature", "displayType": "numberField", "numberField": { "command": "setTemperatureF", "range": [-21, -13], "step": 0.1, "unit": "temperatureF.unit" } }
+    ]
+  }
+}

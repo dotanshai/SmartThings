@@ -1,0 +1,39 @@
+preferenceGroups:
+  - title: "Dolphin Account"
+    preferences:
+      - preferenceId: dolphinEmail
+        title: "Email Address"
+        description: "Father's Dolphin account email"
+        required: true
+        preferenceType: string
+        definition:
+          type: string
+          default: ""
+      - preferenceId: dolphinPassword
+        title: "Password"
+        description: "Father's Dolphin account password"
+        required: true
+        preferenceType: string
+        definition:
+          type: string
+          default: ""
+      - preferenceId: deviceName
+        title: "Device Name"
+        description: "Boiler device name as shown in Dolphin app"
+        required: true
+        preferenceType: string
+        definition:
+          type: string
+          default: ""
+  - title: "Polling"
+    preferences:
+      - preferenceId: pollInterval
+        title: "Poll Interval (seconds)"
+        description: "How often to refresh boiler status"
+        required: false
+        preferenceType: integer
+        definition:
+          type: integer
+          minimum: 10
+          maximum: 300
+          default: 30

@@ -1,0 +1,34 @@
+{
+  "id": "vehiclepatch55148.batteryLow",
+  "version": 1,
+  "detailView": [
+    {
+      "label": "Battery Low",
+      "displayType": "state",
+      "state": {
+        "label": "{{batteryLow.value}}",
+        "alternatives": [
+          { "key": "normal", "value": "Normal", "type": "inactive" },
+          { "key": "low", "value": "Low", "type": "active" }
+        ],
+        "value": "batteryLow.value"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Battery Low",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "normal", "value": "Normal", "type": "inactive" },
+            { "key": "low", "value": "Low", "type": "active" }
+          ],
+          "value": "batteryLow.value",
+          "valueType": "string"
+        }
+      }
+    ]
+  }
+}

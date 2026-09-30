@@ -1,0 +1,46 @@
+{
+  "id": "vehiclepatch55148.alarmRingHobeian",
+  "version": 1,
+  "detailView": [
+    {
+      "label": "Alarm Ring",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setAlarmRingHobeian",
+          "alternatives": [
+            { "key": "mute", "value": "Mute", "type": "inactive" },
+            { "key": "beep", "value": "Beep", "type": "active" },
+            { "key": "music", "value": "Music", "type": "active" }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "alarmRingHobeian.value",
+          "valueType": "string",
+          "alternatives": [
+            { "key": "mute", "value": "Mute", "type": "inactive" },
+            { "key": "beep", "value": "Beep", "type": "active" },
+            { "key": "music", "value": "Music", "type": "active" }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "actions": [
+      {
+        "label": "Alarm Ring",
+        "displayType": "list",
+        "list": {
+          "command": "setAlarmRingHobeian",
+          "alternatives": [
+            { "key": "mute", "value": "Mute" },
+            { "key": "beep", "value": "Beep" },
+            { "key": "music", "value": "Music" }
+          ]
+        }
+      }
+    ]
+  }
+}

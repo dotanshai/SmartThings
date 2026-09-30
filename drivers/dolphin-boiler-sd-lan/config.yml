@@ -1,0 +1,11 @@
+name: Dolphin Boiler SD
+packageKey: dolphin-boiler-sd-lan
+version: 2025.06.01
+description: SmartThings Edge driver for Dolphin Smart Water Boiler (Cloud polling via Dolphin API)
+author: Shai D.
+manufacturerInfo:
+  mnmn: SmartThingsCommunity
+  vid: placeholder
+permissions:
+  lan: {}
+  discovery: {}

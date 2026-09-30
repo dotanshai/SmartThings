@@ -1,0 +1,126 @@
+id: smarthome4u-6gang-switch-multi
+name: smarthome4u-6gang-switch-multi
+
+components:
+  - id: main
+    label: Switch All
+    capabilities:
+      - id: switch
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main01
+    label: Switch 1
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main02
+    label: Switch 2
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main03
+    label: Switch 3
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main04
+    label: Switch 4
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main05
+    label: Switch 5
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main06
+    label: Switch 6
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: vehiclepatch55148.backlight
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+
+preferences:
+  - name: multiTile
+    title: Multi-Tile Dashboard
+    description: "Show each switch as a separate tile in the dashboard (Yes) or use a single tile (No)"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+  - name: dashboardSwitch
+    title: Main Button (Single-Tile)
+    description: "Which switch the single dashboard tile controls (ignored when Multi-Tile is Yes)"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        sw1: "SW1 (DP 0x01)"
+        sw2: "SW2 (DP 0x02)"
+        sw3: "SW3 (DP 0x03)"
+        sw4: "SW4 (DP 0x04)"
+        sw5: "SW5 (DP 0x05)"
+        sw6: "SW6 (DP 0x06)"
+        master: "Master SW (DP 0x0D)"
+      default: "master"
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: Create child switch devices
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  deviceType: SmartPlug
+  ocfDeviceType: oic.d.smartplug
+  deviceTypeId: SmartPlug
+  mnmn: SmartThingsCommunity
+  vid: fef49c92-961a-3c20-be65-63f3f4afb582

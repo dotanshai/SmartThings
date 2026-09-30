@@ -1,0 +1,57 @@
+name: dolphin-boiler-main
+components:
+  - id: main
+    label: Dolphin Boiler
+    capabilities:
+      - id: switch
+        version: 1
+      - id: temperatureMeasurement
+        version: 1
+      - id: thermostatHeatingSetpoint
+        version: 1
+      - id: perfectworld33337.boilerMode
+        version: 1
+      - id: perfectworld33337.shabbatMode
+        version: 1
+      - id: perfectworld33337.fixedTemperatureControl
+        version: 1
+    categories:
+      - name: WaterHeater
+preferences:
+  - name: dolphinEmail
+    title: "Email Address"
+    description: "Dolphin account email"
+    required: true
+    preferenceType: string
+    definition:
+      type: string
+      stringType: text
+      default: ""
+  - name: dolphinPassword
+    title: "Password"
+    description: "Dolphin account password"
+    required: true
+    preferenceType: string
+    definition:
+      type: string
+      stringType: password
+      default: ""
+  - name: deviceName
+    title: "Device Name"
+    description: "Boiler name as shown in Dolphin app"
+    required: true
+    preferenceType: string
+    definition:
+      type: string
+      stringType: text
+      default: ""
+  - name: pollInterval
+    title: "Poll Interval"
+    description: "Refresh interval in seconds (10-300)"
+    required: false
+    preferenceType: integer
+    definition:
+      type: integer
+      minimum: 10
+      maximum: 300
+      default: 30

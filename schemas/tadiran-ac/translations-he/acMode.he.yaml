@@ -1,0 +1,17 @@
+tag: he
+label: מצב מיזוג
+attributes:
+  mode:
+    label: מצב
+    i18n:
+      value:
+        COOL:
+          label: קירור
+        HEAT:
+          label: חימום
+        FAN:
+          label: מאוורר
+        DRY:
+          label: ייבוש
+        AUTO:
+          label: אוטומטי

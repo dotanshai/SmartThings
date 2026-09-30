@@ -1,0 +1,20 @@
+{
+    "dashboard": {
+        "states": [],
+        "actions": [],
+        "panelItems": []
+    },
+    "detailView": [
+        {
+            "label": "Device ID",
+            "displayType": "state",
+            "state": {
+                "label": "{{shortId.value}}"
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [],
+        "actions": []
+    }
+}

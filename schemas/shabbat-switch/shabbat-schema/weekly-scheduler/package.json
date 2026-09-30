@@ -1,0 +1,10 @@
+{
+  "name": "shabbat-schema-weekly-scheduler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.600.0",
+    "@aws-sdk/lib-dynamodb": "^3.600.0",
+    "@aws-sdk/client-scheduler": "^3.600.0"
+  }
+}

@@ -1,0 +1,1 @@
+{"tag":"en","label":"iFeel","attributes":{"switch":{"label":"iFeel","displayTemplate":"{{attribute}} of {{device.label}} is {{value}}","i18n":{"value":{"on":{"label":"On"},"off":{"label":"Off"}}}}},"commands":{"setSwitch":{"label":"iFeel","arguments":{}}}}

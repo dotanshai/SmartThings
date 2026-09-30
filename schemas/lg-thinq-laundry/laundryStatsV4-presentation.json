@@ -1,0 +1,30 @@
+{
+  "dashboard": {
+    "states": [ { "label": "{{remainingTimeFormatted.value}}" } ],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Remaining",
+      "displayType": "state",
+      "state": { "label": "{{remainingTimeFormatted.value}}" }
+    },
+    {
+      "label": "Total",
+      "displayType": "state",
+      "state": { "label": "{{totalTimeFormatted.value}}" }
+    },
+    {
+      "label": "Ends At",
+      "displayType": "state",
+      "state": { "label": "{{estimatedEndTime.value}}" }
+    },
+    {
+      "label": "Remote Ready",
+      "displayType": "state",
+      "state": { "label": "{{remoteControlEnabled.value}}" }
+    }
+  ],
+  "automation": { "conditions": [], "actions": [] }
+}

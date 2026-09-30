@@ -1,0 +1,30 @@
+{
+  "dashboard": {
+    "states": [
+      { "label": "{{remainingTimeFormatted.value}}" }
+    ],
+    "actions": [],
+    "panelItems": []
+  },
+  "detailView": [
+    {
+      "label": "Remaining",
+      "displayType": "state",
+      "state": { "label": "{{remainingTimeFormatted.value}}" }
+    },
+    {
+      "label": "Total",
+      "displayType": "state",
+      "state": { "label": "{{totalTimeFormatted.value}}" }
+    },
+    {
+      "label": "Ends At",
+      "displayType": "state",
+      "state": { "label": "{{estimatedEndTime.value}}" }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  }
+}

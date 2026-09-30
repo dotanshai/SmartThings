@@ -1,0 +1,30 @@
+﻿{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{status.value}}",
+        "displayType": "state",
+        "state": {
+          "value": "status.value"
+        }
+      }
+    ],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "Status",
+      "displayType": "state",
+      "state": {
+        "value": "status.value"
+      }
+    },
+    {
+      "label": "Transmit",
+      "displayType": "pushButton",
+      "pushButton": {
+        "command": "transmit"
+      }
+    }
+  ]
+}

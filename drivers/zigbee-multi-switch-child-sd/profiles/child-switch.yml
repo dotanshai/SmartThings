@@ -1,0 +1,13 @@
+id: child-switch
+name: child-switch
+components:
+  - id: main
+    capabilities:
+      - id: switch
+      - id: healthCheck
+      - id: refresh
+    categories:
+      - name: Switch
+metadata:
+  vid: "generic-switch"
+  mnmn: "SmartThingsCommunity"

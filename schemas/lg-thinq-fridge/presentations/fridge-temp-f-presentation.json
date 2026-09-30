@@ -1,0 +1,13 @@
+{
+  "detailView": [
+    { "label": "Fridge Temperature", "displayType": "numberField", "numberField": { "value": "temperatureF.value", "command": "setTemperatureF", "range": [1, 8], "step": 0.1, "unit": "temperatureF.unit" } }
+  ],
+  "automation": {
+    "conditions": [
+      { "label": "Fridge Temperature", "displayType": "numberField", "numberField": { "value": "temperatureF.value", "range": [1, 8], "step": 0.1, "unit": "temperatureF.unit" } }
+    ],
+    "actions": [
+      { "label": "Set Fridge Temperature", "displayType": "numberField", "numberField": { "command": "setTemperatureF", "range": [1, 8], "step": 0.1, "unit": "temperatureF.unit" } }
+    ]
+  }
+}

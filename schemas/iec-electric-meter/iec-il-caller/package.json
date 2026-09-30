@@ -1,0 +1,6 @@
+{
+  "name": "iec-il-caller",
+  "version": "1.0.0",
+  "description": "Runs in AWS il-central-1 (Israel) to call iecapi.iec.co.il from a real Israeli AWS IP range",
+  "main": "index.js"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "alarmVolume",
+  "title": "Alarm Volume",
+  "description": "Siren alarm volume level",
+  "required": true,
+  "preferenceType": "enumeration",
+  "definition": {
+    "options": { "Low": "low", "Middle": "middle", "High": "high", "Mute": "mute" },
+    "default": "High"
+  }
+}

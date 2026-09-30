@@ -1,0 +1,59 @@
+{
+  "name": "Leak ZG-226Z Siren v2",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "waterSensor", "version": 1 },
+        { "id": "alarm", "version": 1 },
+        { "id": "battery", "version": 1 },
+        { "id": "vehiclepatch55148.signalMetrics", "version": 1 },
+        { "id": "refresh", "version": 1 }
+      ],
+      "categories": [{ "name": "LeakSensor" }]
+    }
+  ],
+  "preferences": [
+    {
+      "name": "alarmVolume",
+      "title": "Alarm Volume",
+      "description": "Siren alarm volume level",
+      "required": true,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": { "Low": "low", "Middle": "middle", "High": "high", "Mute": "mute" },
+        "default": "High"
+      }
+    },
+    {
+      "name": "alarmRing",
+      "title": "Alarm Ring",
+      "description": "Siren ring/tone type",
+      "required": true,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": { "Mute": "mute", "Beep": "beep", "Music": "music" },
+        "default": "Beep"
+      }
+    },
+    {
+      "name": "alarmDuration",
+      "title": "Alarm Duration",
+      "description": "Siren duration in seconds",
+      "required": true,
+      "preferenceType": "integer",
+      "definition": { "minimum": 0, "maximum": 1800, "default": 300 }
+    },
+    {
+      "name": "muffling",
+      "title": "Muffling",
+      "description": "Mute the siren sound while keeping the alarm active",
+      "required": true,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": { "Off": "off", "On": "on" },
+        "default": "Off"
+      }
+    }
+  ]
+}

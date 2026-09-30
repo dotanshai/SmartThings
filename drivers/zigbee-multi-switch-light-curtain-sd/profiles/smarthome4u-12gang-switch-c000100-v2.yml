@@ -1,0 +1,187 @@
+id: smarthome4u-12gang-switch-c000100-v2
+name: smarthome4u-12gang-switch-c000100-v2
+
+components:
+  - id: main
+    label: Dashboard Switch
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch1
+    label: Switch 1
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch2
+    label: Switch 2
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch3
+    label: Switch 3
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch5
+    label: Switch 5
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch6
+    label: Switch 6
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch7
+    label: Switch 7
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch8
+    label: Switch 8
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch9
+    label: Switch 9
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch11
+    label: Switch 11
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch12
+    label: Switch 12
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: curtain4
+    label: Curtain 4 (buttons 4+10)
+    capabilities:
+      - id: windowShade
+        version: 1
+    categories:
+      - name: Blind
+
+  - id: scene1
+    label: Scene 1
+    capabilities:
+      - id: button
+        version: 1
+    categories:
+      - name: RemoteController
+
+  - id: scene2
+    label: Scene 2
+    capabilities:
+      - id: button
+        version: 1
+    categories:
+      - name: RemoteController
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: dashboardSwitch
+    title: "Dashboard Button Controls"
+    description: "Which light the main dashboard button controls"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "switch1": "Light 1"
+        "switch2": "Light 2"
+        "switch3": "Light 3"
+        "switch5": "Light 5"
+        "switch6": "Light 6"
+        "switch7": "Light 7"
+        "switch8": "Light 8"
+        "switch9": "Light 9"
+        "switch11": "Light 11"
+        "switch12": "Light 12"
+        "all": "All lights"
+      default: "all"
+
+  - name: curtainDuration4
+    title: "Curtain 4 Duration (sec)"
+    description: "Motor run time for curtain 4 (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: "Create a separate device for each light and curtain"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 7859c905-0f5a-38ff-884c-8dce806a7c45

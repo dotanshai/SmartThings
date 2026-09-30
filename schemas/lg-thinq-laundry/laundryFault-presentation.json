@@ -1,0 +1,46 @@
+{
+  "dashboard": { "states": [], "actions": [], "basicPlus": [] },
+  "detailView": [
+    {
+      "label": "Error",
+      "displayType": "state",
+      "state": { "label": "{{errorCode.value}}" }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Error Status",
+        "displayType": "list",
+        "list": {
+          "value": "errorPresent.value",
+          "alternatives": [
+            { "key": "yes", "value": "Error Present" },
+            { "key": "no", "value": "No Error" }
+          ]
+        }
+      },
+      {
+        "label": "Error Code",
+        "displayType": "list",
+        "list": {
+          "value": "errorCode.value",
+          "alternatives": [
+            { "key": "none", "value": "No Error" },
+            { "key": "LOCKED_MOTOR_ERROR", "value": "Locked Motor Error" },
+            { "key": "WATER_LEVEL_SENSOR_ERROR", "value": "Water Level Sensor Error" },
+            { "key": "TEMPERATURE_SENSOR_ERROR", "value": "Temperature Sensor Error" },
+            { "key": "WATER_DRAIN_ERROR", "value": "Water Drain Error" },
+            { "key": "UNABLE_TO_LOCK_ERROR", "value": "Unable To Lock Error" },
+            { "key": "OUT_OF_BALANCE_ERROR", "value": "Out Of Balance Error" },
+            { "key": "OVERFILL_ERROR", "value": "Overfill Error" },
+            { "key": "DOOR_OPEN_ERROR", "value": "Door Open Error" },
+            { "key": "WATER_SUPPLY_ERROR", "value": "Water Supply Error" },
+            { "key": "POWER_FAIL_ERROR", "value": "Power Fail Error" }
+          ]
+        }
+      }
+    ],
+    "actions": []
+  }
+}

@@ -1,0 +1,37 @@
+{
+    "id":  "vehiclepatch55148.illuminanceSamplingMinutes",
+    "version":  1,
+    "detailView":  [
+                       {
+                           "label":  "Illuminance Sampling Interval",
+                           "displayType":  "slider",
+                           "slider":  {
+                                          "command":  "setIlluminanceSamplingMinutes",
+                                          "range":  [
+                                                        1,
+                                                        480
+                                                    ],
+                                          "step":  1,
+                                          "unit":  "illuminanceSamplingMinutes.unit",
+                                          "value":  "illuminanceSamplingMinutes.value"
+                                      }
+                       }
+                   ],
+    "automation":  {
+                       "actions":  [
+                                       {
+                                           "label":  "Illuminance Sampling Interval",
+                                           "displayType":  "slider",
+                                           "slider":  {
+                                                          "command":  "setIlluminanceSamplingMinutes",
+                                                          "range":  [
+                                                                        1,
+                                                                        480
+                                                                    ],
+                                                          "step":  1,
+                                                          "unit":  "illuminanceSamplingMinutes.unit"
+                                                      }
+                                       }
+                                   ]
+                   }
+}

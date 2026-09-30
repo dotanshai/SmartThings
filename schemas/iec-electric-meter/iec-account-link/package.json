@@ -1,0 +1,10 @@
+{
+  "name": "iec-account-link",
+  "version": "1.0.0",
+  "description": "SmartThings account-link OAuth server wrapping IEC's Okta login",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.600.0",
+    "@aws-sdk/lib-dynamodb": "^3.600.0"
+  }
+}

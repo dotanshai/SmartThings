@@ -1,0 +1,117 @@
+id: smarthome4u-4gang-switch-mixed-multi-v2
+name: smarthome4u-4gang-switch-mixed-multi-v2
+
+components:
+  # main = the large dashboard tile. In this mixed profile it shows the curtain.
+  - id: main
+    label: Curtain
+    capabilities:
+      - id: windowShade
+        version: 1
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Blinds
+
+  - id: curtain1
+    label: Curtain (col 1+3)
+    capabilities:
+      - id: windowShade
+    categories:
+      - name: Blinds
+
+  - id: main02
+    label: Light 2
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: main04
+    label: Light 4
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: channeltype1
+    label: "Channel Type — Left Col (1+3)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype2
+    label: "Channel Type — Right Col (2+4)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: multiTileMode
+    title: Multi-Tile Dashboard
+    description: "OFF = single tile with dashboard button\nON = separate tile per channel"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "off": "Off (single tile)"
+        "on":  "On (all detected channels)"
+      default: "off"
+
+  - name: curtainDuration1
+    title: Curtain Duration (seconds)
+    description: "How long the curtain motor runs for open/close (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: Create child switch devices
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity

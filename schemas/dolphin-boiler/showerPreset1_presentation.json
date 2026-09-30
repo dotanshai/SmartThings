@@ -1,0 +1,61 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{switch.value}}",
+        "alternatives": [
+          { "key": "on",  "value": "On",  "type": "active" },
+          { "key": "off", "value": "Off", "type": "inactive" }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "displayType": "toggleSwitch",
+        "toggleSwitch": {
+          "command": {
+            "name": "setSwitch",
+            "on": "on",
+            "off": "off",
+            "argumentType": "string"
+          },
+          "state": {
+            "value": "switch.value",
+            "on": "on",
+            "off": "off",
+            "valueType": "string"
+          }
+        }
+      }
+    ],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Preset 1 Temperature",
+      "displayType": "state",
+      "state": {
+        "value": "temperature.value",
+        "unit": "temperature.unit"
+      }
+    },
+    {
+      "label": "Shower Preset 1",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setSwitch",
+          "on": "on",
+          "off": "off",
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "switch.value",
+          "on": "on",
+          "off": "off",
+          "valueType": "string"
+        }
+      }
+    }
+  ]
+}

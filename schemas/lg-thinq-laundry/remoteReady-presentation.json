@@ -1,0 +1,15 @@
+{
+  "dashboard": {
+    "states": [ { "label": "{{remoteReadyText.value}}" } ],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Remote Ready",
+      "displayType": "state",
+      "state": { "label": "{{remoteReadyText.value}}" }
+    }
+  ],
+  "automation": { "conditions": [], "actions": [] }
+}

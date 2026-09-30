@@ -1,0 +1,41 @@
+{
+  "dashboard": { "states": [], "actions": [], "panelItems": [] },
+  "detailView": [
+    {
+      "label": "Laundry Cycles",
+      "displayType": "state",
+      "state": { "label": "{{cycleCount.value}}" }
+    },
+    {
+      "label": "Cycle Complete",
+      "displayType": "list",
+      "list": {
+        "state": {
+          "value": "cycleComplete.value",
+          "alternatives": [
+            { "key": "yes", "value": "Complete" },
+            { "key": "no", "value": "Not Complete" }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Cycle Complete",
+        "displayType": "list",
+        "list": {
+          "alternatives": [
+            { "key": "yes", "value": "Cycle Complete", "type": "active" },
+            { "key": "no", "value": "Not Complete", "type": "active" }
+          ],
+          "value": "cycleComplete.value",
+          "valueType": "string",
+          "multiSelectable": false
+        }
+      }
+    ],
+    "actions": []
+  }
+}

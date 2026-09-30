@@ -1,0 +1,15 @@
+{
+  "dashboard": {
+    "states": [ { "label": "{{cycleCount.value}}" } ],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Cycles",
+      "displayType": "state",
+      "state": { "label": "{{cycleCount.value}}" }
+    }
+  ],
+  "automation": { "conditions": [], "actions": [] }
+}

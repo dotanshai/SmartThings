@@ -1,0 +1,116 @@
+{
+    "dashboard":  {
+                      "states":  [
+
+                                 ],
+                      "actions":  [
+                                      {
+                                          "displayType":  "toggleSwitch",
+                                          "toggleSwitch":  {
+                                                               "command":  {
+                                                                               "name":  "setSwitch",
+                                                                               "on":  "on",
+                                                                               "off":  "off",
+                                                                               "argumentType":  "string"
+                                                                           },
+                                                               "state":  {
+                                                                             "value":  "switch.value",
+                                                                             "on":  "on",
+                                                                             "off":  "off",
+                                                                             "valueType":  "string"
+                                                                         }
+                                                           }
+                                      }
+                                  ],
+                      "panelItems":  [
+
+                                     ]
+                  },
+    "detailView":  [
+                       {
+                           "label":  "Swing LR",
+                           "displayType":  "list",
+                           "list":  {
+                                        "command":  {
+                                                        "name":  "setSwitch",
+                                                        "alternatives":  [
+                                                                             {
+                                                                                 "key":  "on",
+                                                                                 "value":  "On",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "off",
+                                                                                 "value":  "Off",
+                                                                                 "type":  "active"
+                                                                             }
+                                                                         ],
+                                                        "argumentType":  "string"
+                                                    },
+                                        "state":  {
+                                                      "value":  "switch.value",
+                                                      "valueType":  "string",
+                                                      "alternatives":  [
+                                                                           {
+                                                                               "key":  "on",
+                                                                               "value":  "On",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "off",
+                                                                               "value":  "Off",
+                                                                               "type":  "active"
+                                                                           }
+                                                                       ]
+                                                  }
+                                    }
+                       }
+                   ],
+    "id":  "vehiclepatch55148.acSwingLeftRight",
+    "version":  1,
+    "automation":  {
+                       "conditions":  [
+                                          {
+                                              "label":  "Swing LR",
+                                              "displayType":  "list",
+                                              "list":  {
+                                                           "alternatives":  [
+                                                                                {
+                                                                                    "key":  "on",
+                                                                                    "value":  "On",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "off",
+                                                                                    "value":  "Off",
+                                                                                    "type":  "active"
+                                                                                }
+                                                                            ],
+                                                           "value":  "switch.value"
+                                                       }
+                                          }
+                                      ],
+                       "actions":  [
+                                       {
+                                           "label":  "Swing LR",
+                                           "displayType":  "list",
+                                           "list":  {
+                                                        "alternatives":  [
+                                                                             {
+                                                                                 "key":  "on",
+                                                                                 "value":  "On",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "off",
+                                                                                 "value":  "Off",
+                                                                                 "type":  "active"
+                                                                             }
+                                                                         ],
+                                                        "command":  "setSwitch",
+                                                        "argumentType":  "string"
+                                                    }
+                                       }
+                                   ]
+                   }
+}

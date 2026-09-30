@@ -1,0 +1,28 @@
+{
+  "detailView": [
+    {
+      "label": "בחירת שפה / Language",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setLanguage",
+          "on": "he",
+          "off": "en",
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "language.value",
+          "valueType": "string",
+          "on": "he",
+          "off": "en",
+          "alternatives": [
+            { "key": "he", "value": "עברית", "type": "active" },
+            { "key": "en", "value": "English", "type": "inactive" }
+          ]
+        }
+      }
+    }
+  ],
+  "id": "vehiclepatch55148.language",
+  "version": 1
+}

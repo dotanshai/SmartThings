@@ -1,0 +1,9 @@
+{
+  "tag": "he",
+  "label": "מיקום",
+  "attributes": {
+    "location": {
+      "label": "מיקום"
+    }
+  }
+}

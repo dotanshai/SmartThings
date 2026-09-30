@@ -1,0 +1,22 @@
+{
+  "id": "vehiclepatch55148.meterWarnings",
+  "version": 1,
+  "status": "proposed",
+  "name": "Meter Warnings",
+  "attributes": {
+    "leakSms": { "schema": { "type": "object", "properties": { "value": { "type": "string", "enum": ["on", "off"] } }, "additionalProperties": false, "required": ["value"] }, "setter": "setLeakSms", "enumCommands": [] },
+    "leakEmail": { "schema": { "type": "object", "properties": { "value": { "type": "string", "enum": ["on", "off"] } }, "additionalProperties": false, "required": ["value"] }, "setter": "setLeakEmail", "enumCommands": [] },
+    "thresholdSms": { "schema": { "type": "object", "properties": { "value": { "type": "string", "enum": ["on", "off"] } }, "additionalProperties": false, "required": ["value"] }, "setter": "setThresholdSms", "enumCommands": [] },
+    "thresholdEmail": { "schema": { "type": "object", "properties": { "value": { "type": "string", "enum": ["on", "off"] } }, "additionalProperties": false, "required": ["value"] }, "setter": "setThresholdEmail", "enumCommands": [] },
+    "awaySms": { "schema": { "type": "object", "properties": { "value": { "type": "string", "enum": ["on", "off"] } }, "additionalProperties": false, "required": ["value"] }, "setter": "setAwaySms", "enumCommands": [] },
+    "awayEmail": { "schema": { "type": "object", "properties": { "value": { "type": "string", "enum": ["on", "off"] } }, "additionalProperties": false, "required": ["value"] }, "setter": "setAwayEmail", "enumCommands": [] }
+  },
+  "commands": {
+    "setLeakSms": { "name": "setLeakSms", "arguments": [{ "name": "value", "schema": { "type": "string", "enum": ["on", "off"] } }] },
+    "setLeakEmail": { "name": "setLeakEmail", "arguments": [{ "name": "value", "schema": { "type": "string", "enum": ["on", "off"] } }] },
+    "setThresholdSms": { "name": "setThresholdSms", "arguments": [{ "name": "value", "schema": { "type": "string", "enum": ["on", "off"] } }] },
+    "setThresholdEmail": { "name": "setThresholdEmail", "arguments": [{ "name": "value", "schema": { "type": "string", "enum": ["on", "off"] } }] },
+    "setAwaySms": { "name": "setAwaySms", "arguments": [{ "name": "value", "schema": { "type": "string", "enum": ["on", "off"] } }] },
+    "setAwayEmail": { "name": "setAwayEmail", "arguments": [{ "name": "value", "schema": { "type": "string", "enum": ["on", "off"] } }] }
+  }
+}

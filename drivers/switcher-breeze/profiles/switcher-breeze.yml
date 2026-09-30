@@ -1,0 +1,47 @@
+name: "switcher-breeze"
+components:
+  - id: main
+    label: "Switcher Breeze"
+    capabilities:
+      - id: switch
+        version: 1
+      - id: airConditionerMode
+        version: 1
+      - id: thermostatCoolingSetpoint
+        version: 1
+      - id: airConditionerFanMode
+        version: 1
+      - id: fanOscillationMode
+        version: 1
+      - id: temperatureMeasurement
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: AirConditioner
+preferences:
+  - name: deviceIp
+    title: "Breeze IP address"
+    description: "Local IP of the Switcher Breeze (e.g. 192.168.1.102)."
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: "192.168.1.102"
+  - name: deviceId
+    title: "Device ID"
+    description: "Switcher device id (6 hex chars, e.g. c92fb7)."
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: "c92fb7"
+  - name: pollInterval
+    title: "Status poll interval (seconds)"
+    description: "How often the driver reads the AC state over the LAN."
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 20
+      maximum: 300
+      default: 60

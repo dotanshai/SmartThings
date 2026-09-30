@@ -1,0 +1,11 @@
+{
+  "tag": "en",
+  "label": "AC Return Air",
+  "attributes": {
+    "temperature": {
+      "label": "Return Air",
+      "displayTemplate": "{{attribute}} of {{device.label}} is {{value}}"
+    }
+  },
+  "commands": {}
+}

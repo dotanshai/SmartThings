@@ -1,0 +1,189 @@
+{
+    "dashboard":  {
+                      "states":  [
+                                     {
+                                         "label":  "{{mode.value}}",
+                                         "alternatives":  [
+                                                              {
+                                                                  "key":  "COOL",
+                                                                  "value":  "Cool",
+                                                                  "type":  "active"
+                                                              },
+                                                              {
+                                                                  "key":  "HEAT",
+                                                                  "value":  "Heat",
+                                                                  "type":  "active"
+                                                              },
+                                                              {
+                                                                  "key":  "FAN",
+                                                                  "value":  "Fan",
+                                                                  "type":  "active"
+                                                              },
+                                                              {
+                                                                  "key":  "DRY",
+                                                                  "value":  "Dry",
+                                                                  "type":  "active"
+                                                              },
+                                                              {
+                                                                  "key":  "AUTO",
+                                                                  "value":  "Auto",
+                                                                  "type":  "active"
+                                                              }
+                                                          ]
+                                     }
+                                 ],
+                      "actions":  [
+
+                                  ],
+                      "panelItems":  [
+
+                                     ]
+                  },
+    "detailView":  [
+                       {
+                           "label":  "Mode",
+                           "displayType":  "list",
+                           "list":  {
+                                        "command":  {
+                                                        "name":  "setMode",
+                                                        "alternatives":  [
+                                                                             {
+                                                                                 "key":  "COOL",
+                                                                                 "value":  "Cool",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "HEAT",
+                                                                                 "value":  "Heat",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "FAN",
+                                                                                 "value":  "Fan",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "DRY",
+                                                                                 "value":  "Dry",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "AUTO",
+                                                                                 "value":  "Auto",
+                                                                                 "type":  "active"
+                                                                             }
+                                                                         ],
+                                                        "argumentType":  "string"
+                                                    },
+                                        "state":  {
+                                                      "value":  "mode.value",
+                                                      "valueType":  "string",
+                                                      "alternatives":  [
+                                                                           {
+                                                                               "key":  "COOL",
+                                                                               "value":  "Cool",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "HEAT",
+                                                                               "value":  "Heat",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "FAN",
+                                                                               "value":  "Fan",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "DRY",
+                                                                               "value":  "Dry",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "AUTO",
+                                                                               "value":  "Auto",
+                                                                               "type":  "active"
+                                                                           }
+                                                                       ]
+                                                  }
+                                    }
+                       }
+                   ],
+    "id":  "vehiclepatch55148.acMode",
+    "version":  1,
+    "automation":  {
+                       "conditions":  [
+                                          {
+                                              "label":  "Mode",
+                                              "displayType":  "list",
+                                              "list":  {
+                                                           "alternatives":  [
+                                                                                {
+                                                                                    "key":  "COOL",
+                                                                                    "value":  "Cool",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "HEAT",
+                                                                                    "value":  "Heat",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "FAN",
+                                                                                    "value":  "Fan",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "DRY",
+                                                                                    "value":  "Dry",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "AUTO",
+                                                                                    "value":  "Auto",
+                                                                                    "type":  "active"
+                                                                                }
+                                                                            ],
+                                                           "value":  "mode.value"
+                                                       }
+                                          }
+                                      ],
+                       "actions":  [
+                                       {
+                                           "label":  "Mode",
+                                           "displayType":  "list",
+                                           "list":  {
+                                                        "alternatives":  [
+                                                                             {
+                                                                                 "key":  "COOL",
+                                                                                 "value":  "Cool",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "HEAT",
+                                                                                 "value":  "Heat",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "FAN",
+                                                                                 "value":  "Fan",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "DRY",
+                                                                                 "value":  "Dry",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "AUTO",
+                                                                                 "value":  "Auto",
+                                                                                 "type":  "active"
+                                                                             }
+                                                                         ],
+                                                        "command":  "setMode",
+                                                        "argumentType":  "string"
+                                                    }
+                                       }
+                                   ]
+                   }
+}

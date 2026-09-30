@@ -1,0 +1,9 @@
+{
+  "tag": "he",
+  "label": "עוצמת חיבור",
+  "attributes": {
+    "capacity": {
+      "label": "עוצמת חיבור"
+    }
+  }
+}

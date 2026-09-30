@@ -1,0 +1,189 @@
+{
+    "dashboard":  {
+                      "states":  [
+                                     {
+                                         "label":  "{{fanSpeed.value}}",
+                                         "alternatives":  [
+                                                              {
+                                                                  "key":  "LOW",
+                                                                  "value":  "Low",
+                                                                  "type":  "active"
+                                                              },
+                                                              {
+                                                                  "key":  "MEDIUM",
+                                                                  "value":  "Medium",
+                                                                  "type":  "active"
+                                                              },
+                                                              {
+                                                                  "key":  "MEDIUM_HIGH",
+                                                                  "value":  "Medium High",
+                                                                  "type":  "active"
+                                                              },
+                                                              {
+                                                                  "key":  "HIGH",
+                                                                  "value":  "High",
+                                                                  "type":  "active"
+                                                              },
+                                                              {
+                                                                  "key":  "AUTO",
+                                                                  "value":  "Auto",
+                                                                  "type":  "active"
+                                                              }
+                                                          ]
+                                     }
+                                 ],
+                      "actions":  [
+
+                                  ],
+                      "panelItems":  [
+
+                                     ]
+                  },
+    "detailView":  [
+                       {
+                           "label":  "Fan Speed",
+                           "displayType":  "list",
+                           "list":  {
+                                        "command":  {
+                                                        "name":  "setFanSpeed",
+                                                        "alternatives":  [
+                                                                             {
+                                                                                 "key":  "LOW",
+                                                                                 "value":  "Low",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "MEDIUM",
+                                                                                 "value":  "Medium",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "MEDIUM_HIGH",
+                                                                                 "value":  "Medium High",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "HIGH",
+                                                                                 "value":  "High",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "AUTO",
+                                                                                 "value":  "Auto",
+                                                                                 "type":  "active"
+                                                                             }
+                                                                         ],
+                                                        "argumentType":  "string"
+                                                    },
+                                        "state":  {
+                                                      "value":  "fanSpeed.value",
+                                                      "valueType":  "string",
+                                                      "alternatives":  [
+                                                                           {
+                                                                               "key":  "LOW",
+                                                                               "value":  "Low",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "MEDIUM",
+                                                                               "value":  "Medium",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "MEDIUM_HIGH",
+                                                                               "value":  "Medium High",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "HIGH",
+                                                                               "value":  "High",
+                                                                               "type":  "active"
+                                                                           },
+                                                                           {
+                                                                               "key":  "AUTO",
+                                                                               "value":  "Auto",
+                                                                               "type":  "active"
+                                                                           }
+                                                                       ]
+                                                  }
+                                    }
+                       }
+                   ],
+    "id":  "vehiclepatch55148.acFanSpeed",
+    "version":  1,
+    "automation":  {
+                       "conditions":  [
+                                          {
+                                              "label":  "Fan Speed",
+                                              "displayType":  "list",
+                                              "list":  {
+                                                           "alternatives":  [
+                                                                                {
+                                                                                    "key":  "LOW",
+                                                                                    "value":  "Low",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "MEDIUM",
+                                                                                    "value":  "Medium",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "MEDIUM_HIGH",
+                                                                                    "value":  "Medium High",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "HIGH",
+                                                                                    "value":  "High",
+                                                                                    "type":  "active"
+                                                                                },
+                                                                                {
+                                                                                    "key":  "AUTO",
+                                                                                    "value":  "Auto",
+                                                                                    "type":  "active"
+                                                                                }
+                                                                            ],
+                                                           "value":  "fanSpeed.value"
+                                                       }
+                                          }
+                                      ],
+                       "actions":  [
+                                       {
+                                           "label":  "Fan Speed",
+                                           "displayType":  "list",
+                                           "list":  {
+                                                        "alternatives":  [
+                                                                             {
+                                                                                 "key":  "LOW",
+                                                                                 "value":  "Low",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "MEDIUM",
+                                                                                 "value":  "Medium",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "MEDIUM_HIGH",
+                                                                                 "value":  "Medium High",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "HIGH",
+                                                                                 "value":  "High",
+                                                                                 "type":  "active"
+                                                                             },
+                                                                             {
+                                                                                 "key":  "AUTO",
+                                                                                 "value":  "Auto",
+                                                                                 "type":  "active"
+                                                                             }
+                                                                         ],
+                                                        "command":  "setFanSpeed",
+                                                        "argumentType":  "string"
+                                                    }
+                                       }
+                                   ]
+                   }
+}

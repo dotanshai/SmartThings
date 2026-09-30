@@ -1,0 +1,79 @@
+{
+    "id": "46500457-bfd6-4782-bb75-6b20fb0b6e3a",
+    "name": "LG ThinQ Laundry v12",
+    "metadata": {
+        "deviceType": "Washer",
+        "vid": "849b80ce-52e7-34c6-8b6d-8b686e6fa4a9",
+        "mnmn": "SmartThingsCommunity"
+    },
+    "migrationStatus": "NOT_MIGRATED",
+    "status": "PUBLISHED",
+    "preferences": [],
+    "components": [
+        {
+            "label": "main",
+            "id": "main",
+            "capabilities": [
+                {
+                    "id": "switch",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "refresh",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.washerStatus",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.laundryErrorV2",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.cycleTimers",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.remoteReady",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "vehiclepatch55148.laundryCycles",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                },
+                {
+                    "id": "healthCheck",
+                    "version": 1,
+                    "optional": false,
+                    "ephemeral": false
+                }
+            ],
+            "categories": [
+                {
+                    "name": "Washer",
+                    "categoryType": "manufacturer"
+                }
+            ],
+            "optional": false
+        }
+    ],
+    "owner": {
+        "ownerType": "USER",
+        "ownerId": "5735eb68-f726-4d67-8f8e-0dcdd2bf977a"
+    }
+}

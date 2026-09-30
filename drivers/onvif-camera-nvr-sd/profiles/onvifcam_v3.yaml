@@ -1,0 +1,170 @@
+name: onvif_cam.v3
+components:
+  - id: main
+    label: Motion Events
+    capabilities:
+      - id: motionSensor
+        version: 1
+      - id: partyvoice23922.motionevents2
+        version: 1
+      - id: videoStream
+        version: 1
+    categories:
+      - name: Camera
+  - id: line
+    label: Line Cross Events
+    capabilities:
+      - id: partyvoice23922.linecross
+        version: 1
+  - id: tamper
+    label: Tamper Events
+    capabilities:
+      - id: tamperAlert
+        version: 1
+  - id: info
+    label: Utility
+    capabilities:
+      - id: partyvoice23922.onvifstatus
+        version: 1
+      - id: partyvoice23922.onvifinfo
+        version: 1
+      - id: partyvoice23922.refresh
+        version: 1
+metadata:
+  ocfDeviceType: oic.d.camera
+preferences:
+  - title: "Minimum motion-active interval"
+    name: minmotioninterval
+    description: "Number of seconds"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 3600
+      default: 10
+  - title: "Auto motion revert"
+    name: autorevert
+    description: "Select behavior"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        yesauto: "Auto-revert"
+        noauto: "No auto-revert"
+      default: noauto
+  - title: "Auto motion revert delay"
+    name: revertdelay
+    description: "Number of seconds"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 3600
+      default: 5
+  - title: "Minimum Linecross interval"
+    name: minlinecrossinterval
+    description: "Number of seconds"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 3600
+      default: 10
+  - title: "Minimum Tamper interval"
+    name: mintamperinterval
+    description: "Number of seconds"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 3600
+      default: 0
+  - title: "Video Stream Selection"
+    name: stream
+    description: "Select Stream"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        mainstream: "Main Stream"
+        substream: "Sub Stream"
+      default: substream
+  - title: "IP Address (manual)"
+    name: ipaddr
+    description: "e.g. 192.168.1.177 or 192.168.1.177:80"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 7
+      maxLength: 21
+      default: "0.0.0.0"
+  - title: "NVR Channel"
+    name: channel
+    description: "Camera channel on NVR (1 for a single camera)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 32
+      default: 1
+  - title: "Motion Rule Selection"
+    name: motionrule
+    description: "Select Rule"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        cell: "RuleEngine/CellMotionDetector"
+        alarm: "VideoSource/MotionAlarm"
+      default: cell
+  - title: "Event Subscription"
+    name: eventmethod
+    description: "Select method"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        base: "Base"
+        pullpoint: "Pull-point"
+      default: base
+  - title: "UserID"
+    name: userid
+    description: "Camera sign-in userid"
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 3
+      maxLength: 36
+      default: "*****"
+  - title: "Password"
+    name: password
+    description: "Camera sign-in password"
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 3
+      maxLength: 36
+      default: "*****"
+  - title: "RTSP UserID (optional)"
+    name: rtspuser
+    description: "Video user if different from ONVIF user (e.g. NVR admin)"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 1
+      maxLength: 36
+      default: "*****"
+  - title: "RTSP Password (optional)"
+    name: rtsppass
+    description: "Password for the RTSP UserID"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: password
+      minLength: 1
+      maxLength: 36
+      default: "*****"

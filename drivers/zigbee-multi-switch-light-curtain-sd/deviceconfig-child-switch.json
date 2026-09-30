@@ -1,0 +1,15 @@
+{
+  "type": "profile",
+  "dashboard": {
+    "states":  [ { "component": "main", "capability": "switch", "version": 1, "group": "main", "composite": false } ],
+    "actions": [ { "component": "main", "capability": "switch", "version": 1, "group": "main" } ]
+  },
+  "detailView": [
+    { "component": "main", "capability": "switch",  "version": 1 },
+    { "component": "main", "capability": "refresh", "version": 1 }
+  ],
+  "automation": {
+    "conditions": [ { "component": "main", "capability": "switch", "version": 1 } ],
+    "actions":    [ { "component": "main", "capability": "switch", "version": 1 } ]
+  }
+}

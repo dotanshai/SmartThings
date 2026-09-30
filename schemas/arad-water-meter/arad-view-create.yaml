@@ -1,0 +1,27 @@
+name: Arad Water Meter v2
+components:
+  - id: main
+    capabilities:
+      - id: vehiclepatch55148.waterMeter
+      - id: vehiclepatch55148.waterMeterCost
+      - id: vehiclepatch55148.waterMeterRates
+      - id: vehiclepatch55148.waterMeterAlerts
+    categories:
+      - name: GenericSensor
+view:
+  dashboard:
+    states:
+      - capability: vehiclepatch55148.waterMeter
+    actions: []
+  detailView:
+    - capability: vehiclepatch55148.waterMeter
+    - capability: vehiclepatch55148.waterMeterCost
+    - capability: vehiclepatch55148.waterMeterRates
+    - capability: vehiclepatch55148.waterMeterAlerts
+  automation:
+    conditions:
+      - capability: vehiclepatch55148.waterMeter
+      - capability: vehiclepatch55148.waterMeterCost
+    actions:
+      - capability: vehiclepatch55148.waterMeterRates
+      - capability: vehiclepatch55148.waterMeterAlerts

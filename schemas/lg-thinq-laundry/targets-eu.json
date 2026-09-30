@@ -1,0 +1,7 @@
+[
+  {
+    "Id": "1",
+    "Arn": "arn:aws:lambda:eu-west-1:<AWS_ACCOUNT_ID>:function:LgThinqLaundrySchema",
+    "Input": "{\"source\":\"lg-thinq-scheduled-push\"}"
+  }
+]

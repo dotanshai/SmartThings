@@ -1,0 +1,50 @@
+{
+  "id": "vehiclepatch55148.acTemperature",
+  "version": 1,
+  "status": "proposed",
+  "name": "AC Temperature",
+  "attributes": {
+    "tempSet": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 16,
+            "maximum": 30
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setTempSet"
+    },
+    "tempCurrent": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {
+    "setTempSet": {
+      "name": "setTempSet",
+      "arguments": [
+        {
+          "name": "temperature",
+          "schema": {
+            "type": "integer",
+            "minimum": 16,
+            "maximum": 30
+          }
+        }
+      ]
+    }
+  }
+}

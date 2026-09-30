@@ -1,0 +1,29 @@
+{
+  "dashboard": { "states": [], "actions": [], "panelItems": [] },
+  "detailView": [
+    {
+      "label": "Time Format",
+      "displayType": "list",
+      "list": {
+        "state": {
+          "value": "format.value",
+          "alternatives": [
+            { "key": "12h", "value": "12-Hour (AM/PM)" },
+            { "key": "24h", "value": "24-Hour" }
+          ]
+        },
+        "command": {
+          "name": "setFormat",
+          "alternatives": [
+            { "key": "12h", "value": "12-Hour (AM/PM)", "type": "active" },
+            { "key": "24h", "value": "24-Hour", "type": "active" }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  }
+}

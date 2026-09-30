@@ -1,0 +1,36 @@
+{
+  "dashboard": {
+    "states": [ { "label": "{{tempSet.value}}\u00b0C" } ],
+    "actions": [],
+    "panelItems": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.attributes.tempSet.label}}",
+      "displayType": "slider",
+      "slider": {
+        "range": [16, 30],
+        "step": 1,
+        "value": "tempSet.value",
+        "valueType": "number",
+        "command": "setTempSet",
+        "argumentType": "number"
+      }
+    },
+    {
+      "label": "{{i18n.attributes.tempCurrent.label}}",
+      "displayType": "state",
+      "state": { "label": "{{tempCurrent.value}}\u00b0C" }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      { "label": "{{i18n.attributes.tempSet.label}}", "displayType": "numberField",
+        "numberField": { "value": "tempSet.value", "valueType": "number", "range": [16, 30] } }
+    ],
+    "actions": [
+      { "label": "{{i18n.attributes.tempSet.label}}", "displayType": "numberField",
+        "numberField": { "command": "setTempSet", "argumentType": "number", "range": [16, 30] } }
+    ]
+  }
+}

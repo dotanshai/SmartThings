@@ -1,0 +1,18 @@
+{
+  "detailView": [
+    {
+      "label": "Last Billed Period",
+      "displayType": "state",
+      "state": {
+        "label": "{{lastPeriod.value}}"
+      }
+    },
+    {
+      "label": "Previous Billed Period",
+      "displayType": "state",
+      "state": {
+        "label": "{{previousPeriod.value}}"
+      }
+    }
+  ]
+}

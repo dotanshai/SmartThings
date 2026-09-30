@@ -1,0 +1,5 @@
+{
+  "detailView": [
+    { "label": "Freezer Temperature", "displayType": "slider", "slider": { "value": "temperatureF.value", "command": "setTemperatureF", "range": [-6, 8], "step": 0.1, "unit": "temperatureF.unit" } }
+  ]
+}

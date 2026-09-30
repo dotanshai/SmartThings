@@ -1,0 +1,9 @@
+{
+  "tag": "he",
+  "label": "דקות לפני הדלקת נרות",
+  "attributes": {
+    "candleOffset": {
+      "label": "דקות לפני הדלקת נרות"
+    }
+  }
+}

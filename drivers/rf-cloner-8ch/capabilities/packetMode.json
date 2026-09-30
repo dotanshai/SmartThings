@@ -1,0 +1,46 @@
+{
+  "id": "perfectworld33337.packetMode",
+  "version": 1,
+  "status": "proposed",
+  "name": "Packet Mode",
+  "attributes": {
+    "mode": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["Short", "Long"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": [
+        {
+          "command": "setMode",
+          "value": "Short"
+        },
+        {
+          "command": "setMode",
+          "value": "Long"
+        }
+      ]
+    }
+  },
+  "commands": {
+    "setMode": {
+      "name": "setMode",
+      "arguments": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "string",
+            "enum": ["Short", "Long"]
+          },
+          "optional": false
+        }
+      ]
+    }
+  }
+}

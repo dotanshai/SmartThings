@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{errorCode.value}}"
+      }
+    ],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Error",
+      "displayType": "state",
+      "state": {
+        "label": "{{errorCode.value}}"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  }
+}

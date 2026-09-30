@@ -1,0 +1,27 @@
+name: Arad Water Meter v5
+components:
+  - id: main
+    capabilities:
+      - id: vehiclepatch55148.waterMeterV2
+      - id: vehiclepatch55148.waterMeterCostV2
+      - id: vehiclepatch55148.waterMeterRatesV2
+      - id: vehiclepatch55148.waterMeterAlertsV2
+    categories:
+      - name: FlowSensor
+view:
+  dashboard:
+    states:
+      - capability: vehiclepatch55148.waterMeterV2
+    actions: []
+  detailView:
+    - capability: vehiclepatch55148.waterMeterV2
+    - capability: vehiclepatch55148.waterMeterCostV2
+    - capability: vehiclepatch55148.waterMeterRatesV2
+    - capability: vehiclepatch55148.waterMeterAlertsV2
+  automation:
+    conditions:
+      - capability: vehiclepatch55148.waterMeterV2
+      - capability: vehiclepatch55148.waterMeterCostV2
+    actions:
+      - capability: vehiclepatch55148.waterMeterRatesV2
+      - capability: vehiclepatch55148.waterMeterAlertsV2

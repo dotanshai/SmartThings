@@ -1,0 +1,26 @@
+{
+  "detailView": [
+    {
+      "label": "Power Save",
+      "displayType": "state",
+      "state": {
+        "label": "{{status.value}}"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Power Save",
+        "displayType": "list",
+        "list": {
+          "value": "status.value",
+          "alternatives": [
+            { "key": "on", "value": "On" },
+            { "key": "off", "value": "Off" }
+          ]
+        }
+      }
+    ]
+  }
+}

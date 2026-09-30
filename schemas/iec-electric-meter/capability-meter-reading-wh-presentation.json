@@ -1,0 +1,9 @@
+{
+  "detailView": [
+    {
+      "label": "Meter Reading (Wh)",
+      "displayType": "state",
+      "state": { "label": "{{value.value}}" }
+    }
+  ]
+}

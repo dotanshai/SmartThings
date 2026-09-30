@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "status": "proposed",
+  "name": "Language",
+  "attributes": {
+    "language": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "enum": ["he", "en"] }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    }
+  },
+  "commands": {
+    "setLanguage": {
+      "name": "setLanguage",
+      "arguments": [
+        { "name": "value", "schema": { "type": "string", "enum": ["he", "en"] }, "optional": false }
+      ]
+    }
+  }
+}

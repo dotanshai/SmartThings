@@ -1,0 +1,5 @@
+name: "zigbee-switch-SD"
+label: "Zigbee Switch SD"
+packageVersion: 1
+permissions:
+  zigbee: {}

@@ -1,0 +1,17 @@
+tag: en
+label: AC Mode
+attributes:
+  mode:
+    label: Mode
+    i18n:
+      value:
+        COOL:
+          label: Cool
+        HEAT:
+          label: Heat
+        FAN:
+          label: Fan
+        DRY:
+          label: Dry
+        AUTO:
+          label: Auto

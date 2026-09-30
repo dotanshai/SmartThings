@@ -1,0 +1,19 @@
+﻿tag: he
+label: מהירות מאוורר
+attributes:
+  fanSpeed:
+    label: מהירות
+    i18n:
+      value:
+        LOW:
+          label: נמוכה
+        MEDIUM_LOW:
+          label: בינונית-נמוכה
+        MEDIUM:
+          label: בינונית
+        MEDIUM_HIGH:
+          label: בינונית-גבוהה
+        HIGH:
+          label: גבוהה
+        AUTO:
+          label: אוטומטי

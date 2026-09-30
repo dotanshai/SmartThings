@@ -1,0 +1,27 @@
+{
+  "name": "TV Navigation",
+  "attributes": {},
+  "commands": {
+    "dpadUp": {
+      "arguments": []
+    },
+    "dpadDown": {
+      "arguments": []
+    },
+    "dpadLeft": {
+      "arguments": []
+    },
+    "dpadRight": {
+      "arguments": []
+    },
+    "dpadCenter": {
+      "arguments": []
+    },
+    "home": {
+      "arguments": []
+    },
+    "back": {
+      "arguments": []
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "vehiclepatch55148.laundryErrorInfo",
+  "version": 1,
+  "status": "proposed",
+  "name": "Laundry Fault",
+  "attributes": {
+    "errorCode": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "errorPresent": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "enum": ["yes", "no"] }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

@@ -1,0 +1,77 @@
+zigbeeManufacturer:
+  - id: "TS0224-tuya-siren"
+    deviceLabel: Tuya Zigbee Siren TS0224
+    manufacturer: _TZ3000_cipibmnp
+    model: TS0224
+    deviceProfileName: siren-zcl-ts0224
+
+  - id: "Heiman/WarningDevice"
+    deviceLabel: HEIMAN Siren
+    manufacturer: Heiman
+    model: WarningDevice
+    deviceProfileName: switch-alarm
+
+  - id: "Heiman/WarningDevice-EF-3.0"
+    deviceLabel: HEIMAN Siren
+    manufacturer: HEIMAN
+    model: WarningDevice-EF-3.0
+    deviceProfileName: switch-alarm
+
+  - id: "frient/SIRZB-110"
+    deviceLabel: frient Siren
+    manufacturer: frient A/S
+    model: SIRZB-110
+    deviceProfileName: switch-alarm
+
+  - id: "Develco/SIRZB-110"
+    deviceLabel: Develco Siren
+    manufacturer: Develco Products A/S
+    model: SIRZB-110
+    deviceProfileName: switch-alarm
+
+  - id: "Sercomm/SZ-SRN12N"
+    deviceLabel: Sercomm Siren
+    manufacturer: Sercomm Corp.
+    model: SZ-SRN12N
+    deviceProfileName: basic-alarm
+
+  - id: "TS0219/_TYZB01_ynsiasng"
+    deviceLabel: Woox R7051 Siren
+    manufacturer: _TYZB01_ynsiasng
+    model: TS0219
+    deviceProfileName: switch-alarm-battery
+
+  - id: "AduroSmart/Siren"
+    deviceLabel: AduroSmart Eria Siren
+    manufacturer: AduroSmart Eria
+    model: Smart Siren
+    deviceProfileName: switch-alarm
+
+  - id: "TS0216/_TYZB01_m0dhmvfo"
+    deviceLabel: Zigbee Siren
+    manufacturer: _TYZB01_m0dhmvfo
+    model: TS0216
+    deviceProfileName: switch-alarm
+
+  - id: "TS0216/_TYZB01_a5tf0bpl"
+    deviceLabel: Zigbee Siren
+    manufacturer: _TYZB01_a5tf0bpl
+    model: TS0216
+    deviceProfileName: switch-alarm
+
+  - id: "TS0216/_TYZB01_4gjtbutf"
+    deviceLabel: Zigbee Siren
+    manufacturer: _TYZB01_4gjtbutf
+    model: TS0216
+    deviceProfileName: switch-alarm
+
+  - id: "TS0216/Tuya Siren"
+    deviceLabel: TS0216 Tuya Siren
+    model: TS0216
+    deviceProfileName: switch-alarm
+
+  - id: "frient/HESZB-120"
+    deviceLabel: frient Heat Detector
+    manufacturer: frient A/S
+    model: HESZB-120
+    deviceProfileName: temp-alert-alarm-battery

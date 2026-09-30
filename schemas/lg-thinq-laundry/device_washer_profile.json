@@ -1,0 +1,189 @@
+{
+  "error": [
+    "WATER_DRAIN_ERROR",
+    "POWER_FAIL_ERROR",
+    "OVERFILL_ERROR",
+    "WATER_SUPPLY_ERROR",
+    "LOCKED_MOTOR_ERROR",
+    "DOOR_OPEN_ERROR",
+    "TEMPERATURE_SENSOR_ERROR",
+    "UNABLE_TO_LOCK_ERROR",
+    "OUT_OF_BALANCE_ERROR",
+    "WATER_LEVEL_SENSOR_ERROR"
+  ],
+  "property": [
+    {
+      "runState": {
+        "currentState": {
+          "type": "enum",
+          "mode": [
+            "r"
+          ],
+          "value": {
+            "r": [
+              "PAUSE",
+              "STEAM_SOFTENING",
+              "DETECTING",
+              "INITIAL",
+              "RUNNING",
+              "DRYING",
+              "SPINNING",
+              "END",
+              "COOL_DOWN",
+              "RESERVED",
+              "REFRESHING",
+              "ERROR",
+              "POWER_OFF",
+              "SLEEP",
+              "RINSING",
+              "RINSE_HOLD"
+            ]
+          }
+        }
+      },
+      "operation": {
+        "washerOperationMode": {
+          "type": "enum",
+          "mode": [
+            "w"
+          ],
+          "value": {
+            "w": [
+              "START",
+              "STOP",
+              "POWER_OFF",
+              "WAKE_UP"
+            ]
+          }
+        }
+      },
+      "detergent": {
+        "detergentSetting": "NORMAL"
+      },
+      "remoteControlEnable": {
+        "remoteControlEnabled": {
+          "type": "boolean",
+          "mode": [
+            "r"
+          ],
+          "value": {
+            "r": [
+              false,
+              true
+            ]
+          }
+        }
+      },
+      "timer": {
+        "remainHour": {
+          "type": "range",
+          "mode": [
+            "r"
+          ],
+          "value": {
+            "r": {
+              "max": 30,
+              "min": 0,
+              "step": 1,
+              "except": []
+            }
+          }
+        },
+        "remainMinute": {
+          "type": "range",
+          "mode": [
+            "r"
+          ],
+          "value": {
+            "r": {
+              "max": 59,
+              "min": 0,
+              "step": 1,
+              "except": []
+            }
+          }
+        },
+        "totalHour": {
+          "type": "range",
+          "mode": [
+            "r"
+          ],
+          "value": {
+            "r": {
+              "max": 30,
+              "min": 0,
+              "step": 1,
+              "except": []
+            }
+          }
+        },
+        "totalMinute": {
+          "type": "range",
+          "mode": [
+            "r"
+          ],
+          "value": {
+            "r": {
+              "max": 59,
+              "min": 0,
+              "step": 1,
+              "except": []
+            }
+          }
+        },
+        "relativeHourToStop": {
+          "type": "range",
+          "mode": [
+            "r",
+            "w"
+          ],
+          "value": {
+            "r": {
+              "max": 19,
+              "min": 3,
+              "step": 1,
+              "except": []
+            },
+            "w": {
+              "max": 19,
+              "min": 3,
+              "step": 1,
+              "except": []
+            }
+          }
+        },
+        "relativeMinuteToStop": {
+          "type": "range",
+          "mode": [
+            "r"
+          ],
+          "value": {
+            "r": {
+              "max": 59,
+              "min": 0,
+              "step": 1,
+              "except": []
+            }
+          }
+        }
+      },
+      "location": {
+        "locationName": "MAIN"
+      },
+      "cycle": {
+        "cycleCount": {
+          "type": "number",
+          "mode": [
+            "r"
+          ]
+        }
+      }
+    }
+  ],
+  "notification": {
+    "push": [
+      "WASHING_IS_COMPLETE",
+      "ERROR_DURING_WASHING"
+    ]
+  }
+}

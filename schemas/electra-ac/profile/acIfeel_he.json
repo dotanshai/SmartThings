@@ -1,0 +1,1 @@
+{"tag":"he","label":"iFeel","attributes":{"switch":{"label":"iFeel","displayTemplate":"{{attribute}} של {{device.label}}: {{value}}","i18n":{"value":{"on":{"label":"פעיל"},"off":{"label":"כבוי"}}}}},"commands":{"setSwitch":{"label":"iFeel","arguments":{}}}}

@@ -1,0 +1,33 @@
+{
+  "id": "vehiclepatch55148.timeFormat",
+  "version": 1,
+  "status": "proposed",
+  "name": "Time Format",
+  "attributes": {
+    "format": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "enum": ["12h", "24h"] }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": [
+        { "command": "setFormat", "value": "12h" },
+        { "command": "setFormat", "value": "24h" }
+      ]
+    }
+  },
+  "commands": {
+    "setFormat": {
+      "arguments": [
+        {
+          "name": "value",
+          "schema": { "type": "string", "enum": ["12h", "24h"] },
+          "optional": false
+        }
+      ]
+    }
+  }
+}

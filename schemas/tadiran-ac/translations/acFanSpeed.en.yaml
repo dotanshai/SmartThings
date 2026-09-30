@@ -1,0 +1,19 @@
+﻿tag: en
+label: AC Fan Speed
+attributes:
+  fanSpeed:
+    label: Fan Speed
+    i18n:
+      value:
+        LOW:
+          label: Low
+        MEDIUM_LOW:
+          label: Medium Low
+        MEDIUM:
+          label: Medium
+        MEDIUM_HIGH:
+          label: Medium High
+        HIGH:
+          label: High
+        AUTO:
+          label: Auto

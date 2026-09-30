@@ -1,0 +1,54 @@
+﻿{
+    "id": "vehiclepatch55148.acFanSpeed",
+    "version": 1,
+    "status": "proposed",
+    "name": "AC Fan Speed",
+    "ephemeral": false,
+    "attributes": {
+        "fanSpeed": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "enum": [
+                            "LOW",
+                            "MEDIUM",
+                            "MEDIUM_HIGH",
+                            "HIGH",
+                            "AUTO"
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value"
+                ]
+            },
+            "setter": "setFanSpeed",
+            "enumCommands": []
+        }
+    },
+    "commands": {
+        "setFanSpeed": {
+            "name": "setFanSpeed",
+            "arguments": [
+                {
+                    "name": "speed",
+                    "optional": false,
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "LOW",
+                            "MEDIUM",
+                            "MEDIUM_HIGH",
+                            "HIGH",
+                            "AUTO"
+                        ]
+                    }
+                }
+            ],
+            "sensitive": false
+        }
+    }
+}

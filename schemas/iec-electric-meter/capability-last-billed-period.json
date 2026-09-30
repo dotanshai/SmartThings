@@ -1,0 +1,19 @@
+{
+  "name": "IEC Last Billed Period",
+  "attributes": {
+    "period": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 128
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

@@ -1,0 +1,38 @@
+{
+  "id": "perfectworld33337.boilerMode",
+  "version": 1,
+  "status": "proposed",
+  "name": "Boiler Mode",
+  "attributes": {
+    "mode": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["off", "manual", "fixed", "shabbat"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "displayType": "state",
+      "setter": "setMode"
+    }
+  },
+  "commands": {
+    "setMode": {
+      "name": "setMode",
+      "arguments": [
+        {
+          "name": "value",
+          "optional": false,
+          "schema": {
+            "type": "string",
+            "enum": ["off", "manual", "fixed", "shabbat"]
+          }
+        }
+      ]
+    }
+  }
+}

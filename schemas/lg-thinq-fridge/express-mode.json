@@ -1,0 +1,30 @@
+{
+  "id": "expressMode",
+  "version": 1,
+  "status": "proposed",
+  "name": "Express Mode",
+  "attributes": {
+    "expressModeEnabled": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "boolean" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setExpressMode"
+    }
+  },
+  "commands": {
+    "setExpressMode": {
+      "arguments": [
+        {
+          "name": "enabled",
+          "schema": { "type": "boolean" },
+          "optional": false
+        }
+      ]
+    }
+  }
+}

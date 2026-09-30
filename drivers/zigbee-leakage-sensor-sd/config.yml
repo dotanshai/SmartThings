@@ -1,0 +1,6 @@
+name: "Zigbee Leakage Sensor SD"
+packageKey: "zigbee-leakage-sensor-sd"
+description: "Water leak sensors (ZCL and Tuya EF00), full feature set incl. HOBEIAN ZG-226Z/ZG-223Z siren and sensitivity controls. Forked from wonjj6768's ZCL Sensors and EF00 Safety drivers, with HOBEIAN ZG-222Z added."
+vendorSupportInformation: "Report issues in Shai D.'s Facebook group. Based on work by wonjj6768: https://github.com/wonjj6768/smartthings-zigbee-edge-drivers"
+permissions:
+  zigbee: {}

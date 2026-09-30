@@ -1,0 +1,32 @@
+{
+  "id": "perfectworld33337.shabbatMode",
+  "version": 1,
+  "status": "proposed",
+  "name": "Shabbat Mode",
+  "attributes": {
+    "shabbat": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["enabled", "disabled"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "displayType": "state"
+    }
+  },
+  "commands": {
+    "enable": {
+      "name": "enable",
+      "arguments": []
+    },
+    "disable": {
+      "name": "disable",
+      "arguments": []
+    }
+  }
+}

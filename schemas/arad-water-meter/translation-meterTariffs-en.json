@@ -1,0 +1,16 @@
+{
+  "tag": "en",
+  "label": "Water Meter Rates",
+  "attributes": {
+    "lowRateConsumptionThreshold": { "label": "Threshold" },
+    "lowRateCost": { "label": "Low Rate" },
+    "highRateCost": { "label": "High Rate" },
+    "sewageCost": { "label": "Sewage" }
+  },
+  "commands": {
+    "setLowRateConsumptionThreshold": { "label": "Set Threshold" },
+    "setLowRateCost": { "label": "Set Low Rate" },
+    "setHighRateCost": { "label": "Set High Rate" },
+    "setSewageCost": { "label": "Set Sewage Cost" }
+  }
+}

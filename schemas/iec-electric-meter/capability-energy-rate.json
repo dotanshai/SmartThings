@@ -1,0 +1,43 @@
+{
+  "name": "IEC Energy Rate",
+  "attributes": {
+    "rate": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "unit": {
+            "type": "string",
+            "enum": ["ILS/kWh"],
+            "default": "ILS/kWh"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setRate",
+      "enumCommands": []
+    }
+  },
+  "commands": {
+    "setRate": {
+      "name": "setRate",
+      "arguments": [
+        {
+          "name": "value",
+          "optional": false,
+          "schema": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5
+          }
+        }
+      ],
+      "sensitive": false
+    }
+  }
+}

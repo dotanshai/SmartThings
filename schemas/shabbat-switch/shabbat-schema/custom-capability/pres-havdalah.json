@@ -1,0 +1,7 @@
+{
+  "detailView": [
+    { "label": "הבדלה / Havdalah", "displayType": "state", "state": { "label": "{{havdalah.value}}" } }
+  ],
+  "id": "vehiclepatch55148.shabbatHavdalah",
+  "version": 1
+}

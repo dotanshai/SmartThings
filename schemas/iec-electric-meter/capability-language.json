@@ -1,0 +1,36 @@
+{
+  "name": "IEC Language",
+  "attributes": {
+    "language": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["he", "en"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setLanguage",
+      "enumCommands": []
+    }
+  },
+  "commands": {
+    "setLanguage": {
+      "name": "setLanguage",
+      "arguments": [
+        {
+          "name": "value",
+          "optional": false,
+          "schema": {
+            "type": "string",
+            "enum": ["he", "en"]
+          }
+        }
+      ],
+      "sensitive": false
+    }
+  }
+}

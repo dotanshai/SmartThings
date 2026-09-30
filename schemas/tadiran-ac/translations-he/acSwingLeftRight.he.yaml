@@ -1,0 +1,11 @@
+tag: he
+label: נדנוד אופקי
+attributes:
+  switch:
+    label: מצב
+    i18n:
+      value:
+        on:
+          label: פעיל
+        off:
+          label: כבוי

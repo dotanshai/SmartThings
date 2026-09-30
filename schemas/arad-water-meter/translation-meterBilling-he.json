@@ -1,0 +1,10 @@
+{
+  "tag": "he",
+  "label": "עלות מד מים",
+  "attributes": {
+    "lowRateTotalCost": { "label": "תעריף נמוך" },
+    "highRateTotalCost": { "label": "תעריף גבוה" },
+    "sewageTotalCost": { "label": "ביוב" },
+    "monthlyTotalCost": { "label": "חודשי" }
+  }
+}

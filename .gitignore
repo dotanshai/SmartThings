@@ -1,0 +1,12 @@
+node_modules/
+*.zip
+*.7z
+*.log
+*.txt
+*.pem
+env*.json
+*secret*
+*creds*
+__pycache__/
+.venv/
+venv/

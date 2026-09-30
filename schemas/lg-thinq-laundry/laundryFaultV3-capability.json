@@ -1,0 +1,33 @@
+{
+  "id": "vehiclepatch55148.laundryFaultV3",
+  "version": 1,
+  "status": "proposed",
+  "name": "Laundry Fault Status",
+  "attributes": {
+    "errorCode": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string" } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "errorCodeDisplay": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string", "maxLength": 40 } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "errorPresent": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string", "enum": ["yes", "no"] } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

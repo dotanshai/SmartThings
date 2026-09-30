@@ -1,0 +1,138 @@
+{
+    "type": "profile",
+    "dashboard": {
+        "states": [
+            {
+                "component": "curtain1",
+                "capability": "windowShade",
+                "version": 1,
+                "group": "curtain1",
+                "composite": true
+            },
+            {
+                "component": "curtain2",
+                "capability": "windowShade",
+                "version": 1,
+                "group": "curtain2",
+                "composite": true
+            }
+        ],
+        "actions": [
+            {
+                "component": "curtain1",
+                "capability": "windowShade",
+                "version": 1,
+                "group": "curtain1"
+            },
+            {
+                "component": "curtain2",
+                "capability": "windowShade",
+                "version": 1,
+                "group": "curtain2"
+            }
+        ]
+    },
+    "detailView": [
+        {
+            "component": "curtain1",
+            "capability": "windowShade",
+            "version": 1
+        },
+        {
+            "component": "curtain2",
+            "capability": "windowShade",
+            "version": 1
+        },
+        {
+            "component": "channeltype1",
+            "capability": "vehiclepatch55148.channelType",
+            "version": 1
+        },
+        {
+            "component": "channeltype2",
+            "capability": "vehiclepatch55148.channelType",
+            "version": 1
+        },
+        {
+            "component": "backlight",
+            "capability": "perfectworld33337.backlightMode",
+            "version": 1
+        },
+        {
+            "component": "childlock",
+            "capability": "vehiclepatch55148.childlock",
+            "version": 1
+        },
+        {
+            "component": "signal",
+            "capability": "perfectworld33337.signalMetrics",
+            "version": 1
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "component": "curtain1",
+                "capability": "windowShade",
+                "version": 1
+            },
+            {
+                "component": "curtain2",
+                "capability": "windowShade",
+                "version": 1
+            },
+            {
+                "component": "channeltype1",
+                "capability": "vehiclepatch55148.channelType",
+                "version": 1
+            },
+            {
+                "component": "channeltype2",
+                "capability": "vehiclepatch55148.channelType",
+                "version": 1
+            },
+            {
+                "component": "backlight",
+                "capability": "perfectworld33337.backlightMode",
+                "version": 1
+            },
+            {
+                "component": "childlock",
+                "capability": "vehiclepatch55148.childlock",
+                "version": 1
+            }
+        ],
+        "actions": [
+            {
+                "component": "curtain1",
+                "capability": "windowShade",
+                "version": 1
+            },
+            {
+                "component": "curtain2",
+                "capability": "windowShade",
+                "version": 1
+            },
+            {
+                "component": "channeltype1",
+                "capability": "vehiclepatch55148.channelType",
+                "version": 1
+            },
+            {
+                "component": "channeltype2",
+                "capability": "vehiclepatch55148.channelType",
+                "version": 1
+            },
+            {
+                "component": "backlight",
+                "capability": "perfectworld33337.backlightMode",
+                "version": 1
+            },
+            {
+                "component": "childlock",
+                "capability": "vehiclepatch55148.childlock",
+                "version": 1
+            }
+        ]
+    }
+}

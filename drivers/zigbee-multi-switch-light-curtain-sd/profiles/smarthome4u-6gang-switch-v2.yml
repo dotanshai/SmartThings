@@ -1,0 +1,157 @@
+id: smarthome4u-6gang-switch-v2
+name: smarthome4u-6gang-switch-v2
+
+components:
+  - id: sw1
+    label: Switch 1
+    capabilities:
+      - id: switch
+      - id: refresh
+    categories:
+      - name: Switch
+
+  - id: switch2
+    label: Switch 2
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: switch3
+    label: Switch 3
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: switch4
+    label: Switch 4
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: switch5
+    label: Switch 5
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: switch6
+    label: Switch 6
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: master
+    label: Master Switch
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+
+  - id: channeltype1
+    label: "Channel Type — Left Col (1+4)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+
+  - id: channeltype2
+    label: "Channel Type — Mid Col (2+5)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+
+  - id: channeltype3
+    label: "Channel Type — Right Col (3+6)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: main
+    label: Dashboard Switch
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: dashboardSwitch
+    title: "Dashboard Button Controls"
+    description: "Which light the main dashboard button controls"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "sw1": "Light 1"
+        "switch2": "Light 2"
+        "switch3": "Light 3"
+        "switch4": "Light 4"
+        "switch5": "Light 5"
+        "switch6": "Light 6"
+        "all": "All lights"
+      default: "all"
+
+  - name: multiTileMode
+    title: Multi-Tile Dashboard
+    description: "OFF = single tile with dashboard button\nON = tile per light (app shows max 4 - use Child Devices for all 6)"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "off": "Off (single tile)"
+        "on":  "On (all detected channels)"
+      default: "off"
+
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: Create child switch devices
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: b629e825-124d-3f7d-b865-83bc330e7487

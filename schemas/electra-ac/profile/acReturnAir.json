@@ -1,0 +1,1 @@
+{"name":"AC Return Air","attributes":{"temperature":{"schema":{"type":"object","properties":{"value":{"type":"integer"}},"additionalProperties":false,"required":["value"]},"enumCommands":[]}},"commands":{}}

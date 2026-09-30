@@ -1,0 +1,28 @@
+{
+  "id": "perfectworld33337.fixedTemperatureControl",
+  "version": 1,
+  "status": "proposed",
+  "name": "Fixed Temperature Control",
+  "attributes": {
+    "fixedTemp": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["enabled", "disabled"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "displayType": "state"
+    }
+  },
+  "commands": {
+    "disable": {
+      "name": "disable",
+      "arguments": []
+    }
+  }
+}

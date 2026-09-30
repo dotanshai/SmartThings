@@ -1,0 +1,11 @@
+{
+  "detailView": [
+    {
+      "label": "Power Save",
+      "displayType": "state",
+      "state": {
+        "label": "{{status.value}}"
+      }
+    }
+  ]
+}

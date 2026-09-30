@@ -1,0 +1,38 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{mode.value}}",
+        "alternatives": [],
+        "group": "main"
+      }
+    ],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "Mode",
+      "displayType": "list",
+      "list": {
+        "value": "mode.value",
+        "alternatives": [
+          { "key": "COOL", "label": "Cool" },
+          { "key": "HEAT", "label": "Heat" },
+          { "key": "FAN", "label": "Fan" },
+          { "key": "DRY", "label": "Dry" },
+          { "key": "AUTO", "label": "Auto" }
+        ],
+        "command": {
+          "name": "setMode",
+          "alternatives": [
+            { "key": "COOL", "value": "COOL" },
+            { "key": "HEAT", "value": "HEAT" },
+            { "key": "FAN", "value": "FAN" },
+            { "key": "DRY", "value": "DRY" },
+            { "key": "AUTO", "value": "AUTO" }
+          ]
+        }
+      }
+    }
+  ]
+}

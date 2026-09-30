@@ -1,0 +1,32 @@
+{
+  "name": "IEC Recent Billed Periods",
+  "attributes": {
+    "lastPeriod": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 128
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "previousPeriod": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 128
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

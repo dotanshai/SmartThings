@@ -1,0 +1,67 @@
+{
+  "name": "LG ThinQ Laundry v7",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch" },
+        { "id": "refresh" },
+        { "id": "vehiclepatch55148.washerStatus" },
+        { "id": "vehiclepatch55148.laundryError" },
+        { "id": "vehiclepatch55148.washerStats" },
+        { "id": "vehiclepatch55148.laundryCycles" },
+        { "id": "healthCheck" }
+      ],
+      "categories": [
+        { "name": "Washer" }
+      ]
+    }
+  ],
+  "metadata": {
+    "deviceType": "Washer"
+  },
+  "view": {
+    "dashboard": {
+      "states": [
+        { "capability": "switch", "composite": true },
+        {
+          "capability": "vehiclepatch55148.washerStatus",
+          "composite": true,
+          "values": [
+            { "label": " {{machineStateDisplay.value}}" }
+          ]
+        }
+      ],
+      "actions": [
+        { "capability": "switch" }
+      ]
+    },
+    "detailView": [
+      { "capability": "switch" },
+      {
+        "capability": "refresh",
+        "displayType": "pushButton",
+        "pushButton": { "command": "refresh" }
+      },
+      { "capability": "vehiclepatch55148.washerStatus" },
+      { "capability": "vehiclepatch55148.laundryError" },
+      { "capability": "vehiclepatch55148.washerStats", "visibleCondition": { "capability": "switch", "version": 1, "component": "main", "value": "switch.value", "operator": "EQUALS", "operand": "on", "hideOnUnmatch": true } },
+      { "capability": "vehiclepatch55148.laundryCycles" },
+      { "capability": "healthCheck" }
+    ],
+    "automation": {
+      "conditions": [
+        { "capability": "switch" },
+        { "capability": "vehiclepatch55148.washerStatus" },
+        { "capability": "vehiclepatch55148.laundryError" },
+        { "capability": "vehiclepatch55148.washerStats" },
+        { "capability": "vehiclepatch55148.laundryCycles" },
+        { "capability": "healthCheck" }
+      ],
+      "actions": [
+        { "capability": "switch" },
+        { "capability": "healthCheck" }
+      ]
+    }
+  }
+}

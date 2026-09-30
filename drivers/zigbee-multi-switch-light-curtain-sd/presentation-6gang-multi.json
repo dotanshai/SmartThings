@@ -1,0 +1,399 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "component": "main",
+        "capability": "switch",
+        "version": 1,
+        "group": "main",
+        "composite": true
+      },
+      {
+        "component": "main01",
+        "capability": "switch",
+        "version": 1,
+        "group": "main01",
+        "composite": true
+      },
+      {
+        "component": "main02",
+        "capability": "switch",
+        "version": 1,
+        "group": "main02",
+        "composite": true
+      },
+      {
+        "component": "main03",
+        "capability": "switch",
+        "version": 1,
+        "group": "main03",
+        "composite": true
+      },
+      {
+        "component": "main04",
+        "capability": "switch",
+        "version": 1,
+        "group": "main04",
+        "composite": true
+      },
+      {
+        "component": "main05",
+        "capability": "switch",
+        "version": 1,
+        "group": "main05",
+        "composite": true
+      },
+      {
+        "component": "main06",
+        "capability": "switch",
+        "version": 1,
+        "group": "main06",
+        "composite": true
+      }
+    ],
+    "actions": [
+      {
+        "component": "main",
+        "capability": "switch",
+        "version": 1,
+        "group": "main"
+      },
+      {
+        "component": "main01",
+        "capability": "switch",
+        "version": 1,
+        "group": "main01"
+      },
+      {
+        "component": "main02",
+        "capability": "switch",
+        "version": 1,
+        "group": "main02"
+      },
+      {
+        "component": "main03",
+        "capability": "switch",
+        "version": 1,
+        "group": "main03"
+      },
+      {
+        "component": "main04",
+        "capability": "switch",
+        "version": 1,
+        "group": "main04"
+      },
+      {
+        "component": "main05",
+        "capability": "switch",
+        "version": 1,
+        "group": "main05"
+      },
+      {
+        "component": "main06",
+        "capability": "switch",
+        "version": 1,
+        "group": "main06"
+      }
+    ]
+  },
+  "detailView": [
+    {
+      "component": "main",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "main",
+      "capability": "signalStrength",
+      "version": 1
+    },
+    {
+      "component": "main01",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "main02",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "main03",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "main04",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "main05",
+      "capability": "switch",
+      "version": 1,
+      "label": "Switch 5"
+    },
+    {
+      "component": "main06",
+      "capability": "switch",
+      "version": 1,
+      "label": "Switch 6"
+    },
+    {
+      "component": "channeltype1",
+      "capability": "perfectworld33337.channelType",
+      "version": 1,
+      "label": "Channel Type — Left Col (1+3)",
+      "displayType": "textField",
+      "textField": {
+        "state": {
+          "value": "channelType.value",
+          "alternatives": [
+            {
+              "key": "light",
+              "value": "💡 Light"
+            },
+            {
+              "key": "curtain",
+              "value": "🪟 Curtain"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "component": "channeltype2",
+      "capability": "perfectworld33337.channelType",
+      "version": 1,
+      "label": "Channel Type — Right Col (2+4)",
+      "displayType": "textField",
+      "textField": {
+        "state": {
+          "value": "channelType.value",
+          "alternatives": [
+            {
+              "key": "light",
+              "value": "💡 Light"
+            },
+            {
+              "key": "curtain",
+              "value": "🪟 Curtain"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "component": "channeltype3",
+      "capability": "perfectworld33337.channelType",
+      "version": 1,
+      "label": "Channel Type — Right Col (3+6)",
+      "displayType": "textField",
+      "textField": {
+        "state": {
+          "value": "channelType.value",
+          "alternatives": [
+            {
+              "key": "light",
+              "value": "💡 Light"
+            },
+            {
+              "key": "curtain",
+              "value": "🪟 Curtain"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "component": "backlight",
+      "capability": "perfectworld33337.backlightMode",
+      "version": 1,
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setBacklightMode",
+          "alternatives": [
+            {
+              "key": "off",
+              "value": "Off",
+              "type": "inactive"
+            },
+            {
+              "key": "on",
+              "value": "On",
+              "type": "active"
+            }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "backlightMode.value",
+          "alternatives": [
+            {
+              "key": "off",
+              "value": "Off",
+              "type": "inactive"
+            },
+            {
+              "key": "on",
+              "value": "On",
+              "type": "active"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "component": "childlock",
+      "capability": "perfectworld33337.childLockMode",
+      "version": 1,
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setChildLockMode",
+          "alternatives": [
+            {
+              "key": "disabled",
+              "value": "Disabled",
+              "type": "inactive"
+            },
+            {
+              "key": "enabled",
+              "value": "Enabled",
+              "type": "active"
+            }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "childLockMode.value",
+          "alternatives": [
+            {
+              "key": "disabled",
+              "value": "Disabled",
+              "type": "inactive"
+            },
+            {
+              "key": "enabled",
+              "value": "Enabled",
+              "type": "active"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "component": "main",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main01",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main02",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main03",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main04",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main05",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main06",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "channeltype1",
+        "capability": "perfectworld33337.channelType",
+        "version": 1
+      },
+      {
+        "component": "channeltype2",
+        "capability": "perfectworld33337.channelType",
+        "version": 1
+      },
+      {
+        "component": "channeltype3",
+        "capability": "perfectworld33337.channelType",
+        "version": 1
+      },
+      {
+        "component": "backlight",
+        "capability": "perfectworld33337.backlightMode",
+        "version": 1
+      },
+      {
+        "component": "childlock",
+        "capability": "perfectworld33337.childLockMode",
+        "version": 1
+      }
+    ],
+    "actions": [
+      {
+        "component": "main",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main01",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main02",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main03",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main04",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main05",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "main06",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "backlight",
+        "capability": "perfectworld33337.backlightMode",
+        "version": 1
+      },
+      {
+        "component": "childlock",
+        "capability": "perfectworld33337.childLockMode",
+        "version": 1
+      }
+    ]
+  },
+  "type": "profile"
+}

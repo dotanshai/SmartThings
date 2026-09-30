@@ -1,0 +1,66 @@
+﻿{
+    "dashboard": {
+        "states": [
+            {
+                "label": "{{tempSet.value}}┬░C"
+            }
+        ],
+        "actions": [],
+        "panelItems": []
+    },
+    "detailView": [
+        {
+            "label": "Temperature",
+            "displayType": "numberField",
+            "numberField": {
+                "value": "tempSet.value",
+                "valueType": "number",
+                "command": "setTempSet",
+                "argumentType": "number",
+                "range": [
+                    16,
+                    30
+                ]
+            }
+        },
+        {
+            "label": "Current Temperature",
+            "displayType": "state",
+            "state": {
+                "label": "{{tempCurrent.value}}┬░C"
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "label": "Temperature",
+                "displayType": "numberField",
+                "numberField": {
+                    "value": "tempSet.value",
+                    "valueType": "number",
+                    "range": [
+                        16,
+                        30
+                    ]
+                }
+            }
+        ],
+        "actions": [
+            {
+                "label": "Temperature",
+                "displayType": "numberField",
+                "numberField": {
+                    "command": "setTempSet",
+                    "argumentType": "number",
+                    "range": [
+                        16,
+                        30
+                    ]
+                }
+            }
+        ]
+    },
+    "id": "vehiclepatch55148.acTemperature",
+    "version": 1
+}

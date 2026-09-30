@@ -1,0 +1,44 @@
+{
+  "detailView": [
+    {
+      "label": "Express Mode",
+      "displayType": "list",
+      "list": {
+        "value": "expressModeEnabled.value",
+        "command": "setExpressMode",
+        "alternatives": [
+          { "key": "true", "value": "On" },
+          { "key": "false", "value": "Off" }
+        ]
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Express Mode",
+        "displayType": "list",
+        "list": {
+          "value": "expressModeEnabled.value",
+          "alternatives": [
+            { "key": "true", "value": "On" },
+            { "key": "false", "value": "Off" }
+          ]
+        }
+      }
+    ],
+    "actions": [
+      {
+        "label": "Set Express Mode",
+        "displayType": "list",
+        "list": {
+          "command": "setExpressMode",
+          "alternatives": [
+            { "key": "true", "value": "On" },
+            { "key": "false", "value": "Off" }
+          ]
+        }
+      }
+    ]
+  }
+}

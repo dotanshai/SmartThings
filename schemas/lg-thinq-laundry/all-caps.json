@@ -1,0 +1,583 @@
+[
+    {
+        "id": "vehiclepatch55148.1shower",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.2showers",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.3showers",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.4showers",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.backlight",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.boilerTemperature",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.channelType",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.channeltype",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.childlock",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.cycleTimers",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.fixedTemperatureControl",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecConnectionCapacity",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecDailyUsage",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecEnergyRate",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecEnergyRate2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecEnergyRate3",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecLanguage",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecLastBilledPeriod",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecMeterReadingWh",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecMeterType",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecMonthlyUsage",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecPreviousBilledPeriod",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecRecentBilledPeriods",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.iecWeeklyUsage",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.language",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.laundryCycles",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.laundryError",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.laundryErrorV2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.laundryState",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.laundryStats",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.laundryStatsV2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.laundryStatsV3",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.laundryStatus",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.machineStatus",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.machineStatusV2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterAlarms",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterAlerts",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterAlertSettings",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterBilling",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterConsumption",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterCost",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterExpenses",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterMeasurements",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterNotifications",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterPricing",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterRates",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterRateSettings",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterReading",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterTariffs",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.meterWarnings",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.mschannelx55148",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.remoteReady",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shabbatCandleLighting",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shabbatCandleOffset",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shabbatHavdalah",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shabbatHavdalahOffset",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shabbatInfoMarker3",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shabbatLocation",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shabbatMode",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower1",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower10",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower3",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower4",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower5",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower6",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower7",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower8",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.shower9",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.signalMetrics",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.targetTemperature",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.tvNavigation",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.washerStats",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.washerStatus",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.washTimers",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.waterMeter",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.waterMeterAlerts",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.waterMeterAlertsV2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.waterMeterCost",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.waterMeterCostV2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.waterMeterRates",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.waterMeterRatesV2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    },
+    {
+        "id": "vehiclepatch55148.waterMeterV2",
+        "version": 1,
+        "status": "proposed",
+        "ephemeral": false,
+        "namespace": "vehiclepatch55148"
+    }
+]

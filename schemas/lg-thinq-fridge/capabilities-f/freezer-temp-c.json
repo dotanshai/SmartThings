@@ -1,0 +1,28 @@
+{
+  "id": "freezerTempC",
+  "version": 1,
+  "status": "proposed",
+  "name": "Freezer Temperature C",
+  "attributes": {
+    "temperatureC": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "integer", "minimum": -21, "maximum": -13 },
+          "unit": { "type": "string", "enum": ["C"], "default": "C" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setTemperatureC"
+    }
+  },
+  "commands": {
+    "setTemperatureC": {
+      "name": "setTemperatureC",
+      "arguments": [
+        { "name": "temperature", "optional": false, "schema": { "type": "integer", "minimum": -21, "maximum": -13 } }
+      ]
+    }
+  }
+}

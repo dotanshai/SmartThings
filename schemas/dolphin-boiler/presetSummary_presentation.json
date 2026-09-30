@@ -1,0 +1,20 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "P1:{{preset1.value}}° P2:{{preset2.value}}° P3:{{preset3.value}}° P4:{{preset4.value}}°"
+      }
+    ],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Shower preset temperatures: {{preset1.value}}° / {{preset2.value}}° / {{preset3.value}}° / {{preset4.value}}°",
+      "displayType": "state",
+      "state": {
+        "value": "preset1.value"
+      }
+    }
+  ]
+}

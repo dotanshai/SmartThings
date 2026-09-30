@@ -1,0 +1,11 @@
+{
+  "name": "dolphin-boiler-schema",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "st-schema": "^1.2.2",
+    "uuid": "^9.0.0",
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/util-dynamodb": "^3.0.0"
+  }
+}

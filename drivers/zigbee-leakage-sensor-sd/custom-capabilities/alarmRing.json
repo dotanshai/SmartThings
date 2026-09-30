@@ -1,0 +1,11 @@
+{
+  "name": "alarmRing",
+  "title": "Alarm Ring",
+  "description": "Siren ring/tone type",
+  "required": true,
+  "preferenceType": "enumeration",
+  "definition": {
+    "options": { "Mute": "mute", "Beep": "beep", "Music": "music" },
+    "default": "Beep"
+  }
+}

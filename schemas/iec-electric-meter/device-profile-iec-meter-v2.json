@@ -1,0 +1,26 @@
+{
+  "name": "IEC Electric Meter v2",
+  "metadata": {
+    "vid": "b5acccb5-9ab6-37d6-8d29-6b69f62d531d",
+    "mnmn": "SmartThingsCommunity"
+  },
+  "components": [
+    {
+      "id": "main",
+      "label": "main",
+      "capabilities": [
+        { "id": "energyMeter", "version": 1 },
+        { "id": "healthCheck", "version": 1 },
+        { "id": "refresh", "version": 1 },
+        { "id": "vehiclepatch55148.iecConnectionCapacity", "version": 1 },
+        { "id": "vehiclepatch55148.iecMeterReadingWh", "version": 1 },
+        { "id": "vehiclepatch55148.iecDailyUsage", "version": 1 },
+        { "id": "vehiclepatch55148.iecWeeklyUsage", "version": 1 },
+        { "id": "vehiclepatch55148.iecMonthlyUsage", "version": 1 }
+      ],
+      "categories": [
+        { "name": "CurbPowerMeter", "categoryType": "manufacturer" }
+      ]
+    }
+  ]
+}

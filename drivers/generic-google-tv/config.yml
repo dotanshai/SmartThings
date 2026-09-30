@@ -1,0 +1,6 @@
+name: Generic Google TV
+packageKey: googletv-generic-v2
+author: Shai D.
+permissions:
+  lan: {}
+  discovery: {}

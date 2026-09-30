@@ -1,0 +1,7 @@
+{
+  "detailView": [
+    { "label": "מיקום / Location", "displayType": "state", "state": { "label": "{{location.value}}" } }
+  ],
+  "id": "vehiclepatch55148.shabbatLocation",
+  "version": 1
+}

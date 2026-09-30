@@ -1,0 +1,19 @@
+{
+  "id": "powerSaveStatus",
+  "version": 1,
+  "status": "proposed",
+  "name": "Power Save",
+  "attributes": {
+    "powerSaveEnabled": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "boolean" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

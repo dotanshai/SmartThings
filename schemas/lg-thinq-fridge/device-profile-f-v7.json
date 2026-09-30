@@ -1,0 +1,165 @@
+{
+  "name": "LG Fridge F v7",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.fridgeTemperatureF",
+          "version": 1
+        },
+        {
+          "id": "vehiclepatch55148.freezerTemperatureF",
+          "version": 1
+        },
+        {
+          "id": "vehiclepatch55148.expressMode",
+          "version": 1
+        },
+        {
+          "id": "vehiclepatch55148.powerSave",
+          "version": 1
+        },
+        {
+          "id": "vehiclepatch55148.waterFilter",
+          "version": 1
+        },
+        {
+          "id": "contactSensor",
+          "version": 1
+        },
+        {
+          "id": "refresh",
+          "version": 1
+        },
+        {
+          "id": "healthCheck",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Refrigerator"
+        }
+      ]
+    }
+  ],
+  "view": {
+    "dashboard": {
+      "states": [
+        {
+          "capability": "vehiclepatch55148.fridgeTemperatureF",
+          "version": 1,
+          "group": "main"
+        },
+        {
+          "capability": "vehiclepatch55148.freezerTemperatureF",
+          "version": 1,
+          "group": "main"
+        }
+      ],
+      "actions": [
+        {
+          "capability": "vehiclepatch55148.expressMode",
+          "version": 1
+        }
+      ],
+      "basicPlus": [
+        {
+          "capability": "contactSensor",
+          "version": 1
+        }
+      ]
+    },
+    "detailView": [
+      {
+        "capability": "vehiclepatch55148.fridgeTemperatureF",
+        "version": 1,
+        "values": [
+          {
+            "key": "temperatureF.value",
+            "displayType": "slider",
+            "range": [
+              1,
+              8
+            ],
+            "step": 0.1,
+            "unit": "F",
+            "command": "setTemperatureF"
+          }
+        ]
+      },
+      {
+        "capability": "vehiclepatch55148.freezerTemperatureF",
+        "version": 1,
+        "values": [
+          {
+            "key": "temperatureF.value",
+            "displayType": "slider",
+            "range": [
+              -6,
+              8
+            ],
+            "step": 0.1,
+            "unit": "F",
+            "command": "setTemperatureF"
+          }
+        ]
+      },
+      {
+        "capability": "vehiclepatch55148.expressMode",
+        "version": 1,
+        "values": [
+          {
+            "key": "switch.value",
+            "displayType": "toggleSwitch",
+            "toggleSwitch": {
+              "command": {
+                "name": "setSwitch",
+                "on": "on",
+                "off": "off"
+              },
+              "state": {
+                "value": "switch.value",
+                "on": "on",
+                "off": "off",
+                "label": "Express Mode"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "capability": "contactSensor",
+        "version": 1,
+        "values": [
+          {
+            "key": "contact.value",
+            "displayType": "state"
+          }
+        ]
+      },
+      {
+        "capability": "vehiclepatch55148.powerSave",
+        "version": 1,
+        "values": [
+          {
+            "key": "status.value",
+            "displayType": "state"
+          }
+        ]
+      },
+      {
+        "capability": "vehiclepatch55148.waterFilter",
+        "version": 1,
+        "values": [
+          {
+            "key": "usedTimeMonths.value",
+            "displayType": "state",
+            "template": "{{value}} {{unit}} used"
+          }
+        ]
+      }
+    ]
+  }
+}

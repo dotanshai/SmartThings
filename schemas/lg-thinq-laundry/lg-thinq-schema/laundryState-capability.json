@@ -1,0 +1,91 @@
+{
+  "id": "vehiclepatch55148.laundryState",
+  "version": 1,
+  "status": "proposed",
+  "name": "Laundry State",
+  "attributes": {
+    "machineState": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "RINSE_HOLD",
+              "POWER_OFF",
+              "RINSING",
+              "STEAM_SOFTENING",
+              "RESERVED",
+              "END",
+              "DRYING",
+              "INITIAL",
+              "DETECTING",
+              "SPINNING",
+              "COOL_DOWN",
+              "ERROR",
+              "SLEEP",
+              "RUNNING",
+              "PAUSE",
+              "REFRESHING"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "remainingTimeMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "totalTimeMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "cycleCount": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "remoteControlEnabled": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

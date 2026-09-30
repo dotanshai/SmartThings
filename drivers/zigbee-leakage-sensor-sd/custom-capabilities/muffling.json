@@ -1,0 +1,11 @@
+{
+  "name": "muffling",
+  "title": "Muffling",
+  "description": "Mute the siren sound while keeping the alarm active",
+  "required": true,
+  "preferenceType": "enumeration",
+  "definition": {
+    "options": { "Off": "off", "On": "on" },
+    "default": "Off"
+  }
+}

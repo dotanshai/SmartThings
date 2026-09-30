@@ -1,0 +1,315 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "{{i18n.attributes.leakSms.label}}",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setLeakSms",
+          "on": "on",
+          "off": "off"
+        },
+        "state": {
+          "value": "leakSms.value",
+          "on": "on",
+          "off": "off"
+        }
+      }
+    },
+    {
+      "label": "{{i18n.attributes.leakEmail.label}}",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setLeakEmail",
+          "on": "on",
+          "off": "off"
+        },
+        "state": {
+          "value": "leakEmail.value",
+          "on": "on",
+          "off": "off"
+        }
+      }
+    },
+    {
+      "label": "{{i18n.attributes.thresholdSms.label}}",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setThresholdSms",
+          "on": "on",
+          "off": "off"
+        },
+        "state": {
+          "value": "thresholdSms.value",
+          "on": "on",
+          "off": "off"
+        }
+      }
+    },
+    {
+      "label": "{{i18n.attributes.thresholdEmail.label}}",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setThresholdEmail",
+          "on": "on",
+          "off": "off"
+        },
+        "state": {
+          "value": "thresholdEmail.value",
+          "on": "on",
+          "off": "off"
+        }
+      }
+    },
+    {
+      "label": "{{i18n.attributes.awaySms.label}}",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setAwaySms",
+          "on": "on",
+          "off": "off"
+        },
+        "state": {
+          "value": "awaySms.value",
+          "on": "on",
+          "off": "off"
+        }
+      }
+    },
+    {
+      "label": "{{i18n.attributes.awayEmail.label}}",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setAwayEmail",
+          "on": "on",
+          "off": "off"
+        },
+        "state": {
+          "value": "awayEmail.value",
+          "on": "on",
+          "off": "off"
+        }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "{{i18n.attributes.leakSms.label}}",
+        "displayType": "list",
+        "list": {
+          "value": "leakSms.value",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.leakEmail.label}}",
+        "displayType": "list",
+        "list": {
+          "value": "leakEmail.value",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.thresholdSms.label}}",
+        "displayType": "list",
+        "list": {
+          "value": "thresholdSms.value",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.thresholdEmail.label}}",
+        "displayType": "list",
+        "list": {
+          "value": "thresholdEmail.value",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.awaySms.label}}",
+        "displayType": "list",
+        "list": {
+          "value": "awaySms.value",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.awayEmail.label}}",
+        "displayType": "list",
+        "list": {
+          "value": "awayEmail.value",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      }
+    ],
+    "actions": [
+      {
+        "label": "{{i18n.attributes.leakSms.label}}",
+        "displayType": "list",
+        "list": {
+          "command": "setLeakSms",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.leakEmail.label}}",
+        "displayType": "list",
+        "list": {
+          "command": "setLeakEmail",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.thresholdSms.label}}",
+        "displayType": "list",
+        "list": {
+          "command": "setThresholdSms",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.thresholdEmail.label}}",
+        "displayType": "list",
+        "list": {
+          "command": "setThresholdEmail",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.awaySms.label}}",
+        "displayType": "list",
+        "list": {
+          "command": "setAwaySms",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      },
+      {
+        "label": "{{i18n.attributes.awayEmail.label}}",
+        "displayType": "list",
+        "list": {
+          "command": "setAwayEmail",
+          "alternatives": [
+            {
+              "key": "on",
+              "value": "On"
+            },
+            {
+              "key": "off",
+              "value": "Off"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

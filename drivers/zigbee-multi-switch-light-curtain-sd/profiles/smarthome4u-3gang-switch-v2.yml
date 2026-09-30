@@ -1,0 +1,106 @@
+id: smarthome4u-3gang-switch-v2
+name: smarthome4u-3gang-switch-v2
+
+components:
+  - id: sw1
+    label: Switch 1
+    capabilities:
+      - id: switch
+      - id: refresh
+    categories:
+      - name: Switch
+
+  - id: switch2
+    label: Switch 2
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: switch3
+    label: Switch 3
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: master
+    label: Master Switch
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: main
+    label: Dashboard Switch
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: dashboardSwitch
+    title: "Dashboard Button Controls"
+    description: "Which light the main dashboard button controls"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "sw1": "Light 1"
+        "switch2": "Light 2"
+        "switch3": "Light 3"
+        "all": "All lights"
+      default: "all"
+
+  - name: multiTileMode
+    title: Multi-Tile Dashboard
+    description: "OFF = single tile with dashboard button\nON = separate tile per channel"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "off": "Off (single tile)"
+        "on":  "On (all detected channels)"
+      default: "off"
+
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: Create child switch devices
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: a9fc052b-f1bb-39f8-865b-dac629a1fa9e

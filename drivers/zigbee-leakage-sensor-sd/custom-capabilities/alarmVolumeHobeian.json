@@ -1,0 +1,49 @@
+{
+  "id": "vehiclepatch55148.alarmVolumeHobeian",
+  "version": 1,
+  "detailView": [
+    {
+      "label": "Alarm Volume",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setAlarmVolumeHobeian",
+          "alternatives": [
+            { "key": "low", "value": "Low", "type": "active" },
+            { "key": "middle", "value": "Middle", "type": "active" },
+            { "key": "high", "value": "High", "type": "active" },
+            { "key": "mute", "value": "Mute", "type": "inactive" }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "alarmVolumeHobeian.value",
+          "valueType": "string",
+          "alternatives": [
+            { "key": "low", "value": "Low", "type": "active" },
+            { "key": "middle", "value": "Middle", "type": "active" },
+            { "key": "high", "value": "High", "type": "active" },
+            { "key": "mute", "value": "Mute", "type": "inactive" }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "actions": [
+      {
+        "label": "Alarm Volume",
+        "displayType": "list",
+        "list": {
+          "command": "setAlarmVolumeHobeian",
+          "alternatives": [
+            { "key": "low", "value": "Low" },
+            { "key": "middle", "value": "Middle" },
+            { "key": "high", "value": "High" },
+            { "key": "mute", "value": "Mute" }
+          ]
+        }
+      }
+    ]
+  }
+}

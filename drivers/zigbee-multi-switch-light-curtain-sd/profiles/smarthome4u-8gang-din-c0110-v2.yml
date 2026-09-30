@@ -1,0 +1,151 @@
+id: smarthome4u-8gang-din-c0110-v2
+name: smarthome4u-8gang-din-c0110-v2
+
+components:
+  - id: main
+    label: Dashboard Switch
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch1
+    label: Switch 1 (OUT1)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch4
+    label: Switch 4 (OUT4)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch5
+    label: Switch 5 (OUT5)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch8
+    label: Switch 8 (OUT8)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: curtain2
+    label: Curtain 2 (OUT2+OUT6)
+    capabilities:
+      - id: windowShade
+        version: 1
+    categories:
+      - name: Blind
+
+  - id: curtain3
+    label: Curtain 3 (OUT3+OUT7)
+    capabilities:
+      - id: windowShade
+        version: 1
+    categories:
+      - name: Blind
+
+  - id: channeltype1
+    label: "Channel Type — Pair 1 (OUT1+OUT5)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype2
+    label: "Channel Type — Pair 2 (OUT2+OUT6)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype3
+    label: "Channel Type — Pair 3 (OUT3+OUT7)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype4
+    label: "Channel Type — Pair 4 (OUT4+OUT8)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: dashboardSwitch
+    title: "Dashboard Button Controls"
+    description: "Which light the main dashboard button controls"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "switch1": "Light 1"
+        "switch4": "Light 4"
+        "switch5": "Light 5"
+        "switch8": "Light 8"
+        "all": "All lights"
+      default: "all"
+
+  - name: curtainDuration2
+    title: "Curtain 2 Duration (sec)"
+    description: "Motor run time for curtain 2; relays are switched off after it (5-600s, default 60)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 5
+      maximum: 600
+      default: 60
+
+  - name: curtainDuration3
+    title: "Curtain 3 Duration (sec)"
+    description: "Motor run time for curtain 3; relays are switched off after it (5-600s, default 60)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 5
+      maximum: 600
+      default: 60
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: "Create a separate device for each light and curtain"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 3fb803f6-9253-3f30-82bd-f2e9755bd61d

@@ -1,0 +1,23 @@
+{
+  "detailView": [
+    {
+      "label": "Express Mode",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": {
+          "name": "setExpressMode",
+          "on": "true",
+          "off": "false",
+          "argumentType": "boolean"
+        },
+        "state": {
+          "value": "expressModeEnabled.value",
+          "valueType": "boolean",
+          "on": "true",
+          "off": "false",
+          "label": "Express Mode"
+        }
+      }
+    }
+  ]
+}

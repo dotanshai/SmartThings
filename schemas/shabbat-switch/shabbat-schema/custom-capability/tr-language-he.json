@@ -1,0 +1,15 @@
+{
+  "tag": "he",
+  "label": "שפה",
+  "attributes": {
+    "language": {
+      "label": "שפה",
+      "i18n": {
+        "value": {
+          "he": "עברית",
+          "en": "אנגלית"
+        }
+      }
+    }
+  }
+}

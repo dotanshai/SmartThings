@@ -1,0 +1,42 @@
+{
+  "dashboardStatesToDisplay": ["temperatureC"],
+  "detailView": [
+    {
+      "label": "Fridge Temperature",
+      "displayType": "numberField",
+      "numberField": {
+        "value": "temperatureC.value",
+        "command": "setTemperatureC",
+        "range": [1, 8],
+        "step": 1,
+        "unit": "temperatureC.unit"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Fridge Temperature",
+        "displayType": "numberField",
+        "numberField": {
+          "value": "temperatureC.value",
+          "range": [1, 8],
+          "step": 1,
+          "unit": "temperatureC.unit"
+        }
+      }
+    ],
+    "actions": [
+      {
+        "label": "Set Fridge Temperature",
+        "displayType": "numberField",
+        "numberField": {
+          "command": "setTemperatureC",
+          "range": [1, 8],
+          "step": 1,
+          "unit": "temperatureC.unit"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "vehiclepatch55148.leakSensitivity",
+  "version": 1,
+  "detailView": [
+    {
+      "label": "Sensitivity",
+      "displayType": "slider",
+      "slider": {
+        "command": "setLeakSensitivity",
+        "range": [0, 9],
+        "step": 1,
+        "value": "leakSensitivity.value"
+      }
+    }
+  ],
+  "automation": {
+    "actions": [
+      {
+        "label": "Sensitivity",
+        "displayType": "slider",
+        "slider": {
+          "command": "setLeakSensitivity",
+          "range": [0, 9],
+          "step": 1
+        }
+      }
+    ]
+  }
+}

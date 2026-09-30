@@ -1,0 +1,5 @@
+component: main
+capability: vehiclepatch55148.acStatus
+command: setSwitch
+arguments:
+  - on

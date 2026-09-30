@@ -1,0 +1,65 @@
+{
+  "id": "vehiclepatch55148.cycleTimers",
+  "version": 1,
+  "status": "proposed",
+  "name": "Cycle Timers",
+  "attributes": {
+    "remainingTimeMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "integer", "minimum": 0 },
+          "unit": { "type": "string", "enum": ["min"], "default": "min" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "totalTimeMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "integer", "minimum": 0 },
+          "unit": { "type": "string", "enum": ["min"], "default": "min" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "remainingTimeFormatted": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string", "maxLength": 10 } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "totalTimeFormatted": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string", "maxLength": 10 } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "estimatedEndTime": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string", "maxLength": 5 } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "timersVisible": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "enum": ["show", "hide"] }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

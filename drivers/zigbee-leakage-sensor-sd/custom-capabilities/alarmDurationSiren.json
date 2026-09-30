@@ -1,0 +1,37 @@
+{
+    "id":  "vehiclepatch55148.alarmDurationSiren",
+    "version":  1,
+    "detailView":  [
+                       {
+                           "label":  "Alarm Duration",
+                           "displayType":  "slider",
+                           "slider":  {
+                                          "command":  "setAlarmDurationSiren",
+                                          "range":  [
+                                                        0,
+                                                        1800
+                                                    ],
+                                          "step":  10,
+                                          "unit":  "alarmDurationSiren.unit",
+                                          "value":  "alarmDurationSiren.value"
+                                      }
+                       }
+                   ],
+    "automation":  {
+                       "actions":  [
+                                       {
+                                           "label":  "Alarm Duration",
+                                           "displayType":  "slider",
+                                           "slider":  {
+                                                          "command":  "setAlarmDurationSiren",
+                                                          "range":  [
+                                                                        0,
+                                                                        1800
+                                                                    ],
+                                                          "step":  10,
+                                                          "unit":  "alarmDurationSiren.unit"
+                                                      }
+                                       }
+                                   ]
+                   }
+}

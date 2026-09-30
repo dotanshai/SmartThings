@@ -1,0 +1,4 @@
+name: Zigbee Multi Switch Light Curtain SD
+packageKey: zigbee_multi_sw_light_curtain_sd
+permissions:
+  zigbee: {}

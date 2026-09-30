@@ -1,0 +1,25 @@
+{
+  "id": "vehiclepatch55148.remoteReady",
+  "version": 1,
+  "status": "proposed",
+  "name": "Remote Ready",
+  "attributes": {
+    "remoteControlEnabled": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "boolean" } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "remoteReadyText": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string", "maxLength": 15 } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

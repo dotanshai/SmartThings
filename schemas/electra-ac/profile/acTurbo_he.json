@@ -1,0 +1,26 @@
+{
+    "tag": "en",
+    "label": "Turbo",
+    "attributes": {
+        "switch": {
+            "label": "Status",
+            "displayTemplate": "{{attribute}} of {{device.label}} is {{value}}",
+            "i18n": {
+                "value": {
+                    "off": {
+                        "label": "Off"
+                    },
+                    "on": {
+                        "label": "On"
+                    }
+                }
+            }
+        }
+    },
+    "commands": {
+        "setSwitch": {
+            "label": "setSwitch",
+            "arguments": {}
+        }
+    }
+}

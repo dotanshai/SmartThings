@@ -1,0 +1,14 @@
+name: Arad Water Meter v3
+components:
+  - id: main
+    capabilities:
+      - id: vehiclepatch55148.waterMeter
+        version: 1
+      - id: vehiclepatch55148.waterMeterCost
+        version: 1
+      - id: vehiclepatch55148.waterMeterRates
+        version: 1
+      - id: vehiclepatch55148.waterMeterAlerts
+        version: 1
+    categories:
+      - name: GenericSensor

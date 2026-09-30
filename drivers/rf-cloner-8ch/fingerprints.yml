@@ -1,0 +1,6 @@
+zigbeeManufacturer:
+  - id: "TS0601/_TZE284_tdg4ckyh"
+    deviceLabel: "Tuya RF Cloner 8CH"
+    manufacturer: "_TZE284_tdg4ckyh"
+    model: "TS0601"
+    deviceProfileName: rf-cloner-8ch

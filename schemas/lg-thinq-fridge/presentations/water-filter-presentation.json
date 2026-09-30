@@ -1,0 +1,11 @@
+{
+  "detailView": [
+    {
+      "label": "Water Filter",
+      "displayType": "state",
+      "state": {
+        "label": "{{usedTimeMonths.value}} {{usedTimeMonths.unit}} used"
+      }
+    }
+  ]
+}

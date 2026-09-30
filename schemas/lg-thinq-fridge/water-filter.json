@@ -1,0 +1,20 @@
+{
+  "id": "waterFilterStatus",
+  "version": 1,
+  "status": "proposed",
+  "name": "Water Filter",
+  "attributes": {
+    "usedTimeMonths": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "integer", "minimum": 0, "maximum": 6 },
+          "unit": { "type": "string", "enum": ["month"], "default": "month" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

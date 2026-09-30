@@ -1,0 +1,5 @@
+name: 'LG TV webOS'
+packageKey: 'lgtv.v12test'
+permissions:
+    lan: {}
+    discovery: {}

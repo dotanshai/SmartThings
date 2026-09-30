@@ -1,0 +1,48 @@
+﻿{
+  "dashboard": {
+    "states": [
+      { "component": "curtain1", "capability": "windowShade", "version": 1, "group": "curtain1", "composite": false },
+      { "component": "main02",   "capability": "switch",      "version": 1, "group": "main02",   "composite": false },
+      { "component": "main04",   "capability": "switch",      "version": 1, "group": "main04",   "composite": false }
+    ],
+    "actions": [
+      { "component": "curtain1", "capability": "windowShade", "version": 1, "group": "curtain1" },
+      { "component": "main02",   "capability": "switch",      "version": 1, "group": "main02"   },
+      { "component": "main04",   "capability": "switch",      "version": 1, "group": "main04"   }
+    ]
+  },
+  "detailView": [
+    { "component": "curtain1",    "capability": "windowShade",                     "version": 1 },
+    { "component": "main",        "capability": "signalStrength",                  "version": 1 },
+    { "component": "main",        "capability": "switch",                          "version": 1 },
+    { "component": "main02",      "capability": "switch",                          "version": 1 },
+    { "component": "main04",      "capability": "switch",                          "version": 1 },
+    { "component": "channeltype1","capability": "vehiclepatch55148.channelType",   "version": 1 },
+    { "component": "channeltype2","capability": "vehiclepatch55148.channelType",   "version": 1 },
+    { "component": "backlight",   "capability": "perfectworld33337.backlightMode", "version": 1 },
+    { "component": "childlock",   "capability": "perfectworld33337.childLockMode", "version": 1 }
+  ],
+  "automation": {
+    "conditions": [
+      { "component": "curtain1",    "capability": "windowShade",                     "version": 1 },
+      { "component": "main",        "capability": "switch",                          "version": 1 },
+      { "component": "main02",      "capability": "switch",                          "version": 1 },
+      { "component": "main04",      "capability": "switch",                          "version": 1 },
+      { "component": "channeltype1","capability": "vehiclepatch55148.channelType",   "version": 1 },
+      { "component": "channeltype2","capability": "vehiclepatch55148.channelType",   "version": 1 },
+      { "component": "backlight",   "capability": "perfectworld33337.backlightMode", "version": 1 },
+      { "component": "childlock",   "capability": "perfectworld33337.childLockMode", "version": 1 }
+    ],
+    "actions": [
+      { "component": "curtain1",    "capability": "windowShade",                     "version": 1 },
+      { "component": "main",        "capability": "switch",                          "version": 1 },
+      { "component": "main02",      "capability": "switch",                          "version": 1 },
+      { "component": "main04",      "capability": "switch",                          "version": 1 },
+      { "component": "channeltype1","capability": "vehiclepatch55148.channelType",   "version": 1 },
+      { "component": "channeltype2","capability": "vehiclepatch55148.channelType",   "version": 1 },
+      { "component": "backlight",   "capability": "perfectworld33337.backlightMode", "version": 1 },
+      { "component": "childlock",   "capability": "perfectworld33337.childLockMode", "version": 1 }
+    ]
+  },
+  "type": "profile"
+}

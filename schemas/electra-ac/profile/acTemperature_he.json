@@ -1,0 +1,22 @@
+{
+    "tag": "en",
+    "label": "AC Temperature",
+    "attributes": {
+        "tempCurrent": {
+            "label": "Current Temperature",
+            "displayTemplate": "{{attribute}} of {{device.label}} is {{value}}",
+            "i18n": {}
+        },
+        "tempSet": {
+            "label": "Set Temperature",
+            "displayTemplate": "{{attribute}} of {{device.label}} is {{value}}",
+            "i18n": {}
+        }
+    },
+    "commands": {
+        "setTempSet": {
+            "label": "Set Temperature",
+            "arguments": {}
+        }
+    }
+}

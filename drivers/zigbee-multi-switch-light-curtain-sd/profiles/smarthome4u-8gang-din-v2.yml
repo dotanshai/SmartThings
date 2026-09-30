@@ -1,0 +1,159 @@
+id: smarthome4u-8gang-din-v2
+name: smarthome4u-8gang-din-v2
+
+components:
+  - id: main
+    label: Dashboard Switch
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch1
+    label: Switch 1 (OUT1)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch2
+    label: Switch 2 (OUT2)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch3
+    label: Switch 3 (OUT3)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch4
+    label: Switch 4 (OUT4)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch5
+    label: Switch 5 (OUT5)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch6
+    label: Switch 6 (OUT6)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch7
+    label: Switch 7 (OUT7)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch8
+    label: Switch 8 (OUT8)
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: master
+    label: Master Switch
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype1
+    label: "Channel Type — Pair 1 (OUT1+OUT5)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype2
+    label: "Channel Type — Pair 2 (OUT2+OUT6)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype3
+    label: "Channel Type — Pair 3 (OUT3+OUT7)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype4
+    label: "Channel Type — Pair 4 (OUT4+OUT8)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: dashboardSwitch
+    title: "Dashboard Button Controls"
+    description: "Which light the main dashboard button controls"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "switch1": "Light 1"
+        "switch2": "Light 2"
+        "switch3": "Light 3"
+        "switch4": "Light 4"
+        "switch5": "Light 5"
+        "switch6": "Light 6"
+        "switch7": "Light 7"
+        "switch8": "Light 8"
+        "all": "All lights"
+      default: "all"
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: "Create a separate device for each light and curtain"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 4b1ecd06-4ebf-3bde-95d2-52e05d4e2c8d

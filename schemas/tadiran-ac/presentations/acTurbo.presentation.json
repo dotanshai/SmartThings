@@ -1,0 +1,39 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": [
+      {
+        "label": "Turbo",
+        "displayType": "toggleSwitch",
+        "toggleSwitch": {
+          "command": { "name": "setSwitch", "on": "on", "off": "off", "argumentType": "string" },
+          "state": { "value": "switch.value", "valueType": "string", "on": "on", "off": "off" }
+        }
+      }
+    ]
+  },
+  "detailView": [
+    {
+      "label": "Turbo",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setSwitch",
+          "alternatives": [
+            { "key": "on", "value": "{{i18n.attributes.switch.i18n.value.on.label}}", "type": "active" },
+            { "key": "off", "value": "{{i18n.attributes.switch.i18n.value.off.label}}", "type": "active" }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "switch.value",
+          "valueType": "string",
+          "alternatives": [
+            { "key": "on", "value": "{{i18n.attributes.switch.i18n.value.on.label}}", "type": "active" },
+            { "key": "off", "value": "{{i18n.attributes.switch.i18n.value.off.label}}", "type": "active" }
+          ]
+        }
+      }
+    }
+  ]
+}

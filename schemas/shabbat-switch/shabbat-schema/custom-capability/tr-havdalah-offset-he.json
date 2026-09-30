@@ -1,0 +1,9 @@
+{
+  "tag": "he",
+  "label": "דקות אחרי הבדלה",
+  "attributes": {
+    "havdalahOffset": {
+      "label": "דקות אחרי הבדלה"
+    }
+  }
+}

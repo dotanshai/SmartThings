@@ -1,0 +1,84 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{machineState.value}}",
+        "alternatives": [
+          { "key": "POWER_OFF", "value": "Off", "type": "inactive" },
+          { "key": "INITIAL", "value": "Ready", "type": "inactive" },
+          { "key": "DETECTING", "value": "Detecting", "type": "active" },
+          { "key": "RUNNING", "value": "Washing", "type": "active" },
+          { "key": "RINSING", "value": "Rinsing", "type": "active" },
+          { "key": "RINSE_HOLD", "value": "Rinse Hold", "type": "active" },
+          { "key": "SPINNING", "value": "Spinning", "type": "active" },
+          { "key": "STEAM_SOFTENING", "value": "Steam Softening", "type": "active" },
+          { "key": "REFRESHING", "value": "Refreshing", "type": "active" },
+          { "key": "DRYING", "value": "Drying", "type": "active" },
+          { "key": "COOL_DOWN", "value": "Cool Down", "type": "active" },
+          { "key": "END", "value": "Done", "type": "inactive" },
+          { "key": "PAUSE", "value": "Paused", "type": "inactive" },
+          { "key": "SLEEP", "value": "Sleep", "type": "inactive" },
+          { "key": "ERROR", "value": "Error", "type": "active" },
+          { "key": "RESERVED", "value": "Reserved", "type": "inactive" }
+        ]
+      }
+    ],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Status",
+      "displayType": "state",
+      "state": {
+        "label": "{{machineState.value}}"
+      }
+    },
+    {
+      "label": "Error",
+      "displayType": "state",
+      "state": {
+        "label": "{{errorCode.value}}"
+      }
+    },
+    {
+      "label": "Remaining",
+      "displayType": "state",
+      "state": {
+        "label": "{{remainingTimeMinutes.value}} min"
+      }
+    },
+    {
+      "label": "Total",
+      "displayType": "state",
+      "state": {
+        "label": "{{totalTimeMinutes.value}} min"
+      }
+    },
+    {
+      "label": "Cycles",
+      "displayType": "state",
+      "state": {
+        "label": "{{cycleCount.value}}"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Status",
+        "displayType": "list",
+        "list": {
+          "value": "machineState.value",
+          "alternatives": [
+            { "key": "POWER_OFF", "value": "Off" },
+            { "key": "RUNNING", "value": "Washing" },
+            { "key": "DRYING", "value": "Drying" },
+            { "key": "END", "value": "Done" }
+          ]
+        }
+      }
+    ],
+    "actions": []
+  }
+}

@@ -1,0 +1,1 @@
+{"tag":"he","label":"שינה","attributes":{"switch":{"label":"שינה","displayTemplate":"{{attribute}} של {{device.label}}: {{value}}","i18n":{"value":{"on":{"label":"פעיל"},"off":{"label":"כבוי"}}}}},"commands":{"setSwitch":{"label":"שינה","arguments":{}}}}

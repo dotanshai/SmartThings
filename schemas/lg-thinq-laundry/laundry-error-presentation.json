@@ -1,0 +1,112 @@
+{
+    "dashboard": {
+        "states": [
+            {
+                "label": "{{errorCode.value}}"
+            }
+        ],
+        "actions": [],
+        "panelItems": []
+    },
+    "detailView": [
+        {
+            "label": "Error",
+            "displayType": "state",
+            "state": {
+                "label": "{{errorCode.value}}"
+            }
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "label": "Error Status",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "yes",
+                            "value": "Error Present",
+                            "type": "active"
+                        },
+                        {
+                            "key": "no",
+                            "value": "No Error",
+                            "type": "active"
+                        }
+                    ],
+                    "value": "errorPresent.value",
+                    "valueType": "string",
+                    "multiSelectable": false
+                }
+            },
+            {
+                "label": "Error Code",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "none",
+                            "value": "No Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "LOCKED_MOTOR_ERROR",
+                            "value": "Locked Motor Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "WATER_LEVEL_SENSOR_ERROR",
+                            "value": "Water Level Sensor Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "TEMPERATURE_SENSOR_ERROR",
+                            "value": "Temperature Sensor Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "WATER_DRAIN_ERROR",
+                            "value": "Water Drain Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "UNABLE_TO_LOCK_ERROR",
+                            "value": "Unable To Lock Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "OUT_OF_BALANCE_ERROR",
+                            "value": "Out Of Balance Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "OVERFILL_ERROR",
+                            "value": "Overfill Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "DOOR_OPEN_ERROR",
+                            "value": "Door Open Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "WATER_SUPPLY_ERROR",
+                            "value": "Water Supply Error",
+                            "type": "active"
+                        },
+                        {
+                            "key": "POWER_FAIL_ERROR",
+                            "value": "Power Fail Error",
+                            "type": "active"
+                        }
+                    ],
+                    "value": "errorCode.value",
+                    "valueType": "string",
+                    "multiSelectable": false
+                }
+            }
+        ],
+        "actions": []
+    }
+}

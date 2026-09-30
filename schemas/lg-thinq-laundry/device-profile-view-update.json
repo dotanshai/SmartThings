@@ -1,0 +1,57 @@
+{
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch" },
+        { "id": "vehiclepatch55148.machineStatus" },
+        { "id": "vehiclepatch55148.laundryError" },
+        { "id": "vehiclepatch55148.laundryStatsV3" },
+        { "id": "healthCheck" }
+      ],
+      "categories": [
+        { "name": "Washer" }
+      ]
+    }
+  ],
+  "metadata": {
+    "deviceType": "Washer"
+  },
+  "view": {
+    "dashboard": {
+      "states": [
+        { "capability": "switch", "composite": true },
+        {
+          "capability": "vehiclepatch55148.machineStatus",
+          "composite": true,
+          "values": [
+            { "label": " Status: {{machineState.value}}" }
+          ]
+        }
+      ],
+      "actions": [
+        { "capability": "switch" }
+      ]
+    },
+    "detailView": [
+      { "capability": "switch" },
+      { "capability": "vehiclepatch55148.machineStatus" },
+      { "capability": "vehiclepatch55148.laundryError" },
+      { "capability": "vehiclepatch55148.laundryStatsV3" },
+      { "capability": "healthCheck" }
+    ],
+    "automation": {
+      "conditions": [
+        { "capability": "switch" },
+        { "capability": "vehiclepatch55148.machineStatus" },
+        { "capability": "vehiclepatch55148.laundryError" },
+        { "capability": "vehiclepatch55148.laundryStatsV3" },
+        { "capability": "healthCheck" }
+      ],
+      "actions": [
+        { "capability": "switch" },
+        { "capability": "healthCheck" }
+      ]
+    }
+  }
+}

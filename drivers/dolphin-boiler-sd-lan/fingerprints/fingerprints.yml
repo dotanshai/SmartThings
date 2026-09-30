@@ -1,0 +1,9 @@
+fingerprintFormat: 2
+deviceLabel: Dolphin Boiler
+fingerprints:
+  - id: dolphin-boiler-virtual
+    type: LAN
+    deviceLabel: Dolphin Boiler
+    profileId: dolphin-boiler-main
+    manufacturer: Dolphin
+    model: Smart Boiler

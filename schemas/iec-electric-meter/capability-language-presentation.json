@@ -1,0 +1,26 @@
+{
+  "detailView": [
+    {
+      "label": "Language",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setLanguage",
+          "alternatives": [
+            { "key": "he", "value": "עברית", "type": "active" },
+            { "key": "en", "value": "English", "type": "active" }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "language.value",
+          "valueType": "string",
+          "alternatives": [
+            { "key": "he", "value": "עברית", "type": "active" },
+            { "key": "en", "value": "English", "type": "active" }
+          ]
+        }
+      }
+    }
+  ]
+}

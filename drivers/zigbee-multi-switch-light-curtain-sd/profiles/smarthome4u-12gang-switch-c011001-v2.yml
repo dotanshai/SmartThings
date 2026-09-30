@@ -1,0 +1,187 @@
+id: smarthome4u-12gang-switch-c011001-v2
+name: smarthome4u-12gang-switch-c011001-v2
+
+components:
+  - id: main
+    label: Dashboard Switch
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch1
+    label: Switch 1
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch4
+    label: Switch 4
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch5
+    label: Switch 5
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch7
+    label: Switch 7
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch10
+    label: Switch 10
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: switch11
+    label: Switch 11
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Light
+
+  - id: curtain2
+    label: Curtain 2 (buttons 2+8)
+    capabilities:
+      - id: windowShade
+        version: 1
+    categories:
+      - name: Blind
+
+  - id: curtain3
+    label: Curtain 3 (buttons 3+9)
+    capabilities:
+      - id: windowShade
+        version: 1
+    categories:
+      - name: Blind
+
+  - id: curtain6
+    label: Curtain 6 (buttons 6+12)
+    capabilities:
+      - id: windowShade
+        version: 1
+    categories:
+      - name: Blind
+
+  - id: scene1
+    label: Scene 1
+    capabilities:
+      - id: button
+        version: 1
+    categories:
+      - name: RemoteController
+
+  - id: scene2
+    label: Scene 2
+    capabilities:
+      - id: button
+        version: 1
+    categories:
+      - name: RemoteController
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: dashboardSwitch
+    title: "Dashboard Button Controls"
+    description: "Which light the main dashboard button controls"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "switch1": "Light 1"
+        "switch4": "Light 4"
+        "switch5": "Light 5"
+        "switch7": "Light 7"
+        "switch10": "Light 10"
+        "switch11": "Light 11"
+        "all": "All lights"
+      default: "all"
+
+  - name: curtainDuration2
+    title: "Curtain 2 Duration (sec)"
+    description: "Motor run time for curtain 2 (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+  - name: curtainDuration3
+    title: "Curtain 3 Duration (sec)"
+    description: "Motor run time for curtain 3 (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+  - name: curtainDuration6
+    title: "Curtain 6 Duration (sec)"
+    description: "Motor run time for curtain 6 (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: "Create a separate device for each light and curtain"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 468fd8f5-db41-390e-9b08-cf9beeb80bf9

@@ -1,0 +1,31 @@
+{
+  "dashboard": { "states": [], "actions": [], "basicPlus": [] },
+  "detailView": [
+    {
+      "label": "Laundry Cycles",
+      "displayType": "state",
+      "state": { "label": "{{cycleCount.value}}" }
+    },
+    {
+      "label": "Cycle Complete",
+      "displayType": "state",
+      "state": { "label": "{{cycleComplete.value}}" }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Cycle Complete",
+        "displayType": "list",
+        "list": {
+          "value": "cycleComplete.value",
+          "alternatives": [
+            { "key": "yes", "value": "Cycle Complete" },
+            { "key": "no", "value": "Not Complete" }
+          ]
+        }
+      }
+    ],
+    "actions": []
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "id": "vehiclepatch55148.laundryState",
+  "version": 1,
+  "status": "proposed",
+  "name": "Laundry State",
+  "attributes": {
+    "machineState": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "RINSE_HOLD",
+              "POWER_OFF",
+              "RINSING",
+              "STEAM_SOFTENING",
+              "RESERVED",
+              "END",
+              "DRYING",
+              "INITIAL",
+              "DETECTING",
+              "SPINNING",
+              "COOL_DOWN",
+              "ERROR",
+              "SLEEP",
+              "RUNNING",
+              "PAUSE",
+              "REFRESHING"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "errorCode": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "none",
+              "LOCKED_MOTOR_ERROR",
+              "WATER_LEVEL_SENSOR_ERROR",
+              "TEMPERATURE_SENSOR_ERROR",
+              "WATER_DRAIN_ERROR",
+              "UNABLE_TO_LOCK_ERROR",
+              "OUT_OF_BALANCE_ERROR",
+              "OVERFILL_ERROR",
+              "DOOR_OPEN_ERROR",
+              "WATER_SUPPLY_ERROR",
+              "POWER_FAIL_ERROR"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "remainingTimeMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "totalTimeMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "cycleCount": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "remoteControlEnabled": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

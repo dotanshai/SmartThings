@@ -1,0 +1,875 @@
+{
+    "mnmn": "SmartThingsCommunity",
+    "vid": "f4acc28e-f134-35aa-83ac-39badc5504a8",
+    "version": "0.0.1",
+    "dashboard": {
+        "states": [
+            {
+                "label": "{{switch.value}}",
+                "alternatives": [
+                    {
+                        "key": "on",
+                        "value": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                        "type": "active"
+                    },
+                    {
+                        "key": "off",
+                        "value": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                        "type": "inactive"
+                    }
+                ],
+                "capability": "switch",
+                "version": 1,
+                "component": "main",
+                "composite": true,
+                "group": "main",
+                "transient": false
+            },
+            {
+                "label": " {{mode.value}}",
+                "alternatives": [
+                    {
+                        "key": "COOL",
+                        "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_COOL",
+                        "type": "active"
+                    },
+                    {
+                        "key": "HEAT",
+                        "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_HEAT",
+                        "type": "active"
+                    },
+                    {
+                        "key": "FAN",
+                        "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_FAN",
+                        "type": "active"
+                    },
+                    {
+                        "key": "DRY",
+                        "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_DRY",
+                        "type": "active"
+                    },
+                    {
+                        "key": "AUTO",
+                        "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_AUTO",
+                        "type": "active"
+                    }
+                ],
+                "capability": "vehiclepatch55148.acMode",
+                "version": 1,
+                "component": "main",
+                "composite": true,
+                "group": "main",
+                "transient": false
+            },
+            {
+                "label": " {{tempSet.value}}°C",
+                "capability": "vehiclepatch55148.acTemperature",
+                "version": 1,
+                "component": "main",
+                "composite": true,
+                "group": "main",
+                "transient": false
+            }
+        ],
+        "actions": [
+            {
+                "displayType": "standbyPowerSwitch",
+                "standbyPowerSwitch": {
+                    "command": {
+                        "on": "on",
+                        "off": "off"
+                    },
+                    "state": {
+                        "value": "switch.value",
+                        "on": "on",
+                        "off": "off"
+                    }
+                },
+                "group": "main",
+                "capability": "switch",
+                "version": 1,
+                "component": "main"
+            },
+            {
+                "displayType": "toggleSwitch",
+                "toggleSwitch": {
+                    "command": {
+                        "name": "setSwitch",
+                        "on": "on",
+                        "off": "off",
+                        "argumentType": "string"
+                    },
+                    "state": {
+                        "value": "switch.value",
+                        "on": "on",
+                        "off": "off",
+                        "valueType": "string"
+                    }
+                },
+                "group": "main",
+                "capability": "vehiclepatch55148.acSwingUpDown",
+                "version": 1,
+                "component": "main"
+            },
+            {
+                "displayType": "toggleSwitch",
+                "toggleSwitch": {
+                    "command": {
+                        "name": "setSwitch",
+                        "on": "on",
+                        "off": "off",
+                        "argumentType": "string"
+                    },
+                    "state": {
+                        "value": "switch.value",
+                        "on": "on",
+                        "off": "off",
+                        "valueType": "string"
+                    }
+                },
+                "group": "main",
+                "capability": "vehiclepatch55148.acSwingLeftRight",
+                "version": 1,
+                "component": "main"
+            },
+            {
+                "displayType": "toggleSwitch",
+                "toggleSwitch": {
+                    "command": {
+                        "name": "setSwitch",
+                        "on": "on",
+                        "off": "off",
+                        "argumentType": "string"
+                    },
+                    "state": {
+                        "value": "switch.value",
+                        "on": "on",
+                        "off": "off",
+                        "valueType": "string"
+                    }
+                },
+                "group": "main",
+                "capability": "vehiclepatch55148.acLight",
+                "version": 1,
+                "component": "main"
+            },
+            {
+                "displayType": "toggleSwitch",
+                "toggleSwitch": {
+                    "command": {
+                        "name": "setSwitch",
+                        "on": "on",
+                        "off": "off",
+                        "argumentType": "string"
+                    },
+                    "state": {
+                        "value": "switch.value",
+                        "on": "on",
+                        "off": "off",
+                        "valueType": "string"
+                    }
+                },
+                "group": "main",
+                "capability": "vehiclepatch55148.acTurbo",
+                "version": 1,
+                "component": "main"
+            },
+            {
+                "displayType": "toggleSwitch",
+                "toggleSwitch": {
+                    "command": {
+                        "name": "setSwitch",
+                        "on": "on",
+                        "off": "off",
+                        "argumentType": "string"
+                    },
+                    "state": {
+                        "value": "switch.value",
+                        "on": "on",
+                        "off": "off",
+                        "valueType": "string"
+                    }
+                },
+                "group": "main",
+                "capability": "vehiclepatch55148.acMute",
+                "version": 1,
+                "component": "main"
+            }
+        ],
+        "basicPlus": []
+    },
+    "detailView": [
+        {
+            "capability": "switch",
+            "version": 1,
+            "label": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT",
+            "displayType": "standbyPowerSwitch",
+            "standbyPowerSwitch": {
+                "command": {
+                    "on": "on",
+                    "off": "off"
+                },
+                "state": {
+                    "value": "switch.value",
+                    "on": "on",
+                    "off": "off",
+                    "label": "{{switch.value}}",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "inactive"
+                        }
+                    ]
+                }
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acTemperature",
+            "version": 1,
+            "label": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTEMPERATURE_DEFAULT_ATTRIBUTES_TEMPSET",
+            "displayType": "slider",
+            "slider": {
+                "range": [
+                    16,
+                    30
+                ],
+                "step": 1,
+                "command": "setTempSet",
+                "argumentType": "integer",
+                "value": "tempSet.value",
+                "valueType": "integer"
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acTemperature",
+            "version": 1,
+            "label": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTEMPERATURE_DEFAULT_ATTRIBUTES_TEMPCURRENT",
+            "displayType": "state",
+            "state": {
+                "label": "{{tempCurrent.value}}°C"
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acMode",
+            "version": 1,
+            "label": "Mode",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setMode",
+                    "alternatives": [
+                        {
+                            "key": "COOL",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_COOL",
+                            "type": "active"
+                        },
+                        {
+                            "key": "HEAT",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_HEAT",
+                            "type": "active"
+                        },
+                        {
+                            "key": "FAN",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_FAN",
+                            "type": "active"
+                        },
+                        {
+                            "key": "DRY",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_DRY",
+                            "type": "active"
+                        },
+                        {
+                            "key": "AUTO",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_AUTO",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "mode.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "COOL",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_COOL",
+                            "type": "active"
+                        },
+                        {
+                            "key": "HEAT",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_HEAT",
+                            "type": "active"
+                        },
+                        {
+                            "key": "FAN",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_FAN",
+                            "type": "active"
+                        },
+                        {
+                            "key": "DRY",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_DRY",
+                            "type": "active"
+                        },
+                        {
+                            "key": "AUTO",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_AUTO",
+                            "type": "active"
+                        }
+                    ]
+                }
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acFanSpeed",
+            "version": 1,
+            "label": "Fan Speed",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setFanSpeed",
+                    "alternatives": [
+                        {
+                            "key": "LOW",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_LOW",
+                            "type": "active"
+                        },
+                        {
+                            "key": "MEDIUM",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_MEDIUM",
+                            "type": "active"
+                        },
+                        {
+                            "key": "MEDIUM_HIGH",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_MEDIUM_HIGH",
+                            "type": "active"
+                        },
+                        {
+                            "key": "HIGH",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_HIGH",
+                            "type": "active"
+                        },
+                        {
+                            "key": "AUTO",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_AUTO",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "fanSpeed.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "LOW",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_LOW",
+                            "type": "active"
+                        },
+                        {
+                            "key": "MEDIUM",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_MEDIUM",
+                            "type": "active"
+                        },
+                        {
+                            "key": "MEDIUM_HIGH",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_MEDIUM_HIGH",
+                            "type": "active"
+                        },
+                        {
+                            "key": "HIGH",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_HIGH",
+                            "type": "active"
+                        },
+                        {
+                            "key": "AUTO",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_AUTO",
+                            "type": "active"
+                        }
+                    ]
+                }
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acSwingUpDown",
+            "version": 1,
+            "label": "Swing UD",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setSwitch",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGUPDOWN_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGUPDOWN_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "switch.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGUPDOWN_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGUPDOWN_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ]
+                }
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acSwingLeftRight",
+            "version": 1,
+            "label": "Swing LR",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setSwitch",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGLEFTRIGHT_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGLEFTRIGHT_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "switch.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGLEFTRIGHT_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGLEFTRIGHT_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ]
+                }
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acLight",
+            "version": 1,
+            "label": "Light",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setSwitch",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACLIGHT_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACLIGHT_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "switch.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACLIGHT_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACLIGHT_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ]
+                }
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acTurbo",
+            "version": 1,
+            "label": "Turbo",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setSwitch",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTURBO_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTURBO_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "switch.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTURBO_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTURBO_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ]
+                }
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acMute",
+            "version": 1,
+            "label": "Mute",
+            "displayType": "list",
+            "list": {
+                "command": {
+                    "name": "setSwitch",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMUTE_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMUTE_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ],
+                    "argumentType": "string"
+                },
+                "state": {
+                    "value": "switch.value",
+                    "valueType": "string",
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMUTE_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMUTE_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "active"
+                        }
+                    ]
+                }
+            },
+            "component": "main"
+        },
+        {
+            "capability": "vehiclepatch55148.acDeviceId",
+            "version": 1,
+            "label": "Device ID",
+            "displayType": "state",
+            "state": {
+                "label": "{{shortId.value}}"
+            },
+            "component": "main"
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "capability": "switch",
+                "version": 1,
+                "label": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_ATTRIBUTES_SWITCH_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_ATTRIBUTES_SWITCH_OFF",
+                            "type": "inactive"
+                        }
+                    ],
+                    "value": "switch.value",
+                    "multiSelectable": false
+                },
+                "emphasis": true,
+                "exclusion": [],
+                "component": "main"
+            },
+            {
+                "capability": "vehiclepatch55148.acTemperature",
+                "version": 1,
+                "label": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTEMPERATURE_DEFAULT_ATTRIBUTES_TEMPSET",
+                "displayType": "numberField",
+                "numberField": {
+                    "value": "tempSet.value",
+                    "valueType": "integer",
+                    "range": [
+                        16,
+                        30
+                    ]
+                },
+                "exclusion": [],
+                "component": "main"
+            }
+        ],
+        "actions": [
+            {
+                "capability": "switch",
+                "version": 1,
+                "label": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT",
+                "displayType": "list",
+                "list": {
+                    "alternatives": [
+                        {
+                            "key": "on",
+                            "value": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_COMMANDS_ON",
+                            "type": "active"
+                        },
+                        {
+                            "key": "off",
+                            "value": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_COMMANDS_OFF",
+                            "type": "inactive"
+                        }
+                    ]
+                },
+                "emphasis": true,
+                "component": "main",
+                "exclusion": []
+            },
+            {
+                "capability": "vehiclepatch55148.acTemperature",
+                "version": 1,
+                "label": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTEMPERATURE_DEFAULT_ATTRIBUTES_TEMPSET",
+                "displayType": "numberField",
+                "numberField": {
+                    "command": "setTempSet",
+                    "argumentType": "integer",
+                    "range": [
+                        16,
+                        30
+                    ]
+                },
+                "component": "main",
+                "exclusion": []
+            }
+        ]
+    },
+    "dpInfo": [
+        {
+            "os": "ios",
+            "dpUri": "plugin://com.samsung.ios.plugin.stplugin/assets/files/index.html",
+            "arguments": []
+        },
+        {
+            "os": "android",
+            "dpUri": "plugin://com.samsung.android.plugin.stplugin",
+            "arguments": []
+        },
+        {
+            "os": "web",
+            "dpUri": "wwst://com.samsung.one.plugin.stplugin",
+            "arguments": []
+        }
+    ],
+    "language": [
+        {
+            "locale": "en_US",
+            "poCodes": [
+                {
+                    "label": "Power",
+                    "po": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT"
+                },
+                {
+                    "label": "Off",
+                    "po": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_ATTRIBUTES_SWITCH_OFF"
+                },
+                {
+                    "label": "On",
+                    "po": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_ATTRIBUTES_SWITCH_ON"
+                },
+                {
+                    "label": "Turn off",
+                    "po": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_COMMANDS_OFF"
+                },
+                {
+                    "label": "Turn on",
+                    "po": "___PO_CODE_CAPABILITY.SMARTTHINGS.SWITCH_DEFAULT_COMMANDS_ON"
+                },
+                {
+                    "label": "On",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGLEFTRIGHT_DEFAULT_ATTRIBUTES_SWITCH_ON"
+                },
+                {
+                    "label": "Off",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGLEFTRIGHT_DEFAULT_ATTRIBUTES_SWITCH_OFF"
+                },
+                {
+                    "label": "Swing LR",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGLEFTRIGHT_DEFAULT"
+                },
+                {
+                    "label": "Swing UD",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGUPDOWN_DEFAULT"
+                },
+                {
+                    "label": "On",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGUPDOWN_DEFAULT_ATTRIBUTES_SWITCH_ON"
+                },
+                {
+                    "label": "Off",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACSWINGUPDOWN_DEFAULT_ATTRIBUTES_SWITCH_OFF"
+                },
+                {
+                    "label": "Current Temperature",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTEMPERATURE_DEFAULT_ATTRIBUTES_TEMPCURRENT"
+                },
+                {
+                    "label": "AC Temperature",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTEMPERATURE_DEFAULT"
+                },
+                {
+                    "label": "Set Temperature",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTEMPERATURE_DEFAULT_ATTRIBUTES_TEMPSET"
+                },
+                {
+                    "label": "AC Device ID",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACDEVICEID_DEFAULT"
+                },
+                {
+                    "label": "Cool",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_COOL"
+                },
+                {
+                    "label": "Auto",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_AUTO"
+                },
+                {
+                    "label": "Heat",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_HEAT"
+                },
+                {
+                    "label": "AC Mode",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT"
+                },
+                {
+                    "label": "Dry",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_DRY"
+                },
+                {
+                    "label": "Fan",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMODE_DEFAULT_ATTRIBUTES_MODE_FAN"
+                },
+                {
+                    "label": "Off",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTURBO_DEFAULT_ATTRIBUTES_SWITCH_OFF"
+                },
+                {
+                    "label": "Turbo",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTURBO_DEFAULT"
+                },
+                {
+                    "label": "On",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACTURBO_DEFAULT_ATTRIBUTES_SWITCH_ON"
+                },
+                {
+                    "label": "Mute",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMUTE_DEFAULT"
+                },
+                {
+                    "label": "Off",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMUTE_DEFAULT_ATTRIBUTES_SWITCH_OFF"
+                },
+                {
+                    "label": "On",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACMUTE_DEFAULT_ATTRIBUTES_SWITCH_ON"
+                },
+                {
+                    "label": "Light",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACLIGHT_DEFAULT"
+                },
+                {
+                    "label": "On",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACLIGHT_DEFAULT_ATTRIBUTES_SWITCH_ON"
+                },
+                {
+                    "label": "Off",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACLIGHT_DEFAULT_ATTRIBUTES_SWITCH_OFF"
+                },
+                {
+                    "label": "Low",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_LOW"
+                },
+                {
+                    "label": "Auto",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_AUTO"
+                },
+                {
+                    "label": "AC Fan Speed",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT"
+                },
+                {
+                    "label": "Medium",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_MEDIUM"
+                },
+                {
+                    "label": "Medium High",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_MEDIUM_HIGH"
+                },
+                {
+                    "label": "High",
+                    "po": "___PO_CODE_CAPABILITY.VEHICLEPATCH55148.ACFANSPEED_DEFAULT_ATTRIBUTES_FANSPEED_HIGH"
+                }
+            ]
+        }
+    ],
+    "manufacturerName": "SmartThingsCommunity",
+    "presentationId": "f4acc28e-f134-35aa-83ac-39badc5504a8"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "iec-schema-backend",
+  "version": "1.0.0",
+  "description": "SmartThings Schema Connector backend for IEC electric meter readings",
+  "main": "index.js",
+  "dependencies": {
+    "st-schema": "^1.5.1",
+    "uuid": "^9.0.1",
+    "@aws-sdk/client-dynamodb": "^3.600.0",
+    "@aws-sdk/lib-dynamodb": "^3.600.0",
+    "@aws-sdk/client-lambda": "^3.600.0"
+  }
+}

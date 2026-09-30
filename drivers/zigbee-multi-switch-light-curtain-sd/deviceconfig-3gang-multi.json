@@ -1,0 +1,164 @@
+{
+    "type":  "profile",
+    "dashboard":  {
+                      "states":  [
+                                     {
+                                         "component":  "main",
+                                         "capability":  "switch",
+                                         "version":  1,
+                                         "group":  "main",
+                                         "composite":  false
+                                     },
+                                     {
+                                         "component":  "main01",
+                                         "capability":  "switch",
+                                         "version":  1,
+                                         "group":  "main01",
+                                         "composite":  false
+                                     },
+                                     {
+                                         "component":  "main02",
+                                         "capability":  "switch",
+                                         "version":  1,
+                                         "group":  "main02",
+                                         "composite":  false
+                                     },
+                                     {
+                                         "component":  "main03",
+                                         "capability":  "switch",
+                                         "version":  1,
+                                         "group":  "main03",
+                                         "composite":  false
+                                     }
+                                 ],
+                      "actions":  [
+                                      {
+                                          "component":  "main",
+                                          "capability":  "switch",
+                                          "version":  1,
+                                          "group":  "main"
+                                      },
+                                      {
+                                          "component":  "main01",
+                                          "capability":  "switch",
+                                          "version":  1,
+                                          "group":  "main01"
+                                      },
+                                      {
+                                          "component":  "main02",
+                                          "capability":  "switch",
+                                          "version":  1,
+                                          "group":  "main02"
+                                      },
+                                      {
+                                          "component":  "main03",
+                                          "capability":  "switch",
+                                          "version":  1,
+                                          "group":  "main03"
+                                      }
+                                  ]
+                  },
+    "detailView":  [
+                       {
+                           "component":  "main01",
+                           "capability":  "switch",
+                           "version":  1
+                       },
+                       {
+                           "component":  "main02",
+                           "capability":  "switch",
+                           "version":  1
+                       },
+                       {
+                           "component":  "main03",
+                           "capability":  "switch",
+                           "version":  1
+                       },
+                       {
+                           "component":  "backlight",
+                           "capability":  "perfectworld33337.backlightMode",
+                           "version":  1
+                       },
+                       {
+                           "component":  "childlock",
+                           "capability":  "vehiclepatch55148.childlock",
+                           "version":  1
+                       },
+                       {
+                           "component":  "main",
+                           "capability":  "switch",
+                           "version":  1
+                       },
+                       {
+                           "component":  "signal",
+                           "capability":  "perfectworld33337.signalMetrics",
+                           "version":  1
+                       }
+                   ],
+    "automation":  {
+                       "conditions":  [
+                                          {
+                                              "component":  "main",
+                                              "capability":  "switch",
+                                              "version":  1
+                                          },
+                                          {
+                                              "component":  "main01",
+                                              "capability":  "switch",
+                                              "version":  1
+                                          },
+                                          {
+                                              "component":  "main02",
+                                              "capability":  "switch",
+                                              "version":  1
+                                          },
+                                          {
+                                              "component":  "main03",
+                                              "capability":  "switch",
+                                              "version":  1
+                                          },
+                                          {
+                                              "component":  "backlight",
+                                              "capability":  "perfectworld33337.backlightMode",
+                                              "version":  1
+                                          },
+                                          {
+                                              "component":  "childlock",
+                                              "capability":  "vehiclepatch55148.childlock",
+                                              "version":  1
+                                          }
+                                      ],
+                       "actions":  [
+                                       {
+                                           "component":  "main",
+                                           "capability":  "switch",
+                                           "version":  1
+                                       },
+                                       {
+                                           "component":  "main01",
+                                           "capability":  "switch",
+                                           "version":  1
+                                       },
+                                       {
+                                           "component":  "main02",
+                                           "capability":  "switch",
+                                           "version":  1
+                                       },
+                                       {
+                                           "component":  "main03",
+                                           "capability":  "switch",
+                                           "version":  1
+                                       },
+                                       {
+                                           "component":  "backlight",
+                                           "capability":  "perfectworld33337.backlightMode",
+                                           "version":  1
+                                       },
+                                       {
+                                           "component":  "childlock",
+                                           "capability":  "vehiclepatch55148.childlock",
+                                           "version":  1
+                                       }
+                                   ]
+                   }
+}

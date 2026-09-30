@@ -1,0 +1,1 @@
+{"tag": "en", "label": "AC Temperature", "attributes": {"tempSet": {"label": "Set Temperature", "displayTemplate": "{{attribute}} of {{device.label}} is {{value}}"}, "tempCurrent": {"label": "Current Temperature", "displayTemplate": "{{attribute}} of {{device.label}} is {{value}}"}}, "commands": {"setTempSet": {"label": "Set Temperature", "arguments": {}}}}

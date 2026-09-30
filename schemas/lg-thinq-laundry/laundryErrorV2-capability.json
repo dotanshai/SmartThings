@@ -1,0 +1,37 @@
+{
+  "id": "vehiclepatch55148.laundryErrorV2",
+  "version": 1,
+  "status": "proposed",
+  "name": "Laundry Error V2",
+  "attributes": {
+    "errorCode": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "none", "LOCKED_MOTOR_ERROR", "WATER_LEVEL_SENSOR_ERROR",
+              "TEMPERATURE_SENSOR_ERROR", "WATER_DRAIN_ERROR", "UNABLE_TO_LOCK_ERROR",
+              "OUT_OF_BALANCE_ERROR", "OVERFILL_ERROR", "DOOR_OPEN_ERROR",
+              "WATER_SUPPLY_ERROR", "POWER_FAIL_ERROR"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "errorPresent": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "enum": ["yes", "no"] }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

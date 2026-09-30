@@ -1,0 +1,30 @@
+name: siren-zcl-ts0224
+components:
+- id: main
+  capabilities:
+  - id: switch
+    version: 1
+  - id: alarm
+    version: 1
+  - id: refresh
+    version: 1
+  - id: vehiclepatch55148.signalMetrics
+    version: 1
+  categories:
+  - name: Siren
+
+preferences:
+- name: sirenDuration
+  title: Siren Duration (seconds)
+  description: Duration for siren sound (1?600 seconds)
+  required: true
+  preferenceType: integer
+  definition:
+    minimum: 1
+    maximum: 600
+    default: 300
+
+metadata:
+  deviceType: Siren
+  ocfDeviceType: x.com.st.d.siren
+  deviceTypeId: Siren

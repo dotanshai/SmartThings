@@ -1,0 +1,159 @@
+id: smarthome4u-6gang-switch-mixed-lr-v2
+name: smarthome4u-6gang-switch-mixed-lr-v2
+
+components:
+  - id: main
+    label: Switch
+    capabilities:
+      - id: switch
+        version: 1
+      - id: windowShade
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: switch2
+    label: Switch 2 / Middle Col
+    capabilities:
+      - id: switch
+      - id: refresh
+    categories:
+      - name: Switch
+
+  - id: switch5
+    label: Switch 5
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: curtain1
+    label: Curtain A (col 1+4)
+    capabilities:
+      - id: windowShade
+      - id: refresh
+    categories:
+      - name: Blind
+
+  - id: curtain3
+    label: Curtain C (col 3+6)
+    capabilities:
+      - id: windowShade
+    categories:
+      - name: Blind
+
+  - id: master
+    label: Master Switch
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+  - id: channeltype1
+    label: Channel Type — Left Col (1+4)
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype2
+    label: Channel Type — Middle Col (2+5)
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: channeltype3
+    label: Channel Type — Right Col (3+6)
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: multiTileMode
+    title: "Multi-Tile Dashboard"
+    description: "OFF = single tile with dashboard button\nON = separate tile per channel"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "off": "Off (single tile)"
+        "on": "On (all channels)"
+      default: "off"
+
+  - name: dashboardSwitch
+    title: "Dashboard Button Controls"
+    description: "Which switch the main dashboard button controls"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "switch2": "Switch 2 / Middle Col"
+        "switch5": "Switch 5"
+        "all": "All switches (master)"
+      default: "switch2"
+
+  - name: curtainDuration1
+    title: "Curtain A Duration (sec)"
+    description: "Left col curtain motor run time (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+  - name: curtainDuration3
+    title: "Curtain C Duration (sec)"
+    description: "Right col curtain motor run time (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+  - name: createChildDevices
+    title: "Create Child Devices"
+    description: "Create child switch/curtain devices"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 7360fd36-1048-3824-be04-baf0931aaec6

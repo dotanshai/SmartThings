@@ -1,0 +1,71 @@
+id: smarthome4u-1gang-switch-v2
+name: smarthome4u-1gang-switch-v2
+
+components:
+  - id: sw1
+    label: Switch 1
+    capabilities:
+      - id: switch
+      - id: refresh
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: main
+    label: Dashboard Switch
+    capabilities:
+      - id: switch
+    categories:
+      - name: Switch
+
+
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: multiTileMode
+    title: Multi-Tile Dashboard
+    description: "OFF = single tile with dashboard button\nON = separate tile per channel"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "off": "Off (single tile)"
+        "on":  "On (all detected channels)"
+      default: "off"
+
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: Create child switch devices
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+metadata:
+  mnmn: SmartThingsCommunity

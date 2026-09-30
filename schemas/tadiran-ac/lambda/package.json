@@ -1,0 +1,12 @@
+{
+  "name": "tadiran-ac-schema",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "st-schema": "^1.5.1",
+    "uuid": "11.1.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.600.0",
+    "@aws-sdk/client-dynamodb": "^3.600.0",
+    "@aws-sdk/lib-dynamodb": "^3.600.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "ApiId": "s71sv44fuk",
+  "StageName": "$default",
+  "AccessLogSettings": {
+    "DestinationArn": "arn:aws:logs:eu-west-1:<AWS_ACCOUNT_ID>:log-group:/aws/apigateway/LgThinqLaundryApi",
+    "Format": "{\"requestId\":\"$context.requestId\",\"status\":\"$context.status\",\"integrationErrorMessage\":\"$context.integrationErrorMessage\",\"integrationStatus\":\"$context.integration.status\",\"errorMessage\":\"$context.error.message\",\"errorResponseType\":\"$context.error.responseType\",\"routeKey\":\"$context.routeKey\"}"
+  }
+}

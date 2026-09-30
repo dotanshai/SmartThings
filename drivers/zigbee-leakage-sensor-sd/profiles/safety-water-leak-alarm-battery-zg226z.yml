@@ -1,0 +1,25 @@
+name: safety-water-leak-alarm-battery-zg226z
+components:
+  - id: main
+    capabilities:
+      - id: waterSensor
+        version: 1
+      - id: alarm
+        version: 1
+      - id: battery
+        version: 1
+      - id: vehiclepatch55148.signalMetrics
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: LeakSensor
+preferences:
+  - preferenceId: vehiclepatch55148.alarmVolume
+    explicit: true
+  - preferenceId: vehiclepatch55148.alarmRing
+    explicit: true
+  - preferenceId: vehiclepatch55148.alarmDuration
+    explicit: true
+  - preferenceId: vehiclepatch55148.muffling
+    explicit: true

@@ -1,0 +1,25 @@
+{
+  "detailView": [
+    {
+      "label": "Water Filter",
+      "displayType": "state",
+      "state": {
+        "label": "{{usedTimeMonths.value}} {{usedTimeMonths.unit}} used"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Water Filter",
+        "displayType": "numberField",
+        "numberField": {
+          "value": "usedTimeMonths.value",
+          "range": [0, 6],
+          "step": 1,
+          "unit": "usedTimeMonths.unit"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "zg223zSensitivity",
+  "version": 1,
+  "status": "proposed",
+  "name": "Zg223z Sensitivity",
+  "attributes": {
+    "zg223zSensitivity": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 9
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {
+    "setZg223zSensitivity": {
+      "arguments": [
+        { "name": "value", "schema": { "type": "number", "minimum": 0, "maximum": 9 } }
+      ]
+    }
+  }
+}

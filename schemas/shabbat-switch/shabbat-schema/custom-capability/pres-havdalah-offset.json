@@ -1,0 +1,16 @@
+{
+  "detailView": [
+    {
+      "label": "דקות אחרי הבדלה / Minutes after Havdalah",
+      "displayType": "slider",
+      "slider": {
+        "value": "havdalahOffset.value",
+        "valueType": "number",
+        "command": "setHavdalahOffset",
+        "range": [0, 120]
+      }
+    }
+  ],
+  "id": "vehiclepatch55148.shabbatHavdalahOffset",
+  "version": 1
+}

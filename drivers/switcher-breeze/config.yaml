@@ -1,0 +1,5 @@
+name: "switcher-breeze"
+packageKey: "switcher-breeze"
+permissions:
+  lan: {}
+  discovery: {}

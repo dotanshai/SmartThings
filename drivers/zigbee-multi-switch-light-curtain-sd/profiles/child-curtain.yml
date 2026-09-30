@@ -1,0 +1,12 @@
+id: child-curtain
+name: child-curtain
+components:
+  - id: main
+    capabilities:
+      - id: windowShade
+      - id: refresh
+    categories:
+      - name: Blind
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 33d5960f-66db-3288-b0be-ebd71a54893d

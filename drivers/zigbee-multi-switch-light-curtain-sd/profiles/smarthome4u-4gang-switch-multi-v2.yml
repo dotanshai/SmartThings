@@ -1,0 +1,131 @@
+id: smarthome4u-4gang-switch-multi-v2
+name: smarthome4u-4gang-switch-multi-v2
+
+components:
+  - id: main
+    label: Switch All
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main01
+    label: Switch 1
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main02
+    label: Switch 2
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main03
+    label: Switch 3
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main04
+    label: Switch 4
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+
+  - id: channeltype1
+    label: "Channel Type Left Col (1+3)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+
+  - id: channeltype2
+    label: "Channel Type Right Col (2+4)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: multiTileMode
+    title: Multi-Tile Dashboard
+    description: "OFF = single tile with dashboard button\nON = separate tile per channel"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "off": "Off (single tile)"
+        "on":  "On (all detected channels)"
+      default: "off"
+
+  - name: dashboardSwitch
+    title: "Dashboard Button: which light"
+    description: "The dashboard button controls this light (single and multi-tile mode)"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "main01": "Switch 1 (DP 1)"
+        "main02": "Switch 2 (DP 2)"
+        "main03": "Switch 3 (DP 3)"
+        "main04": "Switch 4 (DP 4)"
+        "all":    "All Switches"
+      default: "main01"
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: Create child switch devices
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: aac78e17-caf9-37d9-bf3a-dc602d127148

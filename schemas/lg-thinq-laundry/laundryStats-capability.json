@@ -1,0 +1,60 @@
+{
+  "id": "vehiclepatch55148.laundryStats",
+  "version": 1,
+  "status": "proposed",
+  "name": "Laundry Stats",
+  "attributes": {
+    "remainingTimeMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "totalTimeMinutes": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "cycleCount": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    },
+    "remoteControlEnabled": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

@@ -1,0 +1,1 @@
+{"name":"AC Filter","attributes":{"status":{"schema":{"type":"object","properties":{"value":{"type":"string","enum":["ok","clean"]}},"additionalProperties":false,"required":["value"]},"enumCommands":[]}},"commands":{}}

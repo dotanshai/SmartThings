@@ -1,0 +1,5 @@
+name: 'ONVIF Camera NVR SD'
+packageKey: 'onvif_nvr_sd'
+permissions:
+    lan: {}
+    discovery: {}

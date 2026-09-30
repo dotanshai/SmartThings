@@ -1,0 +1,1 @@
+{"tag":"en","label":"Filter","attributes":{"status":{"label":"Filter","displayTemplate":"{{attribute}} of {{device.label}} is {{value}}","i18n":{"value":{"ok":{"label":"OK"},"clean":{"label":"Clean filter"}}}}},"commands":{}}

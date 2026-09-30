@@ -1,0 +1,40 @@
+{
+  "detailView": [
+    {
+      "label": "Express Mode",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": { "name": "setSwitch", "on": "on", "off": "off" },
+        "state": { "value": "switch.value", "on": "on", "off": "off", "label": "Express Mode" }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Express Mode",
+        "displayType": "list",
+        "list": {
+          "value": "switch.value",
+          "alternatives": [
+            { "key": "on", "value": "On" },
+            { "key": "off", "value": "Off" }
+          ]
+        }
+      }
+    ],
+    "actions": [
+      {
+        "label": "Set Express Mode",
+        "displayType": "list",
+        "list": {
+          "command": "setSwitch",
+          "alternatives": [
+            { "key": "on", "value": "On" },
+            { "key": "off", "value": "Off" }
+          ]
+        }
+      }
+    ]
+  }
+}

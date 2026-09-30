@@ -1,0 +1,45 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{remainingTimeMinutes.value}} min"
+      }
+    ],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    {
+      "label": "Remaining",
+      "displayType": "state",
+      "state": {
+        "label": "{{remainingTimeMinutes.value}} min"
+      }
+    },
+    {
+      "label": "Total",
+      "displayType": "state",
+      "state": {
+        "label": "{{totalTimeMinutes.value}} min"
+      }
+    },
+    {
+      "label": "Cycles",
+      "displayType": "state",
+      "state": {
+        "label": "{{cycleCount.value}}"
+      }
+    },
+    {
+      "label": "Remote",
+      "displayType": "state",
+      "state": {
+        "label": "{{remoteControlEnabled.value}}"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [],
+    "actions": []
+  }
+}

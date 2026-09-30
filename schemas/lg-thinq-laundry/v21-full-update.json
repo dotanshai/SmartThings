@@ -1,0 +1,60 @@
+{
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch", "version": 1 },
+        { "id": "refresh", "version": 1 },
+        { "id": "vehiclepatch55148.washerStatus", "version": 1 },
+        { "id": "vehiclepatch55148.laundryFaultStatus", "version": 1 },
+        { "id": "vehiclepatch55148.cycleTimer", "version": 1 },
+        { "id": "vehiclepatch55148.remoteReady", "version": 1 },
+        { "id": "vehiclepatch55148.laundryCycleStatus", "version": 1 },
+        { "id": "vehiclepatch55148.deviceId", "version": 1 },
+        { "id": "vehiclepatch55148.timeFormat", "version": 1 },
+        { "id": "healthCheck", "version": 1 }
+      ],
+      "categories": [
+        { "name": "Washer", "categoryType": "manufacturer" }
+      ]
+    }
+  ],
+  "view": {
+    "dashboard": {
+      "states": [
+        { "capability": "vehiclepatch55148.washerStatus" }
+      ],
+      "actions": [
+        { "capability": "switch" }
+      ]
+    },
+    "detailView": [
+      { "capability": "switch" },
+      { "capability": "refresh" },
+      { "capability": "vehiclepatch55148.washerStatus" },
+      { "capability": "vehiclepatch55148.laundryFaultStatus" },
+      { "capability": "vehiclepatch55148.cycleTimer" },
+      { "capability": "vehiclepatch55148.remoteReady" },
+      { "capability": "vehiclepatch55148.laundryCycleStatus" },
+      { "capability": "vehiclepatch55148.deviceId" },
+      { "capability": "vehiclepatch55148.timeFormat" }
+    ],
+    "automation": {
+      "conditions": [
+        { "capability": "switch" },
+        { "capability": "vehiclepatch55148.washerStatus" },
+        { "capability": "vehiclepatch55148.laundryFaultStatus" },
+        { "capability": "vehiclepatch55148.cycleTimer" },
+        { "capability": "vehiclepatch55148.remoteReady" },
+        { "capability": "vehiclepatch55148.laundryCycleStatus" },
+        { "capability": "vehiclepatch55148.deviceId" },
+        { "capability": "vehiclepatch55148.timeFormat" }
+      ],
+      "actions": [
+        { "capability": "switch" },
+        { "capability": "refresh" },
+        { "capability": "vehiclepatch55148.timeFormat" }
+      ]
+    }
+  }
+}

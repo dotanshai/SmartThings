@@ -1,0 +1,27 @@
+{
+  "name": "LG ThinQ Laundry v22",
+  "metadata": {
+    "deviceType": "Washer",
+    "mnmn": "SmartThingsCommunity"
+  },
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch", "version": 1 },
+        { "id": "refresh", "version": 1 },
+        { "id": "vehiclepatch55148.washerStatus", "version": 1 },
+        { "id": "vehiclepatch55148.laundryFaultStatus", "version": 1 },
+        { "id": "vehiclepatch55148.cycleTimer", "version": 1 },
+        { "id": "vehiclepatch55148.remoteReady", "version": 1 },
+        { "id": "vehiclepatch55148.laundryCycleStatus", "version": 1 },
+        { "id": "vehiclepatch55148.deviceId", "version": 1 },
+        { "id": "vehiclepatch55148.timeFormat", "version": 1 },
+        { "id": "healthCheck", "version": 1 }
+      ],
+      "categories": [
+        { "name": "Washer", "categoryType": "manufacturer" }
+      ]
+    }
+  ]
+}

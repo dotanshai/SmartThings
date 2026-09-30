@@ -1,0 +1,20 @@
+{
+  "tag": "en",
+  "label": "Water Meter Alerts",
+  "attributes": {
+    "leakSms": { "label": "Leak SMS", "i18n": { "value": { "on": { "label": "On" }, "off": { "label": "Off" } } } },
+    "leakEmail": { "label": "Leak Email", "i18n": { "value": { "on": { "label": "On" }, "off": { "label": "Off" } } } },
+    "thresholdSms": { "label": "Alert SMS", "i18n": { "value": { "on": { "label": "On" }, "off": { "label": "Off" } } } },
+    "thresholdEmail": { "label": "Alert Email", "i18n": { "value": { "on": { "label": "On" }, "off": { "label": "Off" } } } },
+    "awaySms": { "label": "Away SMS", "i18n": { "value": { "on": { "label": "On" }, "off": { "label": "Off" } } } },
+    "awayEmail": { "label": "Away Email", "i18n": { "value": { "on": { "label": "On" }, "off": { "label": "Off" } } } }
+  },
+  "commands": {
+    "setLeakSms": { "label": "Set Leak SMS" },
+    "setLeakEmail": { "label": "Set Leak Email" },
+    "setThresholdSms": { "label": "Set Alert SMS" },
+    "setThresholdEmail": { "label": "Set Alert Email" },
+    "setAwaySms": { "label": "Set Away SMS" },
+    "setAwayEmail": { "label": "Set Away Email" }
+  }
+}

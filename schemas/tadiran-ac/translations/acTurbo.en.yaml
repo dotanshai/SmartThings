@@ -1,0 +1,11 @@
+tag: en
+label: Turbo
+attributes:
+  switch:
+    label: Status
+    i18n:
+      value:
+        on:
+          label: On
+        off:
+          label: Off

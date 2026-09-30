@@ -1,0 +1,79 @@
+{
+  "name": "Tadiran AC v8",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch", "version": 1 },
+        { "id": "refresh", "version": 1 },
+        { "id": "healthCheck", "version": 1 },
+        { "id": "temperatureMeasurement", "version": 1 },
+        { "id": "thermostatHeatingSetpoint", "version": 1 },
+        { "id": "vehiclepatch55148.acTemperature", "version": 1 },
+        { "id": "vehiclepatch55148.acMode", "version": 1 },
+        { "id": "vehiclepatch55148.acFanSpeed", "version": 1 },
+        { "id": "vehiclepatch55148.acSwingUpDown", "version": 1 },
+        { "id": "vehiclepatch55148.acSwingLeftRight", "version": 1 },
+        { "id": "vehiclepatch55148.acLight", "version": 1 },
+        { "id": "vehiclepatch55148.acTurbo", "version": 1 },
+        { "id": "vehiclepatch55148.acMute", "version": 1 },
+        { "id": "vehiclepatch55148.acDeviceId", "version": 1 },
+        { "id": "vehiclepatch55148.acStatus", "version": 1 },
+        { "id": "vehiclepatch55148.acStatus2", "version": 1 }
+      ],
+      "categories": [
+        { "name": "AirConditioner" }
+      ]
+    }
+  ],
+  "metadata": {
+    "vid": "tadiran-ac-v8-standby",
+    "mnmn": "SmartThingsCommunity"
+  },
+  "view": {
+    "dashboard": {
+      "states": [
+        { "capability": "vehiclepatch55148.acStatus", "version": 1 }
+      ],
+      "actions": [
+        {
+          "capability": "switch",
+          "version": 1,
+          "displayType": "standbyPowerSwitch",
+          "standbyPowerSwitch": {
+            "command": { "on": "on", "off": "off" },
+            "state": { "value": "switch.value", "on": "on", "off": "off" }
+          }
+        },
+        { "capability": "vehiclepatch55148.acSwingUpDown", "version": 1 },
+        { "capability": "vehiclepatch55148.acSwingLeftRight", "version": 1 },
+        { "capability": "vehiclepatch55148.acLight", "version": 1 },
+        { "capability": "vehiclepatch55148.acTurbo", "version": 1 },
+        { "capability": "vehiclepatch55148.acMute", "version": 1 }
+      ]
+    },
+    "detailView": [
+      { "capability": "switch", "version": 1 },
+      { "capability": "vehiclepatch55148.acTemperature", "version": 1 },
+      { "capability": "vehiclepatch55148.acMode", "version": 1 },
+      { "capability": "vehiclepatch55148.acFanSpeed", "version": 1 },
+      { "capability": "vehiclepatch55148.acSwingUpDown", "version": 1 },
+      { "capability": "vehiclepatch55148.acSwingLeftRight", "version": 1 },
+      { "capability": "vehiclepatch55148.acLight", "version": 1 },
+      { "capability": "vehiclepatch55148.acTurbo", "version": 1 },
+      { "capability": "vehiclepatch55148.acMute", "version": 1 },
+      { "capability": "vehiclepatch55148.acDeviceId", "version": 1 }
+    ],
+    "automation": {
+      "conditions": [
+        { "capability": "switch", "version": 1 },
+        { "capability": "vehiclepatch55148.acTemperature", "version": 1 },
+        { "capability": "healthCheck", "version": 1 }
+      ],
+      "actions": [
+        { "capability": "switch", "version": 1 },
+        { "capability": "vehiclepatch55148.acTemperature", "version": 1 }
+      ]
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "freezerTemperature",
+  "version": 1,
+  "status": "proposed",
+  "name": "Freezer Temperature",
+  "attributes": {
+    "temperatureC": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": -21,
+            "maximum": -13
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "C"
+            ],
+            "default": "C"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "setTemperatureC"
+    },
+    "temperatureF": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "minimum": -6,
+            "maximum": 8
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "F"
+            ],
+            "default": "F"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "value"
+        ]
+      },
+      "setter": "setTemperatureF"
+    }
+  },
+  "commands": {
+    "setTemperatureC": {
+      "arguments": [
+        {
+          "name": "temperature",
+          "schema": {
+            "type": "integer",
+            "minimum": -21,
+            "maximum": -13
+          },
+          "optional": false
+        }
+      ],
+      "name": "setTemperatureC"
+    },
+    "setTemperatureF": {
+      "arguments": [
+        {
+          "name": "temperature",
+          "schema": {
+            "type": "integer",
+            "minimum": -6,
+            "maximum": 8
+          },
+          "optional": false
+        }
+      ],
+      "name": "setTemperatureF"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"tag":"en","label":"Shabbat","attributes":{"switch":{"label":"Shabbat","displayTemplate":"{{attribute}} of {{device.label}} is {{value}}","i18n":{"value":{"on":{"label":"On"},"off":{"label":"Off"}}}}},"commands":{"setSwitch":{"label":"Shabbat","arguments":{}}}}

@@ -1,0 +1,40 @@
+{
+  "id": "vehiclepatch55148.acTurbo",
+  "version": 1,
+  "status": "proposed",
+  "name": "AC Turbo",
+  "attributes": {
+    "switch": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["on", "off"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setSwitch",
+      "enumCommands": [
+        { "command": "setSwitch", "value": "on" },
+        { "command": "setSwitch", "value": "off" }
+      ]
+    }
+  },
+  "commands": {
+    "setSwitch": {
+      "name": "setSwitch",
+      "arguments": [
+        {
+          "name": "value",
+          "schema": {
+            "type": "string",
+            "enum": ["on", "off"]
+          }
+        }
+      ]
+    }
+  }
+}

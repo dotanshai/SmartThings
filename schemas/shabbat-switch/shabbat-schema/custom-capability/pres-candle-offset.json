@@ -1,0 +1,16 @@
+{
+  "detailView": [
+    {
+      "label": "דקות לפני הדלקת נרות / Minutes before candles",
+      "displayType": "slider",
+      "slider": {
+        "value": "candleOffset.value",
+        "valueType": "number",
+        "command": "setCandleOffset",
+        "range": [0, 120]
+      }
+    }
+  ],
+  "id": "vehiclepatch55148.shabbatCandleOffset",
+  "version": 1
+}

@@ -1,0 +1,13 @@
+{
+  "tag": "he",
+  "label": "מד מים",
+  "attributes": {
+    "lastRead": { "label": "קריאה אחרונה" },
+    "dailyConsumption": { "label": "היום" },
+    "yesterdayConsumption": { "label": "אתמול" },
+    "monthlyConsumption": { "label": "חודשי" },
+    "monthlyForecast": { "label": "תחזית" },
+    "highRateConsumption": { "label": "תעריף גבוה" },
+    "lowRateConsumption": { "label": "תעריף נמוך" }
+  }
+}

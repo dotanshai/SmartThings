@@ -1,0 +1,93 @@
+id: smarthome4u-2gang-switch-multi-v2
+name: smarthome4u-2gang-switch-multi-v2
+
+components:
+  - id: main
+    label: Switch All
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main01
+    label: Switch 1
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+  - id: main02
+    label: Switch 2
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+
+
+  - id: channeltype1
+    label: "Channel Type (Gangs 1+2)"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: multiTileMode
+    title: Multi-Tile Dashboard
+    description: "OFF = single tile with dashboard button\nON = separate tile per channel"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "off": "Off (single tile)"
+        "on":  "On (all detected channels)"
+      default: "off"
+
+
+  - name: createChildDevices
+    title: Create Child Devices
+    description: Create child switch devices
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "yes": "Yes"
+        "no": "No"
+      default: "no"
+
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 4078a6ad-d881-3772-ad5d-cf2a7b2fc00a

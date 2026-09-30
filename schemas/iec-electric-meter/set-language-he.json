@@ -1,0 +1,8 @@
+[
+  {
+    "component": "main",
+    "capability": "vehiclepatch55148.iecLanguage",
+    "command": "setLanguage",
+    "arguments": ["he"]
+  }
+]

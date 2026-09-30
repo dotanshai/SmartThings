@@ -1,0 +1,12 @@
+{
+  "name": "fridgeTempFPref",
+  "title": "Fridge Temperature (F)",
+  "description": "Set the fridge temperature in Fahrenheit. Supports one decimal point.",
+  "required": false,
+  "preferenceType": "number",
+  "definition": {
+    "minimum": 33,
+    "maximum": 46,
+    "default": 37
+  }
+}

@@ -1,0 +1,51 @@
+﻿{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{fanSpeed.value}}",
+        "alternatives": [
+          { "key": "LOW", "value": "{{i18n.attributes.fanSpeed.i18n.value.LOW.label}}", "type": "active" },
+          { "key": "MEDIUM_LOW", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM_LOW.label}}", "type": "active" },
+          { "key": "MEDIUM", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM.label}}", "type": "active" },
+          { "key": "MEDIUM_HIGH", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM_HIGH.label}}", "type": "active" },
+          { "key": "HIGH", "value": "{{i18n.attributes.fanSpeed.i18n.value.HIGH.label}}", "type": "active" },
+          { "key": "AUTO", "value": "{{i18n.attributes.fanSpeed.i18n.value.AUTO.label}}", "type": "active" }
+        ],
+        "group": "main"
+      }
+    ],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "Fan Speed",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setFanSpeed",
+          "alternatives": [
+            { "key": "LOW", "value": "{{i18n.attributes.fanSpeed.i18n.value.LOW.label}}", "type": "active" },
+            { "key": "MEDIUM_LOW", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM_LOW.label}}", "type": "active" },
+            { "key": "MEDIUM", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM.label}}", "type": "active" },
+            { "key": "MEDIUM_HIGH", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM_HIGH.label}}", "type": "active" },
+            { "key": "HIGH", "value": "{{i18n.attributes.fanSpeed.i18n.value.HIGH.label}}", "type": "active" },
+            { "key": "AUTO", "value": "{{i18n.attributes.fanSpeed.i18n.value.AUTO.label}}", "type": "active" }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "fanSpeed.value",
+          "valueType": "string",
+          "alternatives": [
+            { "key": "LOW", "value": "{{i18n.attributes.fanSpeed.i18n.value.LOW.label}}", "type": "active" },
+            { "key": "MEDIUM_LOW", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM_LOW.label}}", "type": "active" },
+            { "key": "MEDIUM", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM.label}}", "type": "active" },
+            { "key": "MEDIUM_HIGH", "value": "{{i18n.attributes.fanSpeed.i18n.value.MEDIUM_HIGH.label}}", "type": "active" },
+            { "key": "HIGH", "value": "{{i18n.attributes.fanSpeed.i18n.value.HIGH.label}}", "type": "active" },
+            { "key": "AUTO", "value": "{{i18n.attributes.fanSpeed.i18n.value.AUTO.label}}", "type": "active" }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "detailView": [
+    {
+      "label": "Energy Rate",
+      "displayType": "numberField",
+      "numberField": {
+        "value": "rate.value",
+        "valueType": "number",
+        "unit": "rate.unit",
+        "command": "setRate",
+        "argumentType": "number",
+        "range": [0, 5]
+      }
+    }
+  ]
+}

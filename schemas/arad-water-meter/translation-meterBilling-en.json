@@ -1,0 +1,10 @@
+{
+  "tag": "en",
+  "label": "Water Meter Cost",
+  "attributes": {
+    "lowRateTotalCost": { "label": "Low Rate" },
+    "highRateTotalCost": { "label": "High Rate" },
+    "sewageTotalCost": { "label": "Sewage" },
+    "monthlyTotalCost": { "label": "Monthly" }
+  }
+}

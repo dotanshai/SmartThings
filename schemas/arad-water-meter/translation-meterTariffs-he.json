@@ -1,0 +1,16 @@
+{
+  "tag": "he",
+  "label": "תעריפי מד מים",
+  "attributes": {
+    "lowRateConsumptionThreshold": { "label": "סף צריכה" },
+    "lowRateCost": { "label": "תעריף נמוך" },
+    "highRateCost": { "label": "תעריף גבוה" },
+    "sewageCost": { "label": "ביוב" }
+  },
+  "commands": {
+    "setLowRateConsumptionThreshold": { "label": "הגדר סף" },
+    "setLowRateCost": { "label": "הגדר תעריף נמוך" },
+    "setHighRateCost": { "label": "הגדר תעריף גבוה" },
+    "setSewageCost": { "label": "הגדר עלות ביוב" }
+  }
+}

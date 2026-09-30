@@ -1,0 +1,12 @@
+id: child-switch
+name: child-switch
+components:
+  - id: main
+    capabilities:
+      - id: switch
+      - id: refresh
+    categories:
+      - name: Switch
+metadata:
+  vid: 21735548-a50a-3fb2-9afa-683e4201efb3
+  mnmn: "SmartThingsCommunity"

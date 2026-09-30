@@ -1,0 +1,4 @@
+name: zigbee_siren_sd_metrics_v2
+packageKey: zigbee_siren_sd_metrics_v2
+permissions:
+  zigbee: {}

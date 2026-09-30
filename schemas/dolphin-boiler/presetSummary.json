@@ -1,0 +1,22 @@
+{
+  "id": "vehiclepatch55148.presetSummary",
+  "version": 1,
+  "status": "proposed",
+  "name": "Shower Preset Temperatures",
+  "ephemeral": false,
+  "attributes": {
+    "preset1": {
+      "schema": { "type": "object", "properties": { "value": { "type": "number" } }, "additionalProperties": false, "required": ["value"] }
+    },
+    "preset2": {
+      "schema": { "type": "object", "properties": { "value": { "type": "number" } }, "additionalProperties": false, "required": ["value"] }
+    },
+    "preset3": {
+      "schema": { "type": "object", "properties": { "value": { "type": "number" } }, "additionalProperties": false, "required": ["value"] }
+    },
+    "preset4": {
+      "schema": { "type": "object", "properties": { "value": { "type": "number" } }, "additionalProperties": false, "required": ["value"] }
+    }
+  },
+  "commands": {}
+}

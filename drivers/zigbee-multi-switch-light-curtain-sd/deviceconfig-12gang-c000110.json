@@ -1,0 +1,250 @@
+{
+  "type": "profile",
+  "dashboard": {
+    "states": [
+      {
+        "component": "main",
+        "capability": "switch",
+        "version": 1,
+        "group": "main",
+        "composite": false
+      }
+    ],
+    "actions": [
+      {
+        "component": "main",
+        "capability": "switch",
+        "version": 1,
+        "group": "main"
+      }
+    ]
+  },
+  "detailView": [
+    {
+      "component": "switch1",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "switch2",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "switch3",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "switch6",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "switch7",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "switch8",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "switch9",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "switch12",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "curtain4",
+      "capability": "windowShade",
+      "version": 1
+    },
+    {
+      "component": "curtain5",
+      "capability": "windowShade",
+      "version": 1
+    },
+    {
+      "component": "scene1",
+      "capability": "button",
+      "version": 1
+    },
+    {
+      "component": "scene2",
+      "capability": "button",
+      "version": 1
+    },
+    {
+      "component": "backlight",
+      "capability": "perfectworld33337.backlightMode",
+      "version": 1
+    },
+    {
+      "component": "childlock",
+      "capability": "vehiclepatch55148.childlock",
+      "version": 1
+    },
+    {
+      "component": "main",
+      "capability": "switch",
+      "version": 1
+    },
+    {
+      "component": "signal",
+      "capability": "perfectworld33337.signalMetrics",
+      "version": 1
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "component": "main",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch1",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch2",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch3",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch6",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch7",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch8",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch9",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch12",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "curtain4",
+        "capability": "windowShade",
+        "version": 1
+      },
+      {
+        "component": "curtain5",
+        "capability": "windowShade",
+        "version": 1
+      },
+      {
+        "component": "scene1",
+        "capability": "button",
+        "version": 1
+      },
+      {
+        "component": "scene2",
+        "capability": "button",
+        "version": 1
+      },
+      {
+        "component": "backlight",
+        "capability": "perfectworld33337.backlightMode",
+        "version": 1
+      },
+      {
+        "component": "childlock",
+        "capability": "vehiclepatch55148.childlock",
+        "version": 1
+      }
+    ],
+    "actions": [
+      {
+        "component": "main",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch1",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch2",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch3",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch6",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch7",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch8",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch9",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "switch12",
+        "capability": "switch",
+        "version": 1
+      },
+      {
+        "component": "curtain4",
+        "capability": "windowShade",
+        "version": 1
+      },
+      {
+        "component": "curtain5",
+        "capability": "windowShade",
+        "version": 1
+      },
+      {
+        "component": "backlight",
+        "capability": "perfectworld33337.backlightMode",
+        "version": 1
+      },
+      {
+        "component": "childlock",
+        "capability": "vehiclepatch55148.childlock",
+        "version": 1
+      }
+    ]
+  }
+}

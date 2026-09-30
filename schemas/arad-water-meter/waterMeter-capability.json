@@ -1,0 +1,93 @@
+{
+  "id": "vehiclepatch55148.meterMeasurements",
+  "version": 1,
+  "status": "proposed",
+  "name": "Meter Measurements",
+  "attributes": {
+    "lastRead": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["m^3"], "default": "m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "dailyConsumption": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["m^3"], "default": "m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "monthlyConsumption": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["m^3"], "default": "m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "monthlyForecast": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["m^3"], "default": "m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "yesterdayConsumption": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["m^3"], "default": "m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "highRateConsumption": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["m^3"], "default": "m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "lowRateConsumption": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["m^3"], "default": "m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    }
+  },
+  "commands": {}
+}

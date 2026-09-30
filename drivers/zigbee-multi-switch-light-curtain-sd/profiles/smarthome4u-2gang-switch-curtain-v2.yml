@@ -1,0 +1,67 @@
+id: smarthome4u-2gang-switch-curtain-v2
+name: smarthome4u-2gang-switch-curtain-v2
+
+components:
+  - id: main
+    label: Curtain
+    capabilities:
+      - id: windowShade
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Blind
+
+  - id: curtain1
+    label: Curtain (buttons 1+2)
+    capabilities:
+      - id: windowShade
+    categories:
+      - name: Blind
+
+  - id: channeltype1
+    label: "Channel Type - Buttons 1+2"
+    capabilities:
+      - id: vehiclepatch55148.channelType
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: backlight
+    label: Backlight Mode
+    capabilities:
+      - id: perfectworld33337.backlightMode
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
+  - id: signal
+    label: Signal Quality
+    capabilities:
+      - id: perfectworld33337.signalMetrics
+        version: 1
+    categories:
+      - name: Switch
+
+preferences:
+  - name: curtainDuration1
+    title: "Curtain Duration (sec)"
+    description: "Curtain motor run time (10-600s, default 90)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 600
+      default: 90
+
+metadata:
+  mnmn: SmartThingsCommunity
+  vid: 4c909ef9-30b4-3f5d-9768-d87ee6efaec6

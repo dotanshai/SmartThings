@@ -1,0 +1,30 @@
+{
+  "dashboard": {
+    "states": [
+      { "label": "{{lastRead.value}}{{lastRead.unit}}" }
+    ],
+    "actions": [],
+    "basicPlus": []
+  },
+  "detailView": [
+    { "label": "{{i18n.attributes.lastRead.label}}", "displayType": "state", "state": { "label": "{{lastRead.value}}{{lastRead.unit}}" } },
+    { "label": "{{i18n.attributes.dailyConsumption.label}}", "displayType": "state", "state": { "label": "{{dailyConsumption.value}}{{dailyConsumption.unit}}" } },
+    { "label": "{{i18n.attributes.yesterdayConsumption.label}}", "displayType": "state", "state": { "label": "{{yesterdayConsumption.value}}{{yesterdayConsumption.unit}}" } },
+    { "label": "{{i18n.attributes.monthlyConsumption.label}}", "displayType": "state", "state": { "label": "{{monthlyConsumption.value}}{{monthlyConsumption.unit}}" } },
+    { "label": "{{i18n.attributes.monthlyForecast.label}}", "displayType": "state", "state": { "label": "{{monthlyForecast.value}}{{monthlyForecast.unit}}" } },
+    { "label": "{{i18n.attributes.highRateConsumption.label}}", "displayType": "state", "state": { "label": "{{highRateConsumption.value}}{{highRateConsumption.unit}}" } },
+    { "label": "{{i18n.attributes.lowRateConsumption.label}}", "displayType": "state", "state": { "label": "{{lowRateConsumption.value}}{{lowRateConsumption.unit}}" } }
+  ],
+  "automation": {
+    "conditions": [
+      { "label": "{{i18n.attributes.lastRead.label}}", "displayType": "numberField", "numberField": { "value": "lastRead.value", "unit": "lastRead.unit", "range": [0, 100000] } },
+      { "label": "{{i18n.attributes.dailyConsumption.label}}", "displayType": "numberField", "numberField": { "value": "dailyConsumption.value", "unit": "dailyConsumption.unit", "range": [0, 1000] } },
+      { "label": "{{i18n.attributes.yesterdayConsumption.label}}", "displayType": "numberField", "numberField": { "value": "yesterdayConsumption.value", "unit": "yesterdayConsumption.unit", "range": [0, 1000] } },
+      { "label": "{{i18n.attributes.monthlyConsumption.label}}", "displayType": "numberField", "numberField": { "value": "monthlyConsumption.value", "unit": "monthlyConsumption.unit", "range": [0, 5000] } },
+      { "label": "{{i18n.attributes.monthlyForecast.label}}", "displayType": "numberField", "numberField": { "value": "monthlyForecast.value", "unit": "monthlyForecast.unit", "range": [0, 5000] } },
+      { "label": "{{i18n.attributes.highRateConsumption.label}}", "displayType": "numberField", "numberField": { "value": "highRateConsumption.value", "unit": "highRateConsumption.unit", "range": [0, 5000] } },
+      { "label": "{{i18n.attributes.lowRateConsumption.label}}", "displayType": "numberField", "numberField": { "value": "lowRateConsumption.value", "unit": "lowRateConsumption.unit", "range": [0, 5000] } }
+    ],
+    "actions": []
+  }
+}

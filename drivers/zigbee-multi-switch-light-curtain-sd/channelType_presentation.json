@@ -1,0 +1,47 @@
+{
+  "dashboard": {
+    "states": [],
+    "actions": [],
+    "panelItems": []
+  },
+  "detailView": [
+    {
+      "label": "Channel Type",
+      "displayType": "list",
+      "list": {
+        "command": {
+          "name": "setChannelType",
+          "alternatives": [
+            { "key": "light",   "value": "💡 Light",   "type": "active" },
+            { "key": "curtain", "value": "🪟 Curtain", "type": "active" }
+          ],
+          "argumentType": "string"
+        },
+        "state": {
+          "value": "channelType.value",
+          "alternatives": [
+            { "key": "light",   "value": "💡 Light",   "type": "active" },
+            { "key": "curtain", "value": "🪟 Curtain", "type": "active" }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Channel type is",
+        "displayType": "list",
+        "list": {
+          "attribute": "channelType",
+          "value": "channelType.value",
+          "alternatives": [
+            { "key": "light",   "value": "💡 Light",   "type": "active" },
+            { "key": "curtain", "value": "🪟 Curtain", "type": "active" }
+          ]
+        }
+      }
+    ],
+    "actions": []
+  }
+}

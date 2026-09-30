@@ -1,0 +1,57 @@
+{
+  "id": "vehiclepatch55148.meterExpenses",
+  "version": 1,
+  "status": "proposed",
+  "name": "Meter Expenses",
+  "attributes": {
+    "lowRateTotalCost": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["ILS"], "default": "ILS" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "highRateTotalCost": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["ILS"], "default": "ILS" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "sewageTotalCost": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["ILS"], "default": "ILS" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    },
+    "monthlyTotalCost": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "unit": { "type": "string", "enum": ["ILS"], "default": "ILS" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    }
+  },
+  "commands": {}
+}

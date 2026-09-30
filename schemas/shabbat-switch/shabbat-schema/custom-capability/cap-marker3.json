@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "status": "proposed",
+  "name": "Shabbat Info Marker 3",
+  "attributes": {
+    "marker": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string", "maxLength": 20 } },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    }
+  },
+  "commands": {}
+}

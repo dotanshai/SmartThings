@@ -1,0 +1,53 @@
+{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{tempSet.value}}°C"
+      }
+    ],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "Temperature",
+      "displayType": "numberField",
+      "numberField": {
+        "value": "tempSet.value",
+        "command": "setTempSet",
+        "range": [16, 30],
+        "step": 1
+      }
+    },
+    {
+      "label": "Current Temperature",
+      "displayType": "state",
+      "state": {
+        "label": "{{tempCurrent.value}}°C"
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Temperature",
+        "displayType": "numberField",
+        "numberField": {
+          "value": "tempSet.value",
+          "range": [16, 30],
+          "step": 1
+        }
+      }
+    ],
+    "actions": [
+      {
+        "label": "Temperature",
+        "displayType": "numberField",
+        "numberField": {
+          "command": "setTempSet",
+          "range": [16, 30],
+          "step": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "alarmDuration",
+  "title": "Alarm Duration",
+  "description": "Siren duration in seconds",
+  "required": true,
+  "preferenceType": "integer",
+  "definition": { "minimum": 0, "maximum": 1800, "default": 300 }
+}

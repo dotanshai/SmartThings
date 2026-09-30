@@ -1,0 +1,27 @@
+name: Arad Water Meter v8
+components:
+  - id: main
+    capabilities:
+      - id: vehiclepatch55148.meterReading
+      - id: vehiclepatch55148.meterCost
+      - id: vehiclepatch55148.meterPricing
+      - id: vehiclepatch55148.meterAlertSettings
+    categories:
+      - name: FlowSensor
+view:
+  dashboard:
+    states:
+      - capability: vehiclepatch55148.meterReading
+    actions: []
+  detailView:
+    - capability: vehiclepatch55148.meterReading
+    - capability: vehiclepatch55148.meterCost
+    - capability: vehiclepatch55148.meterPricing
+    - capability: vehiclepatch55148.meterAlertSettings
+  automation:
+    conditions:
+      - capability: vehiclepatch55148.meterReading
+      - capability: vehiclepatch55148.meterCost
+    actions:
+      - capability: vehiclepatch55148.meterPricing
+      - capability: vehiclepatch55148.meterAlertSettings

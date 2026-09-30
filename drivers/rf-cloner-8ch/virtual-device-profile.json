@@ -1,0 +1,22 @@
+﻿{
+  "name": "rf-cloner-8ch-virtual",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch", "version": 1 },
+        { "id": "illuminanceMeasurement", "version": 1 },
+        { "id": "vehiclepatch55148.packetMode", "version": 1 }
+      ],
+      "categories": [{ "name": "Switch" }]
+    },
+    { "id": "button1", "label": "Button 1", "capabilities": [{ "id": "vehiclepatch55148.rfSlot", "version": 1 }], "categories": [{ "name": "Switch" }] },
+    { "id": "button2", "label": "Button 2", "capabilities": [{ "id": "vehiclepatch55148.rfSlot", "version": 1 }], "categories": [{ "name": "Switch" }] },
+    { "id": "button3", "label": "Button 3", "capabilities": [{ "id": "vehiclepatch55148.rfSlot", "version": 1 }], "categories": [{ "name": "Switch" }] },
+    { "id": "button4", "label": "Button 4", "capabilities": [{ "id": "vehiclepatch55148.rfSlot", "version": 1 }], "categories": [{ "name": "Switch" }] },
+    { "id": "button5", "label": "Button 5", "capabilities": [{ "id": "vehiclepatch55148.rfSlot", "version": 1 }], "categories": [{ "name": "Switch" }] },
+    { "id": "button6", "label": "Button 6", "capabilities": [{ "id": "vehiclepatch55148.rfSlot", "version": 1 }], "categories": [{ "name": "Switch" }] },
+    { "id": "button7", "label": "Button 7", "capabilities": [{ "id": "vehiclepatch55148.rfSlot", "version": 1 }], "categories": [{ "name": "Switch" }] },
+    { "id": "button8", "label": "Button 8", "capabilities": [{ "id": "vehiclepatch55148.rfSlot", "version": 1 }], "categories": [{ "name": "Switch" }] }
+  ]
+}

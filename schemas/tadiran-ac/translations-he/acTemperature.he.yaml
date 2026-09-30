@@ -1,0 +1,7 @@
+tag: he
+label: טמפרטורת מזגן
+attributes:
+  tempSet:
+    label: טמפרטורה רצויה
+  tempCurrent:
+    label: טמפרטורה נוכחית

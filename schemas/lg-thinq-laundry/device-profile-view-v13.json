@@ -1,0 +1,87 @@
+{
+  "name": "LG ThinQ Laundry v20",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch" },
+        { "id": "refresh" },
+        { "id": "vehiclepatch55148.washerStatus" },
+        { "id": "vehiclepatch55148.laundryFault" },
+        { "id": "vehiclepatch55148.cycleTimer" },
+        { "id": "vehiclepatch55148.remoteReady" },
+        { "id": "vehiclepatch55148.laundryCycle" },
+        { "id": "vehiclepatch55148.deviceId" },
+        { "id": "vehiclepatch55148.timeFormat" },
+        { "id": "healthCheck" }
+      ],
+      "categories": [
+        { "name": "Washer" }
+      ]
+    }
+  ],
+  "metadata": {
+    "deviceType": "Washer"
+  },
+  "view": {
+    "dashboard": {
+      "states": [
+        { "capability": "switch", "composite": true },
+        {
+          "capability": "vehiclepatch55148.washerStatus",
+          "composite": true,
+          "values": [
+            { "label": " {{machineStateDisplay.value}}" }
+          ]
+        }
+      ],
+      "actions": [
+        { "capability": "switch" }
+      ]
+    },
+    "detailView": [
+      { "capability": "switch" },
+      {
+        "capability": "refresh",
+        "displayType": "pushButton",
+        "pushButton": { "command": "refresh" }
+      },
+      { "capability": "vehiclepatch55148.washerStatus" },
+      { "capability": "vehiclepatch55148.laundryFault" },
+      {
+        "capability": "vehiclepatch55148.cycleTimer",
+        "visibleCondition": {
+          "capability": "vehiclepatch55148.cycleTimer",
+          "version": 1,
+          "component": "main",
+          "value": "timersVisible.value",
+          "operator": "EQUALS",
+          "operand": "show",
+          "hideOnUnmatch": true
+        }
+      },
+      { "capability": "vehiclepatch55148.remoteReady" },
+      { "capability": "vehiclepatch55148.laundryCycle" },
+      { "capability": "vehiclepatch55148.deviceId" },
+      { "capability": "vehiclepatch55148.timeFormat" },
+      { "capability": "healthCheck" }
+    ],
+    "automation": {
+      "conditions": [
+        { "capability": "switch" },
+        { "capability": "vehiclepatch55148.washerStatus" },
+        { "capability": "vehiclepatch55148.laundryFault" },
+        { "capability": "vehiclepatch55148.cycleTimer" },
+        { "capability": "vehiclepatch55148.remoteReady" },
+        { "capability": "vehiclepatch55148.laundryCycle" },
+        { "capability": "vehiclepatch55148.timeFormat" },
+        { "capability": "healthCheck" }
+      ],
+      "actions": [
+        { "capability": "switch" },
+        { "capability": "vehiclepatch55148.timeFormat" },
+        { "capability": "healthCheck" }
+      ]
+    }
+  }
+}

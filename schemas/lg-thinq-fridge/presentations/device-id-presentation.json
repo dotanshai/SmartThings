@@ -1,0 +1,11 @@
+{
+  "detailView": [
+    {
+      "label": "Device ID",
+      "displayType": "state",
+      "state": {
+        "label": "{{shortId.value}}"
+      }
+    }
+  ]
+}

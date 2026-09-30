@@ -1,0 +1,11 @@
+name: googletv-creator.v1
+components:
+  - id: main
+    capabilities:
+      - id: momentary
+        version: 1
+    categories:
+      - name: Other
+metadata:
+  deviceType: Other
+  ocfDeviceType: oic.d.pushbutton

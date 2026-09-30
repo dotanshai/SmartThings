@@ -1,0 +1,49 @@
+{
+  "id": "vehiclepatch55148.mufflingWaterLeak",
+  "version": 1,
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{mufflingWaterLeak.value}}",
+        "alternatives": [
+          { "key": "off", "value": "Off", "type": "inactive" },
+          { "key": "on", "value": "On", "type": "active" }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "displayType": "toggleSwitch",
+        "toggleSwitch": {
+          "command": { "name": "setMufflingWaterLeak", "on": "on", "off": "off", "argumentType": "string" },
+          "state": { "value": "mufflingWaterLeak.value", "on": "on", "off": "off", "valueType": "string" }
+        }
+      }
+    ]
+  },
+  "detailView": [
+    {
+      "label": "Muffling",
+      "displayType": "toggleSwitch",
+      "toggleSwitch": {
+        "command": { "name": "setMufflingWaterLeak", "on": "on", "off": "off", "argumentType": "string" },
+        "state": { "value": "mufflingWaterLeak.value", "on": "on", "off": "off", "valueType": "string" }
+      }
+    }
+  ],
+  "automation": {
+    "actions": [
+      {
+        "label": "Muffling",
+        "displayType": "list",
+        "list": {
+          "command": "setMufflingWaterLeak",
+          "alternatives": [
+            { "key": "off", "value": "Off" },
+            { "key": "on", "value": "On" }
+          ]
+        }
+      }
+    ]
+  }
+}

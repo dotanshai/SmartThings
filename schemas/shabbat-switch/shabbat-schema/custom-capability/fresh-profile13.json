@@ -1,0 +1,22 @@
+{
+  "name": "Shabbat Switch v14",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch", "version": 1 },
+        { "id": "healthCheck", "version": 1 },
+        { "id": "vehiclepatch55148.shabbatInfoMarker3", "version": 1 },
+        { "id": "vehiclepatch55148.shabbatLocation", "version": 1 },
+        { "id": "vehiclepatch55148.shabbatCandleLighting", "version": 1 },
+        { "id": "vehiclepatch55148.shabbatHavdalah", "version": 1 },
+        { "id": "vehiclepatch55148.shabbatCandleOffset", "version": 1 },
+        { "id": "vehiclepatch55148.shabbatHavdalahOffset", "version": 1 },
+        { "id": "vehiclepatch55148.language", "version": 1 }
+      ],
+      "categories": [
+        { "name": "Switch" }
+      ]
+    }
+  ]
+}

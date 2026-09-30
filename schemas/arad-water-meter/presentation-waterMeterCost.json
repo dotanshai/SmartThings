@@ -1,0 +1,18 @@
+{
+  "dashboard": { "states": [], "actions": [], "basicPlus": [] },
+  "detailView": [
+    { "label": "{{i18n.attributes.lowRateTotalCost.label}}", "displayType": "state", "state": { "label": "{{lowRateTotalCost.value}} {{lowRateTotalCost.unit}}" } },
+    { "label": "{{i18n.attributes.highRateTotalCost.label}}", "displayType": "state", "state": { "label": "{{highRateTotalCost.value}} {{highRateTotalCost.unit}}" } },
+    { "label": "{{i18n.attributes.sewageTotalCost.label}}", "displayType": "state", "state": { "label": "{{sewageTotalCost.value}} {{sewageTotalCost.unit}}" } },
+    { "label": "{{i18n.attributes.monthlyTotalCost.label}}", "displayType": "state", "state": { "label": "{{monthlyTotalCost.value}} {{monthlyTotalCost.unit}}" } }
+  ],
+  "automation": {
+    "conditions": [
+      { "label": "{{i18n.attributes.lowRateTotalCost.label}}", "displayType": "numberField", "numberField": { "value": "lowRateTotalCost.value", "unit": "lowRateTotalCost.unit", "range": [0, 10000] } },
+      { "label": "{{i18n.attributes.highRateTotalCost.label}}", "displayType": "numberField", "numberField": { "value": "highRateTotalCost.value", "unit": "highRateTotalCost.unit", "range": [0, 10000] } },
+      { "label": "{{i18n.attributes.sewageTotalCost.label}}", "displayType": "numberField", "numberField": { "value": "sewageTotalCost.value", "unit": "sewageTotalCost.unit", "range": [0, 10000] } },
+      { "label": "{{i18n.attributes.monthlyTotalCost.label}}", "displayType": "numberField", "numberField": { "value": "monthlyTotalCost.value", "unit": "monthlyTotalCost.unit", "range": [0, 10000] } }
+    ],
+    "actions": []
+  }
+}

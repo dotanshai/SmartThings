@@ -1,0 +1,40 @@
+{
+  "id": "vehiclepatch55148.acSwingLR",
+  "version": 1,
+  "status": "proposed",
+  "name": "AC Swing Left Right",
+  "attributes": {
+    "switch": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["on", "off"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setSwitch",
+      "enumCommands": [
+        { "command": "setSwitch", "value": "on" },
+        { "command": "setSwitch", "value": "off" }
+      ]
+    }
+  },
+  "commands": {
+    "setSwitch": {
+      "name": "setSwitch",
+      "arguments": [
+        {
+          "name": "value",
+          "schema": {
+            "type": "string",
+            "enum": ["on", "off"]
+          }
+        }
+      ]
+    }
+  }
+}

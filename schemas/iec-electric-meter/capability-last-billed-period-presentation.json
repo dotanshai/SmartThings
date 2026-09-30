@@ -1,0 +1,11 @@
+{
+  "detailView": [
+    {
+      "label": "Last Billed Period",
+      "displayType": "state",
+      "state": {
+        "label": "{{period.value}}"
+      }
+    }
+  ]
+}

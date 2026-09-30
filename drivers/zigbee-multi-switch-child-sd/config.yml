@@ -1,0 +1,4 @@
+name: Zigbee Multi Switch Child SD
+packageKey: zigbee_multi_switch_child_sd
+permissions:
+  zigbee: {}

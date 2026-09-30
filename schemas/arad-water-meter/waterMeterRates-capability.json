@@ -1,0 +1,86 @@
+{
+  "id": "vehiclepatch55148.meterRateSettings",
+  "version": 1,
+  "status": "proposed",
+  "name": "Meter Rate Settings",
+  "attributes": {
+    "lowRateConsumptionThreshold": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number", "minimum": 0, "maximum": 100 },
+          "unit": { "type": "string", "enum": ["m^3"], "default": "m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setLowRateConsumptionThreshold",
+      "enumCommands": []
+    },
+    "lowRateCost": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number", "minimum": 0, "maximum": 30 },
+          "unit": { "type": "string", "enum": ["ILS/m^3"], "default": "ILS/m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setLowRateCost",
+      "enumCommands": []
+    },
+    "highRateCost": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number", "minimum": 0, "maximum": 30 },
+          "unit": { "type": "string", "enum": ["ILS/m^3"], "default": "ILS/m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setHighRateCost",
+      "enumCommands": []
+    },
+    "sewageCost": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number", "minimum": 0, "maximum": 30 },
+          "unit": { "type": "string", "enum": ["ILS/m^3"], "default": "ILS/m^3" }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "setter": "setSewageCost",
+      "enumCommands": []
+    }
+  },
+  "commands": {
+    "setLowRateConsumptionThreshold": {
+      "name": "setLowRateConsumptionThreshold",
+      "arguments": [
+        { "name": "value", "schema": { "type": "number", "minimum": 0, "maximum": 100 } }
+      ]
+    },
+    "setLowRateCost": {
+      "name": "setLowRateCost",
+      "arguments": [
+        { "name": "value", "schema": { "type": "number", "minimum": 0, "maximum": 30 } }
+      ]
+    },
+    "setHighRateCost": {
+      "name": "setHighRateCost",
+      "arguments": [
+        { "name": "value", "schema": { "type": "number", "minimum": 0, "maximum": 30 } }
+      ]
+    },
+    "setSewageCost": {
+      "name": "setSewageCost",
+      "arguments": [
+        { "name": "value", "schema": { "type": "number", "minimum": 0, "maximum": 30 } }
+      ]
+    }
+  }
+}

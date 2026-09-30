@@ -1,0 +1,21 @@
+{
+  "name": "LG ThinQ Laundry v6",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch", "version": 1 },
+        { "id": "vehiclepatch55148.machineStatusV2", "version": 1 },
+        { "id": "vehiclepatch55148.laundryError", "version": 1 },
+        { "id": "vehiclepatch55148.laundryStatsV3", "version": 1 },
+        { "id": "healthCheck", "version": 1 }
+      ],
+      "categories": [
+        { "name": "Washer" }
+      ]
+    }
+  ],
+  "metadata": {
+    "deviceType": "Washer"
+  }
+}

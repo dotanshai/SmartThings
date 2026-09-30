@@ -1,0 +1,54 @@
+﻿{
+    "id": "vehiclepatch55148.acMode",
+    "version": 1,
+    "status": "proposed",
+    "name": "AC Mode",
+    "ephemeral": false,
+    "attributes": {
+        "mode": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string",
+                        "enum": [
+                            "COOL",
+                            "HEAT",
+                            "FAN",
+                            "DRY",
+                            "AUTO"
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "value"
+                ]
+            },
+            "setter": "setMode",
+            "enumCommands": []
+        }
+    },
+    "commands": {
+        "setMode": {
+            "name": "setMode",
+            "arguments": [
+                {
+                    "name": "mode",
+                    "optional": false,
+                    "schema": {
+                        "type": "string",
+                        "enum": [
+                            "COOL",
+                            "HEAT",
+                            "FAN",
+                            "DRY",
+                            "AUTO"
+                        ]
+                    }
+                }
+            ],
+            "sensitive": false
+        }
+    }
+}

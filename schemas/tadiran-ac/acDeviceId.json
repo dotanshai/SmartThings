@@ -1,0 +1,21 @@
+{
+  "id": "vehiclepatch55148.acDeviceId",
+  "version": 1,
+  "status": "proposed",
+  "name": "AC Device ID",
+  "attributes": {
+    "shortId": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

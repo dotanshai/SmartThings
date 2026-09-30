@@ -1,0 +1,20 @@
+{
+  "tag": "he",
+  "label": "התראות מד מים",
+  "attributes": {
+    "leakSms": { "label": "נזילה SMS", "i18n": { "value": { "on": { "label": "פעיל" }, "off": { "label": "כבוי" } } } },
+    "leakEmail": { "label": "נזילה אימייל", "i18n": { "value": { "on": { "label": "פעיל" }, "off": { "label": "כבוי" } } } },
+    "thresholdSms": { "label": "התראה SMS", "i18n": { "value": { "on": { "label": "פעיל" }, "off": { "label": "כבוי" } } } },
+    "thresholdEmail": { "label": "התראה אימייל", "i18n": { "value": { "on": { "label": "פעיל" }, "off": { "label": "כבוי" } } } },
+    "awaySms": { "label": "חופשה SMS", "i18n": { "value": { "on": { "label": "פעיל" }, "off": { "label": "כבוי" } } } },
+    "awayEmail": { "label": "חופשה אימייל", "i18n": { "value": { "on": { "label": "פעיל" }, "off": { "label": "כבוי" } } } }
+  },
+  "commands": {
+    "setLeakSms": { "label": "הגדר נזילה SMS" },
+    "setLeakEmail": { "label": "הגדר נזילה אימייל" },
+    "setThresholdSms": { "label": "הגדר התראה SMS" },
+    "setThresholdEmail": { "label": "הגדר התראה אימייל" },
+    "setAwaySms": { "label": "הגדר חופשה SMS" },
+    "setAwayEmail": { "label": "הגדר חופשה אימייל" }
+  }
+}
