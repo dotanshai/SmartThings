@@ -1,5 +1,7 @@
 # LG TV webOS - SmartThings Edge driver
 
+Install from the **Shai D. Shared Drivers** channel: [Join the channel](https://bestow-regional.api.smartthings.com/invite/Q1jP7By0KVlL)
+
 Local (LAN) SmartThings Edge driver for LG webOS TVs.
 
 **Based on [LGTV by Todd Austin](https://github.com/toddaustin07/LGTV)** (Apache License 2.0).

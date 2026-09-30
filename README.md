@@ -15,11 +15,11 @@ Install from the **Shai D. Shared Drivers** channel:
 | RF Cloner 8ch (Tuya) | [1 Zigbee model](drivers/rf-cloner-8ch#supported-devices) |
 | Zigbee Leakage Sensor SD | [30 Zigbee models](drivers/zigbee-leakage-sensor-sd#supported-devices) |
 | Zigbee Multi Switch Light Curtain SD | [20 Zigbee models](drivers/zigbee-multi-switch-light-curtain-sd#supported-devices) |
-| Zigbee Multi Switch Child SD | [14 Zigbee models](drivers/zigbee-multi-switch-child-sd#supported-devices) |
+| Zigbee Multi Switch Child SD (source only, not in channel) | [14 Zigbee models](drivers/zigbee-multi-switch-child-sd#supported-devices) |
 | Zigbee Switch SD | [129 Zigbee models](drivers/zigbee-switch-sd#supported-devices) |
 | Zigbee Siren SD | [13 Zigbee models](drivers/zigbee-siren-sd#supported-devices) |
 | Switcher Breeze | [LAN](drivers/switcher-breeze#supported-devices) |
-| Dolphin Boiler SD (LAN) | [LAN](drivers/dolphin-boiler-sd-lan#supported-devices) |
+| Dolphin Boiler SD (LAN) (source only, not in channel) | [LAN](drivers/dolphin-boiler-sd-lan#supported-devices) |
 
 ## Schema Connectors (cloud, AWS Lambda)
 | Integration | Install | Link valid until | Source |

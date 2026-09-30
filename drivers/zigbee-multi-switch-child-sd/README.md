@@ -1,6 +1,6 @@
 # Zigbee Multi Switch Child SD
 
-SmartThings Edge driver. Install from the **Shai D. Shared Drivers** channel: [Join the channel](https://bestow-regional.api.smartthings.com/invite/Q1jP7By0KVlL)
+SmartThings Edge driver. Source only — not currently published in the channel.
 
 ## Supported Devices
 
