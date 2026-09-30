@@ -162,3 +162,7 @@ src/wol.lua                 Wake-on-LAN magic packet
 src/cert.lua                the shared bundled TLS client certificate
 src/frame.lua                length-prefixed message framing
 ```
+
+## Supported Devices
+
+Any Google TV / Android TV on the local network (tested on TCL). Added via LAN scan.

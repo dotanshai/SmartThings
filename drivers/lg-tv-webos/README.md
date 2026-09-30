@@ -47,3 +47,7 @@ to the maintainer to add it to the built-in list.
 
 ## License
 Apache License 2.0 (see LICENSE). Original work Copyright 2023 Todd Austin.
+
+## Supported Devices
+
+LG webOS TVs on the local network (tested on OLED77B56LA). Added via LAN scan.

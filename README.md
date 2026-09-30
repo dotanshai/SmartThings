@@ -5,19 +5,19 @@ Free SmartThings integrations for the Israeli SmartThings community.
 ## Edge Drivers
 Install from the **Shai D. Shared Drivers** channel.
 
-| Driver | Folder |
+| Driver | Supported Devices |
 |---|---|
-| Generic Google TV | `drivers/generic-google-tv` |
-| LG TV webOS | `drivers/lg-tv-webos` |
-| ONVIF Camera NVR SD (Hikvision) | `drivers/onvif-camera-nvr-sd` |
-| RF Cloner 8ch (Tuya) | `drivers/rf-cloner-8ch` |
-| Zigbee Leakage Sensor SD | `drivers/zigbee-leakage-sensor-sd` |
-| Zigbee Multi Switch Light Curtain SD | `drivers/zigbee-multi-switch-light-curtain-sd` |
-| Zigbee Multi Switch Child SD | `drivers/zigbee-multi-switch-child-sd` |
-| Zigbee Switch SD | `drivers/zigbee-switch-sd` |
-| Zigbee Siren SD | `drivers/zigbee-siren-sd` |
-| Switcher Breeze | `drivers/switcher-breeze` |
-| Dolphin Boiler SD (LAN) | `drivers/dolphin-boiler-sd-lan` |
+| Generic Google TV | [LAN](drivers/generic-google-tv#supported-devices) |
+| LG TV webOS | [LAN](drivers/lg-tv-webos#supported-devices) |
+| ONVIF Camera NVR SD (Hikvision) | [LAN](drivers/onvif-camera-nvr-sd#supported-devices) |
+| RF Cloner 8ch (Tuya) | [1 Zigbee model](drivers/rf-cloner-8ch#supported-devices) |
+| Zigbee Leakage Sensor SD | [30 Zigbee models](drivers/zigbee-leakage-sensor-sd#supported-devices) |
+| Zigbee Multi Switch Light Curtain SD | [20 Zigbee models](drivers/zigbee-multi-switch-light-curtain-sd#supported-devices) |
+| Zigbee Multi Switch Child SD | [14 Zigbee models](drivers/zigbee-multi-switch-child-sd#supported-devices) |
+| Zigbee Switch SD | [129 Zigbee models](drivers/zigbee-switch-sd#supported-devices) |
+| Zigbee Siren SD | [13 Zigbee models](drivers/zigbee-siren-sd#supported-devices) |
+| Switcher Breeze | [LAN](drivers/switcher-breeze#supported-devices) |
+| Dolphin Boiler SD (LAN) | [LAN](drivers/dolphin-boiler-sd-lan#supported-devices) |
 
 ## Schema Connectors (cloud, AWS Lambda)
 | Integration | Folder |
