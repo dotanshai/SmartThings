@@ -3,7 +3,9 @@
 Free SmartThings integrations for the Israeli SmartThings community.
 
 ## Edge Drivers
-Install from the **Shai D. Shared Drivers** channel.
+Install from the **Shai D. Shared Drivers** channel:
+
+👉 **[Join the channel](https://bestow-regional.api.smartthings.com/invite/Q1jP7By0KVlL)** → enroll your hub → Available Drivers → install.
 
 | Driver | Supported Devices |
 |---|---|
@@ -22,11 +24,11 @@ Install from the **Shai D. Shared Drivers** channel.
 ## Schema Connectors (cloud, AWS Lambda)
 | Integration | Install | Link valid until | Source |
 |---|---|---|---|
-| ARAD Water Meter | Coming soon | - | [code](schemas/arad-water-meter) |
+| ARAD Water Meter | [Invite link](https://invitations.smartthings.com/schemaApp/d0752d6c-6dd4-43ab-b820-c8123207a0d8) | 2026-10-30 | [code](schemas/arad-water-meter) |
 | Dolphin Boiler | [Invite link](https://invitations.smartthings.com/schemaApp/80f11bd9-e6ba-4f91-9b64-d7c1dff12eaa) | 2026-10-17 | [code](schemas/dolphin-boiler) |
 | IEC Electric Meter | [Invite link](https://invitations.smartthings.com/schemaApp/aeaa0458-4957-4d75-8f09-7563df54ac63) | 2026-10-19 | [code](schemas/iec-electric-meter) |
 | LG ThinQ Laundry | [Invite link](https://invitations.smartthings.com/schemaApp/90400f87-b219-4e22-a6ef-0110f46cdff3) | 2026-10-17 | [code](schemas/lg-thinq-laundry) |
-| LG ThinQ Fridge | Coming soon | - | [code](schemas/lg-thinq-fridge) |
+| LG ThinQ Fridge | [Invite link](https://invitations.smartthings.com/schemaApp/a53a155d-aae7-4046-a7da-eca12e560f41) | 2026-10-30 | [code](schemas/lg-thinq-fridge) |
 | Shabbat Switch | [Invite link](https://invitations.smartthings.com/schemaApp/c085282d-3cde-4bea-8fc0-a450ee30d561) | 2026-10-17 | [code](schemas/shabbat-switch) |
 | Tadiran AC | [Invite link](https://invitations.smartthings.com/schemaApp/9a1ad8b1-be50-4d2b-8c44-5b577904f789) | 2026-10-18 | [code](schemas/tadiran-ac) |
 | Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/73af62b5-54dd-422e-914f-73956bddc69b) | 2026-10-23 | [code](schemas/tornado-ac) |
