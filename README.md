@@ -1,5 +1,7 @@
 # SmartThings Integrations by Shai D.
 
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/dotan_shai)
+
 Free SmartThings integrations for the Israeli SmartThings community.
 
 ## Edge Drivers
