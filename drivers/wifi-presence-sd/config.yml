@@ -1,0 +1,6 @@
+name: 'WiFi Presence SD'
+packageKey: 'wifi-presence-sd'
+description: 'Phone presence by home WiFi (hub LAN probe)'
+permissions:
+  lan: {}
+  discovery: {}

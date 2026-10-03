@@ -1,0 +1,14 @@
+{
+  "name": "Learn Status",
+  "attributes": {
+    "message": {
+      "schema": {
+        "type": "object",
+        "properties": { "value": { "type": "string", "maxLength": 200 } },
+        "additionalProperties": false,
+        "required": ["value"]
+      }
+    }
+  },
+  "commands": {}
+}

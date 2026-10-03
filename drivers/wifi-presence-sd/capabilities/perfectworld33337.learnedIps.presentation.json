@@ -1,0 +1,7 @@
+{
+  "dashboard": { "states": [], "actions": [] },
+  "detailView": [
+    { "label": "Learned IPs", "displayType": "state", "state": { "label": "{{ips.value}}" } }
+  ],
+  "automation": { "conditions": [], "actions": [] }
+}

@@ -1,0 +1,7 @@
+{
+  "dashboard": { "states": [], "actions": [] },
+  "detailView": [
+    { "label": "Learn status", "displayType": "state", "state": { "label": "{{message.value}}" } }
+  ],
+  "automation": { "conditions": [], "actions": [] }
+}

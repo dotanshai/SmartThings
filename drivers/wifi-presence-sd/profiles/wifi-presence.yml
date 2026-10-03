@@ -1,0 +1,69 @@
+name: wifi-presence
+components:
+  - id: main
+    capabilities:
+      - id: presenceSensor
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: PresenceSensor
+  - id: learn
+    label: "Learn phone"
+    capabilities:
+      - id: switch
+        version: 1
+      - id: perfectworld33337.learnStatus
+        version: 1
+      - id: perfectworld33337.learnedIps
+        version: 1
+    categories:
+      - name: Switch
+preferences:
+  - name: ipAddress
+    title: "Phone IP (optional)"
+    description: "Leave 0.0.0.0 to use the learned IPs"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      default: "0.0.0.0"
+  - name: pollInterval
+    title: "Check every (seconds)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 15
+      maximum: 300
+      default: 30
+  - name: awayTimeout
+    title: "Away after (minutes offline)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 60
+      default: 10
+  - name: resetIps
+    title: "Clear learned IPs"
+    description: "Turn on to erase all learned IPs, then turn off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: ignoreIps
+    title: "Ignore IPs during Learn"
+    description: "Comma-separated, e.g. 192.168.1.100"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      default: "none"
+  - name: ipLabels
+    title: "IP labels"
+    description: "Name each IP, e.g. 119=2.4G, 129=2.4G plus"
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      default: "none"
