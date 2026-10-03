@@ -1,5 +1,7 @@
 # WiFi Presence SD
 
+![WiFi Presence SD](images/wifi-presence-banner.png)
+
 SmartThings Edge driver. Install from the **Shai D. Shared Drivers** channel: [Join the channel](https://bestow-regional.api.smartthings.com/invite/Q1jP7By0KVlL)
 
 Phone presence detection by home WiFi. The hub checks whether each family member's phone is connected to the home network. No GPS, no app on the phone, no Tasker. Runs locally on the hub.
