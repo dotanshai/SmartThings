@@ -7,8 +7,6 @@ Free SmartThings integrations for the Israeli SmartThings community.
 ### 🆕 New: [WiFi Presence SD](drivers/wifi-presence-sd)
 Phone presence by home WiFi – no GPS, no app, any phone. Runs locally on the hub.
 
-[![WiFi Presence SD](drivers/wifi-presence-sd/images/wifi-presence-banner.png)](drivers/wifi-presence-sd)
-
 ## Edge Drivers
 Install from the **Shai D. Shared Drivers** channel:
 
