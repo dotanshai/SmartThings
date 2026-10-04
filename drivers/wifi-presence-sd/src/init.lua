@@ -275,9 +275,21 @@ local function device_added(driver, device)
   device:emit_event(capabilities.presenceSensor.presence.not_present())
 end
 
+local function create_presence_device(driver)
+  for _, d in ipairs(driver:get_devices()) do
+    if #effective_ips(d) == 0 then
+      log.info("'" .. d.label .. "' is not learned yet - learn it before adding another phone")
+      return
+    end
+  end
+  local n = #driver:get_devices() + 1
+  driver:try_create_device({ type = "LAN", device_network_id = "wifipresence-" .. os.time(), label = "WiFi Presence " .. n, profile = "wifi-presence", manufacturer = "SD", model = "WiFi Presence", vendor_provided_label = "WiFi Presence" })
+  log.info("Added WiFi Presence " .. n)
+end
+
 local function device_info_changed(driver, device, event, args)
   device:set_field("ips_shown", nil)
-  local old = args and args.old_st_store and args.old_st_store.preferences
+  local old = args and args.old_st_store and args.old_st_store.preferences; if device.preferences.addPhone and not (old and old.addPhone) then create_presence_device(driver) end
   if device.preferences.resetIps and not (old and old.resetIps) then
     device:set_field("learned_ips", nil, { persist = true })
     log.info(device.label .. ": learned IPs cleared")
@@ -309,7 +321,7 @@ local function switch_off_handler(driver, device, command)
   end
 end
 
-local function discovery_handler(driver, _, should_continue)
+local function discovery_handler(driver, _, should_continue) if #driver:get_devices() > 0 then log.info("Scan ignored - use Add another phone in a presence device settings") return end
   local devices = driver:get_devices()
   for _, d in ipairs(devices) do
     if #effective_ips(d) == 0 then

@@ -67,3 +67,10 @@ preferences:
     definition:
       stringType: text
       default: "none"
+  - name: addPhone
+    title: "Add another phone"
+    description: "Turn on to add a presence device for another family member, then turn off"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false

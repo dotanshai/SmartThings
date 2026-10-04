@@ -20,7 +20,7 @@ Any phone (Android or iPhone) on the same home network (subnet) as the hub. Mult
    3. Wait for **"Turn WiFi ON now"**, then turn WiFi on.
    4. When **"Got .xxx"** appears, switch to the next home network (if any).
    5. Turn **Learn phone** off when done (it also stops after 4 minutes with nothing new).
-4. Scan again to add the next family member.
+4. To add the next family member: open any presence device → Settings → turn **Add another phone** on, then off. A new "WiFi Presence N" device is created (a normal Scan nearby only creates the first device).
 
 ## Device view
 
@@ -37,6 +37,7 @@ Any phone (Android or iPhone) on the same home network (subnet) as the hub. Mult
 | Check every (seconds) | Poll interval, default 30 |
 | Away after (minutes offline) | Delay before "Not present", default 10 |
 | Clear learned IPs | Turn on, then off, to erase all learned IPs |
+| Add another phone | Turn on, then off, to create a presence device for another family member |
 | Ignore IPs during Learn | Other devices that interfere with learning, e.g. `192.168.1.100` |
 | IP labels | Name each IP, e.g. `119=2.4G, 136=5G` |
 
