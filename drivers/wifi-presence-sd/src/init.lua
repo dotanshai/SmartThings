@@ -5,7 +5,7 @@ local cosock = require "cosock"
 local socket = cosock.socket
 
 local PROBE_PORTS = { 62078, 80, 443, 8080, 7000 }
-local CONNECT_TIMEOUT = 2
+local CONNECT_TIMEOUT = 3
 local SCAN_TIMEOUT = 1
 local SCAN_BATCH = 64
 local LEARN_IDLE = 240
@@ -178,6 +178,22 @@ local function check_presence(device)
     local gone = now - last_seen
     log.debug(string.format("%s: no answer [%s], offline %ds", device.label, info, gone))
     if current ~= "not present" and gone >= timeout then
+      -- Final retry burst: a sleeping phone (esp. iPhone) may answer if we keep trying
+      device:set_field("busy", true)
+      local woke = nil
+      for attempt = 1, 4 do
+        socket.sleep(8)
+        for _, ip in ipairs(ips) do
+          if is_online(ip) then woke = ip break end
+        end
+        if woke then break end
+      end
+      device:set_field("busy", false)
+      if woke then
+        log.info(device.label .. " (" .. woke .. "): answered during retry burst - stays present")
+        device:set_field("last_seen", os.time())
+        return
+      end
       log.info(device.label .. ": offline too long -> not present")
       device:emit_event(capabilities.presenceSensor.presence.not_present())
     end

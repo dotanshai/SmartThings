@@ -45,6 +45,7 @@ Any phone (Android or iPhone) on the same home network (subnet) as the hub. Mult
 
 - Every poll, the hub opens a TCP connection to each learned IP. A reply (or "connection refused") means the phone is on the network.
 - Arrival is detected within about 30 seconds. "Not present" is set only after the away delay, to avoid false away while a phone sleeps.
+- Before marking "Not present", the driver retries for about 30 more seconds, since sleeping phones (especially iPhones) may answer late. For iPhones, an away delay of 10–15 minutes is recommended.
 - Learn scans the subnet with the phone's WiFi off, then detects the new device that appears when WiFi is turned on.
 
 ## Custom capabilities
