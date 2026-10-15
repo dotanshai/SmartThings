@@ -4,6 +4,9 @@
 
 Free SmartThings integrations for the Israeli SmartThings community.
 
+### 🆕 New: [Z-Wave Window Treatment SD LAN](drivers/zwave-window-treatment-sd-lan)
+For Fibaro Roller Shutter 4 (FGR-224) blinds that keep showing "offline" or don't respond from the app. Adds an always-online "(App)" device with open / close / pause and a slider (works with routines, Alexa and SharpTools), automatic command retries, a live position display while the blind moves, and an estimated position when you stop it mid-way. Based on Mariano's Z-Wave Window Treatment Mc, so all its other blinds are still supported.
+
 ### 🆕 New: [WiFi Presence SD](drivers/wifi-presence-sd)
 Phone presence by home WiFi – no GPS, no app, any phone. Runs locally on the hub.
 
