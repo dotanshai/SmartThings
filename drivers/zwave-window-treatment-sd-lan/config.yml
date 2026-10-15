@@ -1,0 +1,6 @@
+name: 'Z-Wave Window Treatment SD LAN'
+packageKey: 'zwave-window-treatment-sd-lan'
+description: 'Devices Supported: https://github.com/Mariano-Github/Edge-Drivers-Beta/blob/main/zwave-drivers/zwave-window-treatment-mc/fingerprints.yml'
+permissions:
+  zwave: {}
+  lan: {}

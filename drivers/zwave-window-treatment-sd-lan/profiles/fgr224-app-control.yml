@@ -1,0 +1,38 @@
+name: fgr224-app-control
+components:
+- id: main
+  capabilities:
+  - id: windowShade
+    version: 1
+  - id: windowShadeLevel
+    version: 1
+  categories:
+  - name: Blind
+preferences:
+  - name: "travelUpSec"
+    title: "Full OPEN time (sec)"
+    description: "Stopwatch time from fully closed to fully open. Used to show the position while moving and after a stop."
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 300
+      default: 30
+  - name: "travelDownSec"
+    title: "Full CLOSE time (sec)"
+    description: "Stopwatch time from fully open to fully closed. Used to show the position while moving and after a stop."
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 300
+      default: 30
+  - name: "progressSec"
+    title: "Position update while moving (sec)"
+    description: "How often the level is updated while the blind moves. 0 = off."
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 10
+      default: 2
