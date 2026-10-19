@@ -36,14 +36,14 @@ Install from the **Shai D. Shared Drivers** channel:
 | Integration | Install | Link valid until | Source |
 |---|---|---|---|
 | ARAD Water Meter | [Invite link](https://invitations.smartthings.com/schemaApp/d0752d6c-6dd4-43ab-b820-c8123207a0d8) | 2026-10-30 | [code](schemas/arad-water-meter) |
-| Dolphin Boiler | [Invite link](https://invitations.smartthings.com/schemaApp/80f11bd9-e6ba-4f91-9b64-d7c1dff12eaa) | 2026-10-17 | [code](schemas/dolphin-boiler) |
-| IEC Electric Meter | [Invite link](https://invitations.smartthings.com/schemaApp/aeaa0458-4957-4d75-8f09-7563df54ac63) | 2026-10-19 | [code](schemas/iec-electric-meter) |
-| LG ThinQ Laundry | [Invite link](https://invitations.smartthings.com/schemaApp/90400f87-b219-4e22-a6ef-0110f46cdff3) | 2026-10-17 | [code](schemas/lg-thinq-laundry) |
+| Dolphin Boiler | [Invite link](https://invitations.smartthings.com/schemaApp/96459033-b004-49d3-b023-f10a03b162ff) | 2026-11-18 | [code](schemas/dolphin-boiler) |
+| IEC Electric Meter | [Invite link](https://invitations.smartthings.com/schemaApp/147990f6-e861-4b1b-94e5-aae52006861c) | 2026-11-18 | [code](schemas/iec-electric-meter) |
+| LG ThinQ Laundry | [Invite link](https://invitations.smartthings.com/schemaApp/f19ad31d-e680-40d5-8d0b-4d409e2b8273) | 2026-11-18 | [code](schemas/lg-thinq-laundry) |
 | LG ThinQ Fridge | [Invite link](https://invitations.smartthings.com/schemaApp/a53a155d-aae7-4046-a7da-eca12e560f41) | 2026-10-30 | [code](schemas/lg-thinq-fridge) |
-| Shabbat Switch | [Invite link](https://invitations.smartthings.com/schemaApp/c085282d-3cde-4bea-8fc0-a450ee30d561) | 2026-10-17 | [code](schemas/shabbat-switch) |
-| Tadiran AC | [Invite link](https://invitations.smartthings.com/schemaApp/9a1ad8b1-be50-4d2b-8c44-5b577904f789) | 2026-10-18 | [code](schemas/tadiran-ac) |
-| Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/73af62b5-54dd-422e-914f-73956bddc69b) | 2026-10-23 | [code](schemas/tornado-ac) |
-| Electra AC | [Invite link](https://invitations.smartthings.com/schemaApp/d3c01559-68c4-4c6b-b46b-94ccd8449e1d) | 2026-10-25 | [code](schemas/electra-ac) |
+| Shabbat Switch | [Invite link](https://invitations.smartthings.com/schemaApp/f17d560c-b5bc-445e-a79d-187cf55edd8f) | 2026-11-18 | [code](schemas/shabbat-switch) |
+| Tadiran AC | [Invite link](https://invitations.smartthings.com/schemaApp/3528d96c-9484-420b-bf01-02b62884dacf) | 2026-11-18 | [code](schemas/tadiran-ac) |
+| Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/34501016-aafa-4a8b-a658-9171d4d8590d) | 2026-11-18 | [code](schemas/tornado-ac) |
+| Electra AC | [Invite link](https://invitations.smartthings.com/schemaApp/843d0a16-25a9-43f5-b1bc-a759f93e030c) | 2026-11-18 | [code](schemas/electra-ac) |
 
 Invite links are renewed about every 30 days. If a link has expired, ask in the Facebook group.
 
