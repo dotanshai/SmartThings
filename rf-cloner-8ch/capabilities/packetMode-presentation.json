@@ -1,0 +1,64 @@
+﻿{
+  "dashboard": {
+    "states": [
+      {
+        "label": "{{mode.value}}",
+        "displayType": "state",
+        "state": {
+          "value": "mode.value"
+        }
+      }
+    ],
+    "actions": []
+  },
+  "detailView": [
+    {
+      "label": "Packet Mode",
+      "displayType": "list",
+      "list": {
+        "state": {
+          "value": "mode.value",
+          "alternatives": [
+            { "key": "Short", "value": "Short Packet" },
+            { "key": "Long", "value": "Long Packet" }
+          ]
+        },
+        "command": {
+          "name": "setMode",
+          "alternatives": [
+            { "key": "Short", "value": "Short Packet" },
+            { "key": "Long", "value": "Long Packet" }
+          ]
+        }
+      }
+    }
+  ],
+  "automation": {
+    "conditions": [
+      {
+        "label": "Packet Mode",
+        "displayType": "list",
+        "list": {
+          "value": "mode.value",
+          "alternatives": [
+            { "key": "Short", "value": "Short Packet" },
+            { "key": "Long", "value": "Long Packet" }
+          ]
+        }
+      }
+    ],
+    "actions": [
+      {
+        "label": "Packet Mode",
+        "displayType": "list",
+        "list": {
+          "command": "setMode",
+          "alternatives": [
+            { "key": "Short", "value": "Short Packet" },
+            { "key": "Long", "value": "Long Packet" }
+          ]
+        }
+      }
+    ]
+  }
+}

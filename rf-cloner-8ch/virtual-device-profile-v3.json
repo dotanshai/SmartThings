@@ -1,0 +1,283 @@
+{
+  "name": "rf-cloner-8ch-virtual",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        {
+          "id": "switch",
+          "version": 1
+        },
+        {
+          "id": "illuminanceMeasurement",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "button1",
+      "label": "Button 1",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.rfSlot",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "button2",
+      "label": "Button 2",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.rfSlot",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "button3",
+      "label": "Button 3",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.rfSlot",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "button4",
+      "label": "Button 4",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.rfSlot",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "button5",
+      "label": "Button 5",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.rfSlot",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "button6",
+      "label": "Button 6",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.rfSlot",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "button7",
+      "label": "Button 7",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.rfSlot",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "button8",
+      "label": "Button 8",
+      "capabilities": [
+        {
+          "id": "vehiclepatch55148.rfSlot",
+          "version": 1
+        }
+      ],
+      "categories": [
+        {
+          "name": "Switch"
+        }
+      ]
+    }
+  ],
+  "preferences": [
+    {
+      "title": "Packet Mode",
+      "name": "packetMode",
+      "description": "Short Packet or Long Packet RF transmission mode.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "short": "Short Packet",
+          "long": "Long Packet"
+        },
+        "default": "short"
+      }
+    },
+    {
+      "title": "Button 1 Action",
+      "name": "button1Action",
+      "description": "Learn or delete the RF code stored in slot 1.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "none": "No Action",
+          "learn": "Learn",
+          "delete": "Delete"
+        },
+        "default": "none"
+      }
+    },
+    {
+      "title": "Button 2 Action",
+      "name": "button2Action",
+      "description": "Learn or delete the RF code stored in slot 2.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "none": "No Action",
+          "learn": "Learn",
+          "delete": "Delete"
+        },
+        "default": "none"
+      }
+    },
+    {
+      "title": "Button 3 Action",
+      "name": "button3Action",
+      "description": "Learn or delete the RF code stored in slot 3.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "none": "No Action",
+          "learn": "Learn",
+          "delete": "Delete"
+        },
+        "default": "none"
+      }
+    },
+    {
+      "title": "Button 4 Action",
+      "name": "button4Action",
+      "description": "Learn or delete the RF code stored in slot 4.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "none": "No Action",
+          "learn": "Learn",
+          "delete": "Delete"
+        },
+        "default": "none"
+      }
+    },
+    {
+      "title": "Button 5 Action",
+      "name": "button5Action",
+      "description": "Learn or delete the RF code stored in slot 5.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "none": "No Action",
+          "learn": "Learn",
+          "delete": "Delete"
+        },
+        "default": "none"
+      }
+    },
+    {
+      "title": "Button 6 Action",
+      "name": "button6Action",
+      "description": "Learn or delete the RF code stored in slot 6.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "none": "No Action",
+          "learn": "Learn",
+          "delete": "Delete"
+        },
+        "default": "none"
+      }
+    },
+    {
+      "title": "Button 7 Action",
+      "name": "button7Action",
+      "description": "Learn or delete the RF code stored in slot 7.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "none": "No Action",
+          "learn": "Learn",
+          "delete": "Delete"
+        },
+        "default": "none"
+      }
+    },
+    {
+      "title": "Button 8 Action",
+      "name": "button8Action",
+      "description": "Learn or delete the RF code stored in slot 8.",
+      "required": false,
+      "preferenceType": "enumeration",
+      "definition": {
+        "options": {
+          "none": "No Action",
+          "learn": "Learn",
+          "delete": "Delete"
+        },
+        "default": "none"
+      }
+    }
+  ],
+  "metadata": {
+    "vid": "f049ad1b-4e7d-3f70-a818-c6b97753d67d",
+    "mnmn": "SmartThingsCommunity"
+  }
+}

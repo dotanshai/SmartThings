@@ -1,0 +1,257 @@
+{
+    "dashboard": {
+        "states": [
+            {
+                "component": "main",
+                "capability": "switch",
+                "version": 1,
+                "idx": 0,
+                "group": "main",
+                "values": [],
+                "composite": false
+            }
+        ],
+        "actions": [
+            {
+                "component": "main",
+                "capability": "switch",
+                "version": 1,
+                "idx": 0,
+                "group": "main",
+                "inline": null
+            }
+        ],
+        "basicPlus": []
+    },
+    "detailView": [
+        {
+            "component": "main",
+            "capability": "switch",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "main",
+            "capability": "illuminanceMeasurement",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "button1",
+            "capability": "vehiclepatch55148.rfSlot",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "button2",
+            "capability": "vehiclepatch55148.rfSlot",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "button3",
+            "capability": "vehiclepatch55148.rfSlot",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "button4",
+            "capability": "vehiclepatch55148.rfSlot",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "button5",
+            "capability": "vehiclepatch55148.rfSlot",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "button6",
+            "capability": "vehiclepatch55148.rfSlot",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "button7",
+            "capability": "vehiclepatch55148.rfSlot",
+            "version": 1,
+            "values": [],
+            "patch": []
+        },
+        {
+            "component": "button8",
+            "capability": "vehiclepatch55148.rfSlot",
+            "version": 1,
+            "values": [],
+            "patch": []
+        }
+    ],
+    "automation": {
+        "conditions": [
+            {
+                "component": "main",
+                "capability": "switch",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "main",
+                "capability": "illuminanceMeasurement",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button1",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button2",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button3",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button4",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button5",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button6",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button7",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button8",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            }
+        ],
+        "actions": [
+            {
+                "component": "main",
+                "capability": "switch",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button1",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button2",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button3",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button4",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button5",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button6",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button7",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            },
+            {
+                "component": "button8",
+                "capability": "vehiclepatch55148.rfSlot",
+                "version": 1,
+                "values": [],
+                "patch": [],
+                "exclusion": []
+            }
+        ]
+    },
+    "type": "profile"
+}

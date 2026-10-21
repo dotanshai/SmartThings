@@ -1,0 +1,33 @@
+{
+  "id": "perfectworld33337.rfSlot",
+  "version": 1,
+  "status": "proposed",
+  "name": "RF Slot",
+  "attributes": {
+    "status": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": ["Learn", "Delete", "Saved"]
+          }
+        },
+        "additionalProperties": false,
+        "required": ["value"]
+      },
+      "enumCommands": []
+    }
+  },
+  "commands": {
+    "learn": {
+      "name": "learn"
+    },
+    "delete": {
+      "name": "delete"
+    },
+    "transmit": {
+      "name": "transmit"
+    }
+  }
+}

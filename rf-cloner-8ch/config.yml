@@ -1,0 +1,5 @@
+name: rf-cloner-8ch
+packageKey: rf-cloner-8ch-zigbee-v2
+description: Tuya 8-slot RF cloner (TS0601, EF00). Learn RF remote codes (433 MHz) and transmit them from SmartThings. Learn/Delete and Packet Mode are in device Settings. Experimental.
+permissions:
+  zigbee: {}
