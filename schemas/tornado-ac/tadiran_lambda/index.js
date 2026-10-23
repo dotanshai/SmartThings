@@ -1,9 +1,9 @@
-'use strict';
+﻿'use strict';
 
-const { SchemaConnector, DeviceErrorTypes } = require('st-schema');
+const { SchemaConnector, DeviceErrorTypes, StateUpdateRequest } = require('st-schema');
 const { CognitoIdentityProviderClient, InitiateAuthCommand, RespondToAuthChallengeCommand } = require('@aws-sdk/client-cognito-identity-provider');
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
-const { DynamoDBDocumentClient, GetCommand, PutCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
+const { DynamoDBDocumentClient, GetCommand, PutCommand, DeleteCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
 const https = require('https');
 const { randomUUID } = require('crypto');
 
@@ -145,6 +145,19 @@ async function deleteTokenRecord(accessToken) {
   await ddb.send(new DeleteCommand({ TableName: TABLE_NAME, Key: { accessToken } }));
 }
 
+// Decodes the stable Cognito user id ("sub" claim) from a JWT, without verifying
+// the signature (we already trust tokens arriving through SmartThings' own
+// authenticated channel). Used to match an account across access-token rotations.
+function decodeJwtSub(token) {
+  try {
+    const payload = token.split('.')[1];
+    const json = Buffer.from(payload.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8');
+    return JSON.parse(json).sub;
+  } catch (e) {
+    return null;
+  }
+}
+
 // Ensures we have a fresh (non-expired) Cognito access/id token for this record.
 // If expired, refreshes via Cognito, saves a NEW record under the NEW access token,
 // and returns { accessToken, idToken, record }.
@@ -177,31 +190,96 @@ function getDeviceExternalId(device) {
   return device.device_id || device.asset_id || device.id;
 }
 
-function fieldsArrayToConfigurations(fields) {
+function fieldsArrayToConfigurations(fields, optimistic = false) {
   const c = {};
   const map = {
     power: 'power', temp_set: 'temp_set', temp_current: 'temp_current',
     mode: 'mode', wind_speed: 'wind_speed', swing_ud: 'swing_ud',
     swing_lr: 'swing_lr', light: 'light', turbo: 'turbo', mute: 'mute', online: 'online'
   };
+  // Sensor/read-only fields: always trust the reported (actual) value, never the desired placeholder.
+  const sensorFields = new Set(['temp_current', 'online']);
   for (const f of fields) {
     if (!(f.name in map)) continue;
-    let v = (f.reported !== undefined && f.reported !== null) ? f.reported : f.desired;
+    let v;
+    if (sensorFields.has(f.name)) {
+      v = (f.reported !== undefined && f.reported !== null) ? f.reported : f.desired;
+    } else if (optimistic) {
+      // Immediately after a command: prefer the just-issued desired value so SmartThings
+      // doesn't briefly show a stale/lagging state before the physical device catches up.
+      v = (f.desired !== undefined && f.desired !== null && f.desired !== '') ? f.desired : f.reported;
+    } else {
+      // Periodic refresh / discovery / proactive sync: trust the reported (actual) value,
+      // so a desired value that never actually applied doesn't get shown as real long-term.
+      v = (f.reported !== undefined && f.reported !== null) ? f.reported : f.desired;
+    }
     if (v === 'true') v = true;
     if (v === 'false') v = false;
     if (typeof v === 'string' && v !== '' && !isNaN(v) && (f.name === 'temp_set' || f.name === 'temp_current')) v = Number(v);
+    // Tadiran's shadow sometimes returns `desired.mode` in inconsistent casing (e.g. "Cool"
+    // instead of "COOL"), while `reported.mode` is reliably upper-case. SmartThings' acMode
+    // capability enum is strictly upper-case (COOL/HEAT/FAN/DRY/AUTO) and rejects the ENTIRE
+    // command response (including power/switch state) if any single field fails validation -
+    // so a lowercase/mixed-case mode silently kills the whole "on" command from the user's
+    // point of view. Always normalize to upper-case regardless of which field it came from.
+    if (f.name === 'mode' && typeof v === 'string') v = v.toUpperCase();
     c[f.name] = v;
   }
   return c;
 }
 
-function deviceToStates(device) {
+function tadiranModeToStandard(mode) {
+  const map = { COOL: 'cool', HEAT: 'heat', FAN: 'fanonly', DRY: 'dryair', AUTO: 'auto' };
+  return map[mode] || 'auto';
+}
+function standardModeToTadiran(mode) {
+  const map = { cool: 'COOL', heat: 'HEAT', fanonly: 'FAN', dryair: 'DRY', auto: 'AUTO', 'emergency heat': 'HEAT', emergencyheat: 'HEAT' };
+  return map[mode] || null;
+}
+
+// ---- Separate heat / cool setpoints (thermostat-style) ----
+// The A/C has ONE set temperature. We remember a heating and a cooling setpoint per device
+// (own DynamoDB item 'setpoints#<deviceId>', stable across Cognito token rotation) and apply
+// the right one when the mode changes. The A/C's actual temp_set is authoritative for the side
+// matching its current mode, except within 90s after our own command (reported values lag).
+const SP_PREFIX = 'setpoints#';
+const SP_TRUST_MS = 90 * 1000;
+async function getSp(extId) {
+  try { const r = await ddb.send(new GetCommand({ TableName: TABLE_NAME, Key: { accessToken: SP_PREFIX + extId } })); return r.Item || null; }
+  catch (e) { console.warn('getSp failed:', e.message); return null; }
+}
+async function putSp(extId, sp) {
+  try { await ddb.send(new PutCommand({ TableName: TABLE_NAME, Item: { accessToken: SP_PREFIX + extId, heat: sp.heat, cool: sp.cool, at: sp.at || 0, updatedAt: Date.now() } })); }
+  catch (e) { console.warn('putSp failed:', e.message); }
+}
+function resolveSp(item, c, force = false) {
+  const t = (typeof c.temp_set === 'number') ? Math.round(c.temp_set) : 24;
+  const sp = {
+    heat: (item && typeof item.heat === 'number') ? item.heat : t,
+    cool: (item && typeof item.cool === 'number') ? item.cool : t,
+    at: (item && item.at) || 0
+  };
+  if (force || Date.now() - sp.at > SP_TRUST_MS) {
+    if (c.mode === 'HEAT') sp.heat = t; else if (c.mode) sp.cool = t;
+  }
+  return sp;
+}
+async function spFor(extId, c) {
+  if (!c) return null;
+  const item = await getSp(extId);
+  const sp = resolveSp(item, c);
+  if (!item || item.heat !== sp.heat || item.cool !== sp.cool) await putSp(extId, sp);
+  return sp;
+}
+
+function deviceToStates(device, sp = null) {
   const c = device.configurations || {};
   const extId = getDeviceExternalId(device) || 'unknown';
   return [
     { component: 'main', capability: 'st.switch', attribute: 'switch', value: c.power ? 'on' : 'off' },
     { component: 'main', capability: 'st.temperatureMeasurement', attribute: 'temperature', value: Number((typeof c.temp_current === 'number') ? c.temp_current : 24), unit: 'C' },
-    { component: 'main', capability: 'st.thermostatCoolingSetpoint', attribute: 'coolingSetpoint', value: Number((typeof c.temp_set === 'number') ? c.temp_set : 24), unit: 'C' },
+    { component: 'main', capability: 'st.thermostatHeatingSetpoint', attribute: 'heatingSetpoint', value: sp ? sp.heat : Number((typeof c.temp_set === 'number') ? c.temp_set : 24), unit: 'C' },
+    { component: 'main', capability: 'st.thermostatCoolingSetpoint', attribute: 'coolingSetpoint', value: sp ? sp.cool : Number((typeof c.temp_set === 'number') ? c.temp_set : 24), unit: 'C' },
 
     { component: 'main', capability: 'vehiclepatch55148.acTemperature', attribute: 'tempSet', value: (typeof c.temp_set === 'number') ? c.temp_set : 24 },
     { component: 'main', capability: 'vehiclepatch55148.acTemperature', attribute: 'tempCurrent', value: (typeof c.temp_current === 'number') ? c.temp_current : 24 },
@@ -212,6 +290,8 @@ function deviceToStates(device) {
     { component: 'main', capability: 'vehiclepatch55148.acLight', attribute: 'switch', value: c.light ? 'on' : 'off' },
     { component: 'main', capability: 'vehiclepatch55148.acTurbo', attribute: 'switch', value: c.turbo ? 'on' : 'off' },
     { component: 'main', capability: 'vehiclepatch55148.acMute', attribute: 'switch', value: c.mute ? 'on' : 'off' },
+    { component: 'main', capability: 'st.thermostatMode', attribute: 'thermostatMode', value: c.power ? tadiranModeToStandard(c.mode) : 'off' },
+    { component: 'main', capability: 'st.thermostatMode', attribute: 'supportedThermostatModes', value: ['cool', 'heat', 'auto', 'dryair', 'fanonly', 'off'] },
     { component: 'main', capability: 'vehiclepatch55148.acStatus', attribute: 'statusSwitch', value: c.power ? 'on' : 'off' },
     { component: 'main', capability: 'vehiclepatch55148.acStatus', attribute: 'statusMode', value: c.mode || 'COOL' },
     { component: 'main', capability: 'vehiclepatch55148.acStatus', attribute: 'statusTempSet', value: (typeof c.temp_set === 'number') ? c.temp_set : 24 },
@@ -226,6 +306,76 @@ function deviceToStates(device) {
 // =====================================================================
 // st-schema connector setup
 // =====================================================================
+
+async function scanAllTokenRecords() {
+  const records = [];
+  let ExclusiveStartKey;
+  do {
+    const resp = await ddb.send(new ScanCommand({ TableName: TABLE_NAME, ExclusiveStartKey }));
+    records.push(...(resp.Items || []).filter(i => !String(i.accessToken || '').startsWith(SP_PREFIX)));
+    ExclusiveStartKey = resp.LastEvaluatedKey;
+  } while (ExclusiveStartKey);
+  return records;
+}
+
+// Proactively fetches current device state from Tadiran for every linked account
+// and pushes it to SmartThings via the async state-update callback, so changes
+// made outside SmartThings (Alexa, Google Home, My Tadiran app) show up promptly.
+async function syncOneAccount(record) {
+  if (!record.callbackAuthentication || !record.callbackUrls) {
+    console.log('PROACTIVE SYNC - skipping account ending', (record.accessToken || '').slice(-6), '(no callbackAuthentication on file yet)');
+    return; // account never completed the grantCallbackAccess step
+  }
+  const idHint = (record.accessToken || '').slice(-6);
+  try {
+    const { accessToken, idToken, record: freshRecord } = await ensureFreshTokens(record);
+    const devices = await getDevices(accessToken, idToken);
+    const deviceState = [];
+    for (const device of devices) {
+      const extId = getDeviceExternalId(device);
+      if (!extId) continue;
+      let configurations;
+      try {
+        const shadow = await setDeviceFields(accessToken, idToken, extId, []);
+        configurations = fieldsArrayToConfigurations(shadow);
+      } catch (e) {
+        console.error('PROACTIVE SYNC - shadow read failed for', extId, 'account ending', idHint, e.message);
+        continue;
+      }
+      const sp = await spFor(extId, configurations);
+      const states = deviceToStates({ device_id: extId, configurations }, sp).map(
+        s => ({ component: s.component, capability: s.capability, attribute: s.attribute, value: s.value, unit: s.unit })
+      );
+      deviceState.push({ externalDeviceId: extId, states });
+    }
+    if (deviceState.length === 0) return;
+
+    let callbackAuth = freshRecord.callbackAuthentication;
+    const callbackUrls = freshRecord.callbackUrls;
+    await new StateUpdateRequest(ST_CLIENT_ID, ST_CLIENT_SECRET).updateState(
+      callbackUrls,
+      callbackAuth,
+      deviceState,
+      async (refreshedCallbackAuth) => {
+        callbackAuth = refreshedCallbackAuth;
+        await saveTokenRecord(accessToken, { ...freshRecord, callbackAuthentication: refreshedCallbackAuth });
+      }
+    );
+    console.log('PROACTIVE SYNC - pushed state for', deviceState.length, 'device(s) on account ending', accessToken.slice(-6));
+  } catch (e) {
+    console.error('PROACTIVE SYNC - account ending', idHint, 'failed:', e.message);
+  }
+}
+
+async function proactiveSyncAll() {
+  const records = await scanAllTokenRecords();
+  console.log(`PROACTIVE SYNC - ${records.length} account(s) on file`);
+  const CONCURRENCY = 8;
+  for (let i = 0; i < records.length; i += CONCURRENCY) {
+    const batch = records.slice(i, i + CONCURRENCY);
+    await Promise.all(batch.map(syncOneAccount));
+  }
+}
 
 const connector = new SchemaConnector()
   .clientId(ST_CLIENT_ID)
@@ -273,7 +423,8 @@ const connector = new SchemaConnector()
         }
       }
       console.log('STATE REFRESH - final configs used:', JSON.stringify(configs));
-      for (const s of deviceToStates({ device_id: externalId, configurations: configs })) {
+      const sp = await spFor(externalId, configs);
+      for (const s of deviceToStates({ device_id: externalId, configurations: configs }, sp)) {
         dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
       }
     }
@@ -289,6 +440,21 @@ const connector = new SchemaConnector()
       const dev = response.addDevice(deviceId);
       const fields = [];
 
+      // Setpoint/mode commands need the current mode + set temperature and the remembered
+      // heat/cool setpoints. Read the shadow preferring desired values (they reflect our own
+      // latest commands immediately, unlike lagging reported values).
+      const SP_CMDS = /thermostat(Heating|Cooling)Setpoint|thermostatMode|acMode:setMode|acTemperature:setTempSet/;
+      let sp = null, curMode = null, curShadow = null;
+      if ((cmd.commands || []).some(c => SP_CMDS.test(`${c.capability}:${c.command}`))) {
+        let cur = {};
+        try { curShadow = await setDeviceFields(freshAccess, freshId, deviceId, []); cur = fieldsArrayToConfigurations(curShadow, true) || {}; }
+        catch (e) { console.warn('COMMAND - pre-read failed:', e.message); }
+        sp = resolveSp(await getSp(deviceId), cur, true);
+        curMode = cur.mode || null;
+      }
+      const toT = (v) => Math.round(Number(v));
+      const pushModeTemp = (m) => { curMode = m; if (sp) fields.push({ name: 'temp_set', value: m === 'HEAT' ? sp.heat : sp.cool }); };
+
       for (const c of cmd.commands) {
         try {
           const args = c.arguments || [];
@@ -298,9 +464,47 @@ const connector = new SchemaConnector()
             case 'st.switch:off':
               fields.push({ name: 'power', value: false }); break;
             case 'vehiclepatch55148.acTemperature:setTempSet':
-              fields.push({ name: 'temp_set', value: args[0] }); break;
+              fields.push({ name: 'temp_set', value: args[0] });
+              if (sp) { if (curMode === 'HEAT') sp.heat = toT(args[0]); else sp.cool = toT(args[0]); }
+              break;
+            // SharpTools (and any client that reads the standard st.thermostatCoolingSetpoint
+            // state we expose for compatibility) sends this standard command instead of our
+            // custom acTemperature one. It was previously falling through to "Unhandled command"
+            // and silently doing nothing. Tadiran only accepts whole-degree integers, while this
+            // standard capability allows decimals (e.g. 24.5), so round it.
+            // Separate heat/cool setpoints: only sent to the A/C when it's in the matching mode,
+            // otherwise remembered and applied on the next mode switch.
+            case 'st.thermostatHeatingSetpoint:setHeatingSetpoint':
+              if (sp) sp.heat = toT(args[0]);
+              if (!sp || curMode === 'HEAT') fields.push({ name: 'temp_set', value: toT(args[0]) });
+              break;
+            case 'st.thermostatCoolingSetpoint:setCoolingSetpoint':
+              if (sp) sp.cool = toT(args[0]);
+              if (!sp || curMode !== 'HEAT') fields.push({ name: 'temp_set', value: toT(args[0]) });
+              break;
             case 'vehiclepatch55148.acMode:setMode':
-              fields.push({ name: 'mode', value: args[0] }); break;
+              fields.push({ name: 'mode', value: args[0] }); pushModeTemp(String(args[0]).toUpperCase()); break;
+            case 'st.thermostatMode:setThermostatMode': {
+              const m = String(args[0] || '').toLowerCase();
+              if (m === 'off') {
+                fields.push({ name: 'power', value: false });
+              } else {
+                const t = standardModeToTadiran(m);
+                if (t) { fields.push({ name: 'power', value: true }); fields.push({ name: 'mode', value: t }); pushModeTemp(t); }
+                else console.log('COMMAND - ignoring unsupported thermostat mode:', args[0]);
+              }
+              break;
+            }
+            case 'st.thermostatMode:cool':
+              fields.push({ name: 'mode', value: 'COOL' }); pushModeTemp('COOL'); break;
+            case 'st.thermostatMode:heat':
+              fields.push({ name: 'mode', value: 'HEAT' }); pushModeTemp('HEAT'); break;
+            case 'st.thermostatMode:auto':
+              fields.push({ name: 'mode', value: 'AUTO' }); pushModeTemp('AUTO'); break;
+            case 'st.thermostatMode:emergencyHeat':
+              fields.push({ name: 'mode', value: 'HEAT' }); pushModeTemp('HEAT'); break;
+            case 'st.thermostatMode:off':
+              fields.push({ name: 'power', value: false }); break;
             case 'vehiclepatch55148.acFanSpeed:setFanSpeed':
               fields.push({ name: 'wind_speed', value: args[0] }); break;
             case 'vehiclepatch55148.acSwingUpDown:setSwitch':
@@ -321,11 +525,15 @@ const connector = new SchemaConnector()
         }
       }
 
+      if (sp) { sp.at = Date.now(); await putSp(deviceId, sp); console.log('COMMAND - setpoints now', JSON.stringify(sp)); }
+
       let updatedDevice;
       try {
         if (fields.length > 0) {
           updatedDevice = await setDeviceFields(freshAccess, freshId, deviceId, fields);
           console.log('COMMAND - updatedDevice from setDeviceFields:', JSON.stringify(updatedDevice));
+        } else if (curShadow) {
+          updatedDevice = curShadow; // setpoint only remembered (A/C in the other mode) - reply with current state
         }
       } catch (e) {
         console.error('Tadiran command failed:', e);
@@ -335,13 +543,13 @@ const connector = new SchemaConnector()
 
       // Reply with updated states if we got a shadow back, else re-fetch device list as fallback
       if (Array.isArray(updatedDevice) && updatedDevice.length > 0) {
-        const configs = fieldsArrayToConfigurations(updatedDevice);
+        const configs = fieldsArrayToConfigurations(updatedDevice, true);
         console.log('COMMAND - converted configurations:', JSON.stringify(configs));
-        for (const s of deviceToStates({ device_id: deviceId, configurations: configs })) {
+        for (const s of deviceToStates({ device_id: deviceId, configurations: configs }, sp)) {
           dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
         }
       } else if (updatedDevice && updatedDevice.configurations) {
-        for (const s of deviceToStates({ device_id: deviceId, configurations: updatedDevice.configurations })) {
+        for (const s of deviceToStates({ device_id: deviceId, configurations: updatedDevice.configurations }, sp)) {
           dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
         }
       } else {
@@ -350,14 +558,14 @@ const connector = new SchemaConnector()
           const found = devices.find(d => getDeviceExternalId(d) === deviceId);
           console.log('COMMAND - fallback found device:', JSON.stringify(found));
           if (found) {
-            for (const s of deviceToStates(found)) {
+            for (const s of deviceToStates(found, sp)) {
               dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
             }
           } else {
             console.log('COMMAND - device not found in fallback list, using optimistic local state');
             const optimistic = { configurations: {} };
             for (const f of fields) optimistic.configurations[f.name] = f.value;
-            for (const s of deviceToStates({ device_id: deviceId, configurations: optimistic.configurations })) {
+            for (const s of deviceToStates({ device_id: deviceId, configurations: optimistic.configurations }, sp)) {
               dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
             }
           }
@@ -369,13 +577,32 @@ const connector = new SchemaConnector()
     }
   })
   .callbackAccessHandler(async (accessToken, callbackAuthentication, callbackUrls) => {
-    const record = await getTokenRecord(accessToken);
-    if (!record) return;
-    await saveTokenRecord(accessToken, {
+    let record = await getTokenRecord(accessToken);
+    let keyToSaveUnder = accessToken;
+    if (!record) {
+      // The access token SmartThings used here may have already rotated out of our
+      // table (Cognito tokens expire hourly, and our refresh flow deletes the old
+      // key). Fall back to matching by the stable Cognito "sub" claim instead.
+      const sub = decodeJwtSub(accessToken);
+      if (sub) {
+        const allRecords = await scanAllTokenRecords();
+        const match = allRecords.find(r => r.cognitoAccessToken && decodeJwtSub(r.cognitoAccessToken) === sub);
+        if (match) {
+          record = match;
+          keyToSaveUnder = match.accessToken;
+        }
+      }
+    }
+    if (!record) {
+      console.error('PROACTIVE SYNC SETUP - callbackAccessHandler: no matching account found for token ending', accessToken.slice(-6));
+      return;
+    }
+    await saveTokenRecord(keyToSaveUnder, {
       ...record,
       callbackAuthentication,
       callbackUrls
     });
+    console.log('PROACTIVE SYNC SETUP - saved callback credentials for account ending', keyToSaveUnder.slice(-6));
   })
   .integrationDeletedHandler(async (accessToken) => {
     await deleteTokenRecord(accessToken).catch(() => {});
@@ -408,14 +635,22 @@ function phoneForm(error) {
   </body></html>`;
 }
 
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 function otpForm(phone, session, error) {
   return `<!DOCTYPE html><html><body style="font-family:sans-serif;max-width:400px;margin:40px auto">
-    <h2>Enter the code sent to ${phone}</h2>
+    <h2>Enter the code sent to ${escapeHtml(phone)}</h2>
     ${error ? `<p style="color:red">${error}</p>` : ''}
     <form method="POST">
       <input type="hidden" name="step" value="otp">
-      <input type="hidden" name="phone" value="${phone}">
-      <input type="hidden" name="session" value="${session}">
+      <input type="hidden" name="phone" value="${escapeHtml(phone)}">
+      <input type="hidden" name="session" value="${escapeHtml(session)}">
       <label>OTP code</label><br>
       <input type="text" name="otp" required style="width:100%;padding:8px;margin:8px 0"><br>
       <button type="submit" style="padding:10px 20px">Verify</button>
@@ -521,6 +756,12 @@ async function handleToken(event) {
 
 exports.handler = async (event, context) => {
   console.log('Event:', JSON.stringify(event));
+
+  // EventBridge scheduled rule (no requestContext, has a 'source' of 'aws.events')
+  if (event.source === 'aws.events') {
+    await proactiveSyncAll();
+    return { statusCode: 200 };
+  }
 
   // HTTP API Gateway events have requestContext with http/routeKey.
   // Direct SmartThings invocations do NOT have requestContext (per LG project lesson).

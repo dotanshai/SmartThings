@@ -235,6 +235,43 @@ async function deleteRecord(accessToken) {
   await ddb.send(new DeleteCommand({ TableName: TABLE_NAME, Key: { accessToken } }));
 }
 
+// ---- Separate heat / cool setpoints (thermostat-style, same as Tadiran/Electra) ----
+// The A/C has ONE set temperature. We remember a heating and a cooling setpoint per device
+// (own DynamoDB item 'setpoints#<deviceId>') and apply the right one when the mode changes.
+// The A/C's actual temp is authoritative for the side matching its current mode.
+const SP_PREFIX = 'setpoints#';
+const SP_TRUST_MS = 90 * 1000;
+async function getSp(id) {
+  try { const r = await ddb.send(new GetCommand({ TableName: TABLE_NAME, Key: { accessToken: SP_PREFIX + id } })); return r.Item || null; }
+  catch (e) { console.warn('getSp failed:', e.message); return null; }
+}
+async function putSp(id, sp) {
+  try { await ddb.send(new PutCommand({ TableName: TABLE_NAME, Item: { accessToken: SP_PREFIX + id, heat: sp.heat, cool: sp.cool, at: sp.at || 0, updatedAt: Date.now() } })); }
+  catch (e) { console.warn('putSp failed:', e.message); }
+}
+function resolveSp(item, p, force = false) {
+  const t = (typeof p.temp === 'number') ? clamp(Math.round(p.temp / 10), 16, 30) : 24;
+  const sp = {
+    heat: (item && typeof item.heat === 'number') ? item.heat : t,
+    cool: (item && typeof item.cool === 'number') ? item.cool : t,
+    at: (item && item.at) || 0
+  };
+  if (force || Date.now() - sp.at > SP_TRUST_MS) {
+    if (p.ac_mode === ST_TO_MODE.HEAT) sp.heat = t; else if (typeof p.ac_mode === 'number') sp.cool = t;
+  }
+  return sp;
+}
+async function spFor(id, p) {
+  const item = await getSp(id);
+  const sp = resolveSp(item, p);
+  if (!item || item.heat !== sp.heat || item.cool !== sp.cool) await putSp(id, sp);
+  return sp;
+}
+// SmartThings standard thermostatMode <-> our acMode values
+const MODE_TO_STD = { COOL: 'cool', HEAT: 'heat', AUTO: 'auto', DRY: 'dryair', FAN: 'fanonly' };
+const STD_TO_MODE = { cool: 'COOL', heat: 'HEAT', auto: 'AUTO', dryair: 'DRY', fanonly: 'FAN', emergencyheat: 'HEAT' };
+const SP_CMDS = /thermostat(Heating|Cooling)Setpoint|thermostatMode|acMode:setMode|acTemperature:setTempSet/;
+
 // Runs fn(aux) with the cached AUX session; on any failure re-logs in once and retries.
 async function withAux(accessToken, record, fn) {
   const aux = new AuxClient(record.server, record.auxSession, record.auxUserid);
@@ -259,14 +296,17 @@ async function withAux(accessToken, record, fn) {
 // =====================================================================
 function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
 
-function paramsToStates(p, extId, online = true) {
+function paramsToStates(p, extId, online = true, sp = null) {
   const on = p.pwr ? 'on' : 'off';
   const setC = (typeof p.temp === 'number') ? p.temp / 10 : 24;
   const setInt = clamp(Math.round(setC), 16, 30);
   const mode = MODE_TO_ST[p.ac_mode] || 'COOL';
   const states = [
     { capability: 'st.switch', attribute: 'switch', value: on },
-    { capability: 'st.thermostatCoolingSetpoint', attribute: 'coolingSetpoint', value: setC, unit: 'C' },
+    { capability: 'st.thermostatCoolingSetpoint', attribute: 'coolingSetpoint', value: sp ? sp.cool : setC, unit: 'C' },
+    { capability: 'st.thermostatHeatingSetpoint', attribute: 'heatingSetpoint', value: sp ? sp.heat : setC, unit: 'C' },
+    { capability: 'st.thermostatMode', attribute: 'thermostatMode', value: p.pwr ? (MODE_TO_STD[mode] || 'cool') : 'off' },
+    { capability: 'st.thermostatMode', attribute: 'supportedThermostatModes', value: ['cool', 'heat', 'auto', 'dryair', 'fanonly', 'off'] },
     { capability: 'vehiclepatch55148.acTemperature', attribute: 'tempSet', value: setInt },
     { capability: 'vehiclepatch55148.acMode', attribute: 'mode', value: mode },
     { capability: 'vehiclepatch55148.acFanSpeed', attribute: 'fanSpeed', value: FAN_TO_ST[p.ac_mark] || 'AUTO' },
@@ -296,18 +336,50 @@ function addStates(dev, states) {
 }
 
 // SmartThings command -> AUX params (merged into one set call)
-function commandsToValues(commands) {
+// ctx = { sp, curMode }: remembered heat/cool setpoints + the A/C's current mode (COOL/HEAT/..).
+// A heat/cool setpoint is only sent to the A/C when it's in the matching mode, otherwise it is
+// remembered and applied on the next mode switch.
+function commandsToValues(commands, ctx = {}) {
   const v = {};
+  const sp = ctx.sp || null;
+  const toT = (x) => clamp(Math.round(Number(x)), 16, 30);
+  const setT = (t) => { v.temp = Math.round(clamp(Number(t), 16, 32) * 10); };
+  const setMode = (m) => {
+    if (!(m in ST_TO_MODE)) return;
+    v.ac_mode = ST_TO_MODE[m]; ctx.curMode = m;
+    if (sp) setT(m === 'HEAT' ? sp.heat : sp.cool);
+  };
   for (const c of commands) {
     const a = (c.arguments || [])[0];
     switch (`${c.capability}:${c.command}`) {
       case 'st.switch:on': v.pwr = 1; break;
       case 'st.switch:off': v.pwr = 0; break;
       case 'vehiclepatch55148.acTemperature:setTempSet':
+        setT(a);
+        if (sp) { if (ctx.curMode === 'HEAT') sp.heat = toT(a); else sp.cool = toT(a); }
+        break;
       case 'st.thermostatCoolingSetpoint:setCoolingSetpoint':
-        v.temp = Math.round(clamp(Number(a), 16, 32) * 10); break;
+        if (sp) sp.cool = toT(a);
+        if (!sp || ctx.curMode !== 'HEAT') setT(a);
+        break;
+      case 'st.thermostatHeatingSetpoint:setHeatingSetpoint':
+        if (sp) sp.heat = toT(a);
+        if (!sp || ctx.curMode === 'HEAT') setT(a);
+        break;
       case 'vehiclepatch55148.acMode:setMode':
-        if (a in ST_TO_MODE) v.ac_mode = ST_TO_MODE[a]; break;
+        setMode(String(a).toUpperCase()); break;
+      case 'st.thermostatMode:setThermostatMode': {
+        const m = String(a || '').toLowerCase();
+        if (m === 'off') v.pwr = 0;
+        else if (STD_TO_MODE[m]) { v.pwr = 1; setMode(STD_TO_MODE[m]); }
+        else console.log('COMMAND - ignoring unsupported thermostat mode:', a);
+        break;
+      }
+      case 'st.thermostatMode:cool': v.pwr = 1; setMode('COOL'); break;
+      case 'st.thermostatMode:heat':
+      case 'st.thermostatMode:emergencyHeat': v.pwr = 1; setMode('HEAT'); break;
+      case 'st.thermostatMode:auto': v.pwr = 1; setMode('AUTO'); break;
+      case 'st.thermostatMode:off': v.pwr = 0; break;
       case 'vehiclepatch55148.acFanSpeed:setFanSpeed':
         if (a in ST_TO_FAN) v.ac_mark = ST_TO_FAN[a]; break;
       case 'vehiclepatch55148.acSwingUpDown:setSwitch': v.ac_vdir = a === 'on' ? 1 : 0; break;
@@ -349,7 +421,7 @@ const connector = new SchemaConnector()
           const p = await aux.getParams(d);
           try { p.envtemp = await aux.getAmbient(d); } catch (e) { console.warn('ambient failed:', e.message); }
           console.log('STATE REFRESH -', d.endpointId, JSON.stringify(p));
-          addStates(dev, paramsToStates(p, d.endpointId));
+          addStates(dev, paramsToStates(p, d.endpointId, true, await spFor(d.endpointId, p)));
         } catch (e) {
           console.error('STATE REFRESH failed for', d.endpointId, e.message);
           dev.addState('main', 'st.healthCheck', 'healthStatus', 'offline');
@@ -371,11 +443,21 @@ const connector = new SchemaConnector()
           continue;
         }
         try {
-          const values = commandsToValues(cmd.commands || []);
+          const cmds = cmd.commands || [];
+          const ctx = { sp: null, curMode: null };
+          if (cmds.some(c => SP_CMDS.test(`${c.capability}:${c.command}`))) {
+            try {
+              const cur = await aux.getParams(d);
+              ctx.curMode = MODE_TO_ST[cur.ac_mode] || null;
+              ctx.sp = resolveSp(await getSp(d.endpointId), cur, true);
+            } catch (e) { console.warn('COMMAND - pre-read failed:', e.message); }
+          }
+          const values = commandsToValues(cmds, ctx);
+          if (ctx.sp) { ctx.sp.at = Date.now(); await putSp(d.endpointId, ctx.sp); console.log('COMMAND - setpoints now', JSON.stringify(ctx.sp)); }
           const p = Object.keys(values).length ? await aux.setParams(d, values) : await aux.getParams(d);
           try { p.envtemp = await aux.getAmbient(d); } catch (e) { console.warn('ambient failed:', e.message); }
           console.log('COMMAND - sent', JSON.stringify(values), 'state now', JSON.stringify(p));
-          addStates(dev, paramsToStates(p, d.endpointId));
+          addStates(dev, paramsToStates(p, d.endpointId, true, ctx.sp || await spFor(d.endpointId, p)));
         } catch (e) {
           console.error('COMMAND failed:', e.message);
           dev.setError(e.message, DeviceErrorTypes.DEVICE_UNAVAILABLE);
@@ -401,7 +483,7 @@ async function scanAllRecords() {
   let ExclusiveStartKey;
   do {
     const r = await ddb.send(new ScanCommand({ TableName: TABLE_NAME, ExclusiveStartKey }));
-    items.push(...(r.Items || []));
+    items.push(...(r.Items || []).filter(i => !String(i.accessToken || '').startsWith(SP_PREFIX)));
     ExclusiveStartKey = r.LastEvaluatedKey;
   } while (ExclusiveStartKey);
   return items;
@@ -417,7 +499,7 @@ async function syncOne(rec) {
         try { p.envtemp = await aux.getAmbient(d); } catch (e) { /* ambient is best-effort */ }
         out.push({
           externalDeviceId: d.endpointId,
-          states: paramsToStates(p, d.endpointId).map(s => ({
+          states: paramsToStates(p, d.endpointId, true, await spFor(d.endpointId, p)).map(s => ({
             component: 'main', capability: s.capability, attribute: s.attribute, value: s.value,
             ...(s.unit ? { unit: s.unit } : {})
           }))
@@ -434,13 +516,24 @@ async function syncOne(rec) {
   if (!deviceState.length) return 'no devices';
 
   let refreshed = null;
-  await new StateUpdateRequest(ST_CLIENT_ID, ST_CLIENT_SECRET)
-    .updateState(rec.callbackUrls, rec.callbackAuthentication, deviceState, (auth) => { refreshed = auth; });
+  let note = '';
+  try {
+    await new StateUpdateRequest(ST_CLIENT_ID, ST_CLIENT_SECRET)
+      .updateState(rec.callbackUrls, rec.callbackAuthentication, deviceState, (auth) => { refreshed = auth; });
+  } catch (e) {
+    // Devices linked before the thermostat profile don't have these capabilities - resend without them
+    console.warn('SYNC - full push failed, retrying without thermostat states:', e.message);
+    const NEW = /st\.thermostatMode|st\.thermostatHeatingSetpoint/;
+    const slim = deviceState.map(x => ({ ...x, states: x.states.filter(s => !NEW.test(s.capability)) }));
+    await new StateUpdateRequest(ST_CLIENT_ID, ST_CLIENT_SECRET)
+      .updateState(rec.callbackUrls, refreshed || rec.callbackAuthentication, slim, (auth) => { refreshed = auth; });
+    note = ' WITHOUT thermostat states (old profile - relink to get them)';
+  }
   if (refreshed) {
     rec.callbackAuthentication = refreshed;
     await saveRecord(rec.accessToken, rec);
   }
-  return `pushed ${deviceState.length} device(s)${refreshed ? ' (callback token refreshed)' : ''}`;
+  return `pushed ${deviceState.length} device(s)${note}${refreshed ? ' (callback token refreshed)' : ''}`;
 }
 
 async function runSync() {
@@ -631,4 +724,4 @@ exports.handler = async (event, context) => {
 };
 
 // exported for local tests
-exports._internal = { AuxClient, paramsToStates, commandsToValues, encrypt, decrypt };
+exports._internal = { AuxClient, paramsToStates, commandsToValues, encrypt, decrypt, resolveSp };

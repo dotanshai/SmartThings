@@ -228,13 +228,58 @@ function fieldsArrayToConfigurations(fields, optimistic = false) {
   return c;
 }
 
-function deviceToStates(device) {
+function tadiranModeToStandard(mode) {
+  const map = { COOL: 'cool', HEAT: 'heat', FAN: 'fanonly', DRY: 'dryair', AUTO: 'auto' };
+  return map[mode] || 'auto';
+}
+function standardModeToTadiran(mode) {
+  const map = { cool: 'COOL', heat: 'HEAT', fanonly: 'FAN', dryair: 'DRY', auto: 'AUTO', 'emergency heat': 'HEAT', emergencyheat: 'HEAT' };
+  return map[mode] || null;
+}
+
+// ---- Separate heat / cool setpoints (thermostat-style) ----
+// The A/C has ONE set temperature. We remember a heating and a cooling setpoint per device
+// (own DynamoDB item 'setpoints#<deviceId>', stable across Cognito token rotation) and apply
+// the right one when the mode changes. The A/C's actual temp_set is authoritative for the side
+// matching its current mode, except within 90s after our own command (reported values lag).
+const SP_PREFIX = 'setpoints#';
+const SP_TRUST_MS = 90 * 1000;
+async function getSp(extId) {
+  try { const r = await ddb.send(new GetCommand({ TableName: TABLE_NAME, Key: { accessToken: SP_PREFIX + extId } })); return r.Item || null; }
+  catch (e) { console.warn('getSp failed:', e.message); return null; }
+}
+async function putSp(extId, sp) {
+  try { await ddb.send(new PutCommand({ TableName: TABLE_NAME, Item: { accessToken: SP_PREFIX + extId, heat: sp.heat, cool: sp.cool, at: sp.at || 0, updatedAt: Date.now() } })); }
+  catch (e) { console.warn('putSp failed:', e.message); }
+}
+function resolveSp(item, c, force = false) {
+  const t = (typeof c.temp_set === 'number') ? Math.round(c.temp_set) : 24;
+  const sp = {
+    heat: (item && typeof item.heat === 'number') ? item.heat : t,
+    cool: (item && typeof item.cool === 'number') ? item.cool : t,
+    at: (item && item.at) || 0
+  };
+  if (force || Date.now() - sp.at > SP_TRUST_MS) {
+    if (c.mode === 'HEAT') sp.heat = t; else if (c.mode) sp.cool = t;
+  }
+  return sp;
+}
+async function spFor(extId, c) {
+  if (!c) return null;
+  const item = await getSp(extId);
+  const sp = resolveSp(item, c);
+  if (!item || item.heat !== sp.heat || item.cool !== sp.cool) await putSp(extId, sp);
+  return sp;
+}
+
+function deviceToStates(device, sp = null) {
   const c = device.configurations || {};
   const extId = getDeviceExternalId(device) || 'unknown';
   return [
     { component: 'main', capability: 'st.switch', attribute: 'switch', value: c.power ? 'on' : 'off' },
     { component: 'main', capability: 'st.temperatureMeasurement', attribute: 'temperature', value: Number((typeof c.temp_current === 'number') ? c.temp_current : 24), unit: 'C' },
-    { component: 'main', capability: 'st.thermostatCoolingSetpoint', attribute: 'coolingSetpoint', value: Number((typeof c.temp_set === 'number') ? c.temp_set : 24), unit: 'C' },
+    { component: 'main', capability: 'st.thermostatHeatingSetpoint', attribute: 'heatingSetpoint', value: sp ? sp.heat : Number((typeof c.temp_set === 'number') ? c.temp_set : 24), unit: 'C' },
+    { component: 'main', capability: 'st.thermostatCoolingSetpoint', attribute: 'coolingSetpoint', value: sp ? sp.cool : Number((typeof c.temp_set === 'number') ? c.temp_set : 24), unit: 'C' },
 
     { component: 'main', capability: 'vehiclepatch55148.acTemperature', attribute: 'tempSet', value: (typeof c.temp_set === 'number') ? c.temp_set : 24 },
     { component: 'main', capability: 'vehiclepatch55148.acTemperature', attribute: 'tempCurrent', value: (typeof c.temp_current === 'number') ? c.temp_current : 24 },
@@ -245,6 +290,8 @@ function deviceToStates(device) {
     { component: 'main', capability: 'vehiclepatch55148.acLight', attribute: 'switch', value: c.light ? 'on' : 'off' },
     { component: 'main', capability: 'vehiclepatch55148.acTurbo', attribute: 'switch', value: c.turbo ? 'on' : 'off' },
     { component: 'main', capability: 'vehiclepatch55148.acMute', attribute: 'switch', value: c.mute ? 'on' : 'off' },
+    { component: 'main', capability: 'st.thermostatMode', attribute: 'thermostatMode', value: c.power ? tadiranModeToStandard(c.mode) : 'off' },
+    { component: 'main', capability: 'st.thermostatMode', attribute: 'supportedThermostatModes', value: ['cool', 'heat', 'auto', 'dryair', 'fanonly', 'off'] },
     { component: 'main', capability: 'vehiclepatch55148.acStatus', attribute: 'statusSwitch', value: c.power ? 'on' : 'off' },
     { component: 'main', capability: 'vehiclepatch55148.acStatus', attribute: 'statusMode', value: c.mode || 'COOL' },
     { component: 'main', capability: 'vehiclepatch55148.acStatus', attribute: 'statusTempSet', value: (typeof c.temp_set === 'number') ? c.temp_set : 24 },
@@ -265,7 +312,7 @@ async function scanAllTokenRecords() {
   let ExclusiveStartKey;
   do {
     const resp = await ddb.send(new ScanCommand({ TableName: TABLE_NAME, ExclusiveStartKey }));
-    records.push(...(resp.Items || []));
+    records.push(...(resp.Items || []).filter(i => !String(i.accessToken || '').startsWith(SP_PREFIX)));
     ExclusiveStartKey = resp.LastEvaluatedKey;
   } while (ExclusiveStartKey);
   return records;
@@ -295,7 +342,8 @@ async function syncOneAccount(record) {
         console.error('PROACTIVE SYNC - shadow read failed for', extId, 'account ending', idHint, e.message);
         continue;
       }
-      const states = deviceToStates({ device_id: extId, configurations }).map(
+      const sp = await spFor(extId, configurations);
+      const states = deviceToStates({ device_id: extId, configurations }, sp).map(
         s => ({ component: s.component, capability: s.capability, attribute: s.attribute, value: s.value, unit: s.unit })
       );
       deviceState.push({ externalDeviceId: extId, states });
@@ -375,7 +423,8 @@ const connector = new SchemaConnector()
         }
       }
       console.log('STATE REFRESH - final configs used:', JSON.stringify(configs));
-      for (const s of deviceToStates({ device_id: externalId, configurations: configs })) {
+      const sp = await spFor(externalId, configs);
+      for (const s of deviceToStates({ device_id: externalId, configurations: configs }, sp)) {
         dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
       }
     }
@@ -391,6 +440,21 @@ const connector = new SchemaConnector()
       const dev = response.addDevice(deviceId);
       const fields = [];
 
+      // Setpoint/mode commands need the current mode + set temperature and the remembered
+      // heat/cool setpoints. Read the shadow preferring desired values (they reflect our own
+      // latest commands immediately, unlike lagging reported values).
+      const SP_CMDS = /thermostat(Heating|Cooling)Setpoint|thermostatMode|acMode:setMode|acTemperature:setTempSet/;
+      let sp = null, curMode = null, curShadow = null;
+      if ((cmd.commands || []).some(c => SP_CMDS.test(`${c.capability}:${c.command}`))) {
+        let cur = {};
+        try { curShadow = await setDeviceFields(freshAccess, freshId, deviceId, []); cur = fieldsArrayToConfigurations(curShadow, true) || {}; }
+        catch (e) { console.warn('COMMAND - pre-read failed:', e.message); }
+        sp = resolveSp(await getSp(deviceId), cur, true);
+        curMode = cur.mode || null;
+      }
+      const toT = (v) => Math.round(Number(v));
+      const pushModeTemp = (m) => { curMode = m; if (sp) fields.push({ name: 'temp_set', value: m === 'HEAT' ? sp.heat : sp.cool }); };
+
       for (const c of cmd.commands) {
         try {
           const args = c.arguments || [];
@@ -400,16 +464,47 @@ const connector = new SchemaConnector()
             case 'st.switch:off':
               fields.push({ name: 'power', value: false }); break;
             case 'vehiclepatch55148.acTemperature:setTempSet':
-              fields.push({ name: 'temp_set', value: args[0] }); break;
+              fields.push({ name: 'temp_set', value: args[0] });
+              if (sp) { if (curMode === 'HEAT') sp.heat = toT(args[0]); else sp.cool = toT(args[0]); }
+              break;
             // SharpTools (and any client that reads the standard st.thermostatCoolingSetpoint
             // state we expose for compatibility) sends this standard command instead of our
             // custom acTemperature one. It was previously falling through to "Unhandled command"
             // and silently doing nothing. Tadiran only accepts whole-degree integers, while this
             // standard capability allows decimals (e.g. 24.5), so round it.
+            // Separate heat/cool setpoints: only sent to the A/C when it's in the matching mode,
+            // otherwise remembered and applied on the next mode switch.
+            case 'st.thermostatHeatingSetpoint:setHeatingSetpoint':
+              if (sp) sp.heat = toT(args[0]);
+              if (!sp || curMode === 'HEAT') fields.push({ name: 'temp_set', value: toT(args[0]) });
+              break;
             case 'st.thermostatCoolingSetpoint:setCoolingSetpoint':
-              fields.push({ name: 'temp_set', value: Math.round(Number(args[0])) }); break;
+              if (sp) sp.cool = toT(args[0]);
+              if (!sp || curMode !== 'HEAT') fields.push({ name: 'temp_set', value: toT(args[0]) });
+              break;
             case 'vehiclepatch55148.acMode:setMode':
-              fields.push({ name: 'mode', value: args[0] }); break;
+              fields.push({ name: 'mode', value: args[0] }); pushModeTemp(String(args[0]).toUpperCase()); break;
+            case 'st.thermostatMode:setThermostatMode': {
+              const m = String(args[0] || '').toLowerCase();
+              if (m === 'off') {
+                fields.push({ name: 'power', value: false });
+              } else {
+                const t = standardModeToTadiran(m);
+                if (t) { fields.push({ name: 'power', value: true }); fields.push({ name: 'mode', value: t }); pushModeTemp(t); }
+                else console.log('COMMAND - ignoring unsupported thermostat mode:', args[0]);
+              }
+              break;
+            }
+            case 'st.thermostatMode:cool':
+              fields.push({ name: 'mode', value: 'COOL' }); pushModeTemp('COOL'); break;
+            case 'st.thermostatMode:heat':
+              fields.push({ name: 'mode', value: 'HEAT' }); pushModeTemp('HEAT'); break;
+            case 'st.thermostatMode:auto':
+              fields.push({ name: 'mode', value: 'AUTO' }); pushModeTemp('AUTO'); break;
+            case 'st.thermostatMode:emergencyHeat':
+              fields.push({ name: 'mode', value: 'HEAT' }); pushModeTemp('HEAT'); break;
+            case 'st.thermostatMode:off':
+              fields.push({ name: 'power', value: false }); break;
             case 'vehiclepatch55148.acFanSpeed:setFanSpeed':
               fields.push({ name: 'wind_speed', value: args[0] }); break;
             case 'vehiclepatch55148.acSwingUpDown:setSwitch':
@@ -430,11 +525,15 @@ const connector = new SchemaConnector()
         }
       }
 
+      if (sp) { sp.at = Date.now(); await putSp(deviceId, sp); console.log('COMMAND - setpoints now', JSON.stringify(sp)); }
+
       let updatedDevice;
       try {
         if (fields.length > 0) {
           updatedDevice = await setDeviceFields(freshAccess, freshId, deviceId, fields);
           console.log('COMMAND - updatedDevice from setDeviceFields:', JSON.stringify(updatedDevice));
+        } else if (curShadow) {
+          updatedDevice = curShadow; // setpoint only remembered (A/C in the other mode) - reply with current state
         }
       } catch (e) {
         console.error('Tadiran command failed:', e);
@@ -446,11 +545,11 @@ const connector = new SchemaConnector()
       if (Array.isArray(updatedDevice) && updatedDevice.length > 0) {
         const configs = fieldsArrayToConfigurations(updatedDevice, true);
         console.log('COMMAND - converted configurations:', JSON.stringify(configs));
-        for (const s of deviceToStates({ device_id: deviceId, configurations: configs })) {
+        for (const s of deviceToStates({ device_id: deviceId, configurations: configs }, sp)) {
           dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
         }
       } else if (updatedDevice && updatedDevice.configurations) {
-        for (const s of deviceToStates({ device_id: deviceId, configurations: updatedDevice.configurations })) {
+        for (const s of deviceToStates({ device_id: deviceId, configurations: updatedDevice.configurations }, sp)) {
           dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
         }
       } else {
@@ -459,14 +558,14 @@ const connector = new SchemaConnector()
           const found = devices.find(d => getDeviceExternalId(d) === deviceId);
           console.log('COMMAND - fallback found device:', JSON.stringify(found));
           if (found) {
-            for (const s of deviceToStates(found)) {
+            for (const s of deviceToStates(found, sp)) {
               dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
             }
           } else {
             console.log('COMMAND - device not found in fallback list, using optimistic local state');
             const optimistic = { configurations: {} };
             for (const f of fields) optimistic.configurations[f.name] = f.value;
-            for (const s of deviceToStates({ device_id: deviceId, configurations: optimistic.configurations })) {
+            for (const s of deviceToStates({ device_id: deviceId, configurations: optimistic.configurations }, sp)) {
               dev.addState(s.component, s.capability, s.attribute, s.value, s.unit);
             }
           }
