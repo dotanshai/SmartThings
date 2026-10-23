@@ -42,8 +42,8 @@ Install from the **Shai D. Shared Drivers** channel:
 | LG ThinQ Fridge | [Invite link](https://invitations.smartthings.com/schemaApp/a53a155d-aae7-4046-a7da-eca12e560f41) | 2026-10-30 | [code](schemas/lg-thinq-fridge) |
 | Shabbat Switch | [Invite link](https://invitations.smartthings.com/schemaApp/f17d560c-b5bc-445e-a79d-187cf55edd8f) | 2026-11-18 | [code](schemas/shabbat-switch) |
 | Tadiran AC | [Invite link](https://invitations.smartthings.com/schemaApp/3528d96c-9484-420b-bf01-02b62884dacf) | 2026-11-18 | [code](schemas/tadiran-ac) |
-| Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/467ddf56-644f-473b-85f3-0f361253edfe) | 2026-11-18 | [code](schemas/tornado-ac) |
-| Electra AC | [Invite link](https://invitations.smartthings.com/schemaApp/2b6fae7f-826a-4e8e-8c4d-26a26574ed16) | 2026-11-18 | [code](schemas/electra-ac) |
+| Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/467ddf56-644f-473b-85f3-0f361253edfe) | 2026-11-22 | [code](schemas/tornado-ac) |
+| Electra AC | [Invite link](https://invitations.smartthings.com/schemaApp/2b6fae7f-826a-4e8e-8c4d-26a26574ed16) | 2026-11-22 | [code](schemas/electra-ac) |
 
 Invite links are renewed about every 30 days. If a link has expired, ask in the Facebook group.
 
