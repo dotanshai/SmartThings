@@ -9,7 +9,9 @@ For Fibaro Roller Shutter 4 (FGR-224) blinds that keep showing "offline" or don'
 
 ### 🆕 New: [WiFi Presence SD](drivers/wifi-presence-sd)
 Phone presence by home WiFi – no GPS, no app, any phone. Runs locally on the hub.
-
+## Offline Devices Monitor
+Daily Telegram / Pushover alert listing your offline SmartThings devices – no PAT, no SharpTools.
+👉 https://tinyurl.com/st-offline-monitor · [Details](OfflineDevicesMonitor/README.md)
 ## Edge Drivers
 Install from the **Shai D. Shared Drivers** channel:
 
@@ -53,7 +55,3 @@ Set them as Lambda environment variables when deploying your own copy.
 
 ## Legacy
 Old Groovy device handlers (pre-Edge) are in `legacy-groovy/`.
-
-## Offline Devices Monitor
-Daily Telegram / Pushover alert listing your offline SmartThings devices – no PAT, no SharpTools.
-👉 https://tinyurl.com/st-offline-monitor · [Details](OfflineDevicesMonitor/README.md)
