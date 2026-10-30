@@ -2,7 +2,7 @@
 
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/dotan_shai)
 
-Free SmartThings integrations for the Israeli SmartThings community.
+Free SmartThings integrations for the Israeli and global SmartThings community.
 
 ### 🆕 New: [Voice Box – Alexa skill](alexa-skills/voice-box)
 Your own audio messages on Alexa – upload any recording, TTS or short music clip and play it by voice or from a Routine. Free, no ads – no more My Pod. [Enable in the Alexa store](https://www.amazon.com/dp/B0H8GGHJNB/) · Upload: https://tinyurl.com/voicebox-il
