@@ -63,3 +63,9 @@ Set them as Lambda environment variables when deploying your own copy.
 
 ## Legacy
 Old Groovy device handlers (pre-Edge) are in `legacy-groovy/`.
+
+## Supporters
+
+Thank you to my supporters:
+
+- Gil Rozenberg
