@@ -53,3 +53,7 @@ Set them as Lambda environment variables when deploying your own copy.
 
 ## Legacy
 Old Groovy device handlers (pre-Edge) are in `legacy-groovy/`.
+
+## Offline Devices Monitor
+Daily Telegram / Pushover alert listing your offline SmartThings devices – no PAT, no SharpTools.
+👉 https://tinyurl.com/st-offline-monitor · [Details](OfflineDevicesMonitor/README.md)
