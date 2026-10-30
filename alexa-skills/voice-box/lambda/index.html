@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice Box</title><link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%232f6fed"/><path d="M14 26h8l10-8v28l-10-8h-8z" fill="%23fff"/><path d="M40 24a10 10 0 0 1 0 16M45 18a18 18 0 0 1 0 28" stroke="%23fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg>'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js"></script>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2433;--mute:#667085;--acc:#2f6fed;--bad:#c0392b;--ok:#1e8e3e;--line:#e4e7ee}
+@media (prefers-color-scheme:dark){:root{--bg:#12151c;--card:#1b2030;--ink:#e8ebf2;--mute:#9aa3b5;--line:#2a3144}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 40px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+h1{font-size:22px;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+label{display:block;font-size:14px;color:var(--mute);margin:10px 0 4px}
+input[type=text],input[type=file]{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);font-size:16px}
+button{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:16px;cursor:pointer;margin-top:12px}
+button.link{background:none;color:var(--acc);padding:4px 6px;margin:0;font-size:14px}
+button:disabled{opacity:.5}
+.mute{color:var(--mute);font-size:14px}.err{color:var(--bad)}.ok{color:var(--ok)}
+code{background:var(--bg);padding:2px 6px;border-radius:6px;direction:ltr;unicode-bidi:embed}
+ul{list-style:none;padding:0;margin:0}li{border-top:1px solid var(--line);padding:10px 0}
+li .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+audio{width:100%;margin-top:6px;height:36px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1 style="display:flex;align-items:center;gap:10px"><svg width="34" height="34" aria-hidden="true" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#2f6fed"/><path d="M14 26h8l10-8v28l-10-8h-8z" fill="#fff"/><path d="M40 24a10 10 0 0 1 0 16M45 18a18 18 0 0 1 0 28" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg>Voice Box</h1><button class="link" id="lang"></button></header>
+
+<div class="card" id="pair">
+  <p data-t="pairIntro"></p>
+  <p><code>Alexa, ask Voice Box for my code</code></p>
+  <label data-t="codeLabel"></label>
+  <input type="text" id="code" inputmode="numeric" maxlength="6" dir="ltr">
+  <button id="pairBtn" data-t="pairBtn"></button>
+  <p id="pairMsg" class="err"></p>
+</div>
+
+<div id="main" class="hidden">
+  <div class="card">
+    <h2 data-t="upTitle" style="margin-top:0;font-size:18px"></h2>
+    <label data-t="fileLabel"></label>
+    <input type="file" id="file" accept="audio/*">
+    <label data-t="nameLabel"></label>
+    <input type="text" id="name" dir="ltr" maxlength="40" placeholder="kvisa">
+    <p class="mute" data-t="nameHint"></p>
+    <button id="upBtn" data-t="upBtn"></button>
+    <p id="upMsg"></p>
+  </div>
+  <div class="card">
+    <h2 style="margin-top:0;font-size:18px"><span data-t="listTitle"></span> <span class="mute" id="count"></span></h2>
+    <ul id="list"></ul>
+    <p class="mute" data-t="routineHint"></p>
+    <p><code>ask voice box to play kvisa</code></p>
+  </div>
+  <button class="link" id="relink" data-t="relink"></button><br><button class="link" id="logout" data-t="logout"></button>
+</div>
+</div>
+<script>
+var T={
+ he:{pairIntro:"\u05db\u05d3\u05d9 \u05dc\u05d7\u05d1\u05e8 \u05d0\u05ea \u05d4\u05d3\u05e3 \u05dc\u05d7\u05e9\u05d1\u05d5\u05df \u05d4-Alexa \u05e9\u05dc\u05da, \u05d0\u05de\u05d5\u05e8 \u05dc\u05de\u05db\u05e9\u05d9\u05e8:",codeLabel:"\u05e7\u05d5\u05d3 \u05d1\u05df 6 \u05e1\u05e4\u05e8\u05d5\u05ea",pairBtn:"\u05d4\u05ea\u05d7\u05d1\u05e8",
+  badCode:"\u05e7\u05d5\u05d3 \u05e9\u05d2\u05d5\u05d9 \u05d0\u05d5 \u05e9\u05e4\u05d2 \u05ea\u05d5\u05e7\u05e4\u05d5. \u05d1\u05e7\u05e9 \u05e7\u05d5\u05d3 \u05d7\u05d3\u05e9.",upTitle:"\u05d4\u05e2\u05dc\u05d0\u05ea \u05d4\u05d5\u05d3\u05e2\u05d4",fileLabel:"\u05e7\u05d5\u05d1\u05e5 \u05e9\u05de\u05e2 (MP3, M4A, WAV)",
+  nameLabel:"\u05e9\u05dd \u05d4\u05d4\u05d5\u05d3\u05e2\u05d4 (\u05d1\u05d0\u05e0\u05d2\u05dc\u05d9\u05ea)",nameHint:"\u05d0\u05d5\u05ea\u05d9\u05d5\u05ea \u05d1\u05d0\u05e0\u05d2\u05dc\u05d9\u05ea \u05d5\u05de\u05e1\u05e4\u05e8\u05d9\u05dd \u05d1\u05dc\u05d1\u05d3. \u05d6\u05d4 \u05d4\u05e9\u05dd \u05e9\u05ea\u05d2\u05d9\u05d3 \u05dc-Alexa.",upBtn:"\u05d4\u05e2\u05dc\u05d4",
+  converting:"\u05de\u05de\u05d9\u05e8...",uploading:"\u05de\u05e2\u05dc\u05d4...",done:"\u05d4\u05d5\u05e2\u05dc\u05d4! \u05e0\u05e1\u05d4: ",listTitle:"\u05d4\u05d4\u05d5\u05d3\u05e2\u05d5\u05ea \u05e9\u05dc\u05d9",empty:"\u05d0\u05d9\u05df \u05e2\u05d3\u05d9\u05d9\u05df \u05d4\u05d5\u05d3\u05e2\u05d5\u05ea.",
+  del:"\u05de\u05d7\u05e7",confirmDel:"\u05dc\u05de\u05d7\u05d5\u05e7 \u05d0\u05ea ",routineHint:"\u05d1\u05e9\u05d2\u05e8\u05d4 \u05e9\u05dc Alexa, \u05d1\u05d7\u05e8 \u05e4\u05e2\u05d5\u05dc\u05d4 \u05de\u05d5\u05ea\u05d0\u05de\u05ea (Customized) \u05d5\u05d4\u05e7\u05dc\u05d3:",relink:"\u05e7\u05d9\u05d1\u05dc\u05ea \u05e7\u05d5\u05d3 \u05d7\u05d3\u05e9 \u05de-Alexa? \u05d7\u05d1\u05e8 \u05de\u05d7\u05d3\u05e9 (\u05d4\u05d4\u05d5\u05d3\u05e2\u05d5\u05ea \u05d9\u05d5\u05e2\u05d1\u05e8\u05d5)",logout:"\u05d4\u05ea\u05e0\u05ea\u05e7",
+  noFile:"\u05d1\u05d7\u05e8 \u05e7\u05d5\u05d1\u05e5.",badName:"\u05e9\u05dd \u05dc\u05d0 \u05ea\u05e7\u05d9\u05df. \u05d4\u05e9\u05ea\u05de\u05e9 \u05d1\u05d0\u05d5\u05ea\u05d9\u05d5\u05ea \u05d1\u05d0\u05e0\u05d2\u05dc\u05d9\u05ea \u05d5\u05de\u05e1\u05e4\u05e8\u05d9\u05dd.",tooLong:"\u05d4\u05d4\u05d5\u05d3\u05e2\u05d4 \u05d0\u05e8\u05d5\u05db\u05d4 \u05de-4 \u05d3\u05e7\u05d5\u05ea.",
+  tooMany:"\u05d4\u05d2\u05e2\u05ea \u05dc\u05de\u05e7\u05e1\u05d9\u05de\u05d5\u05dd 20 \u05d4\u05d5\u05d3\u05e2\u05d5\u05ea. \u05de\u05d7\u05e7 \u05d4\u05d5\u05d3\u05e2\u05d4 \u05d9\u05e9\u05e0\u05d4.",fail:"\u05e9\u05d2\u05d9\u05d0\u05d4: ",lang:"English"},
+ en:{pairIntro:"To link this page to your Alexa account, say to your device:",codeLabel:"6-digit code",pairBtn:"Connect",
+  badCode:"Wrong or expired code. Ask for a new one.",upTitle:"Upload a message",fileLabel:"Audio file (MP3, M4A, WAV)",
+  nameLabel:"Message name (English)",nameHint:"English letters and numbers only. This is the name you say to Alexa.",upBtn:"Upload",
+  converting:"Converting...",uploading:"Uploading...",done:"Uploaded! Try: ",listTitle:"My messages",empty:"No messages yet.",
+  del:"Delete",confirmDel:"Delete ",routineHint:"In an Alexa routine, choose a Customized action and type:",relink:"Got a new code from Alexa? Re-link (messages are kept)",logout:"Sign out",
+  noFile:"Choose a file.",badName:"Invalid name. Use English letters and numbers.",tooLong:"The message is longer than 4 minutes.",
+  tooMany:"You reached the maximum of 20 messages. Delete an old one.",fail:"Error: ",lang:"\u05e2\u05d1\u05e8\u05d9\u05ea"}
+};
+var L=localStorage.getItem("vb_lang")||"he", TOK=localStorage.getItem("vb_tok")||"";
+function t(k){return T[L][k]||k}
+function $(i){return document.getElementById(i)}
+function apply(){document.documentElement.lang=L;document.documentElement.dir=L=="he"?"rtl":"ltr";
+ document.querySelectorAll("[data-t]").forEach(function(e){e.textContent=t(e.getAttribute("data-t"))});$("lang").textContent=t("lang");}
+function api(path,body){return fetch(path,{method:body?"POST":"GET",headers:{"Content-Type":"application/json","x-token":TOK},body:body?JSON.stringify(body):undefined})
+ .then(function(r){return r.json().then(function(j){if(r.status==401){logout();}j._s=r.status;return j})})}
+function show(){var p=!!TOK;$("pair").classList.toggle("hidden",p);$("main").classList.toggle("hidden",!p);if(p)load();}
+function slug(s){var w={zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10};return (s||"").toLowerCase().replace(/[a-z]+/g,function(x){return x in w?w[x]:x}).replace(/[^a-z0-9]/g,"")}
+function load(){api("/api/list").then(function(j){var ul=$("list");ul.innerHTML="";var f=j.files||[];$("count").textContent="("+f.length+"/"+(j.max||20)+")";
+ if(!f.length){ul.innerHTML='<li class="mute">'+t("empty")+'</li>';return}
+ f.forEach(function(x){var li=document.createElement("li");li.innerHTML='<div class="row"><code></code><button class="link"></button></div><audio controls preload="none"></audio>';
+  li.querySelector("code").textContent=x.name;li.querySelector("audio").src=x.url;var b=li.querySelector("button");b.textContent=t("del");
+  b.onclick=function(){if(confirm(t("confirmDel")+x.name+"?"))api("/api/delete",{name:x.name}).then(load)};ul.appendChild(li)})})}
+function logout(){if(TOK)fetch("/api/logout",{method:"POST",headers:{"x-token":TOK}});TOK="";localStorage.removeItem("vb_tok");show()}
+$("lang").onclick=function(){L=L=="he"?"en":"he";localStorage.setItem("vb_lang",L);apply();if(TOK)load()};
+$("logout").onclick=logout;$("relink").onclick=function(){$("pair").classList.remove("hidden");$("code").focus();window.scrollTo(0,0)};
+$("pairBtn").onclick=function(){$("pairMsg").textContent="";api("/api/pair",{code:$("code").value}).then(function(j){
+ if(j.token){TOK=j.token;localStorage.setItem("vb_tok",TOK);show()}else $("pairMsg").textContent=t("badCode")})};
+function toMp3(file){return file.arrayBuffer().then(function(buf){var AC=window.AudioContext||window.webkitAudioContext;var ac=new AC();
+ return new Promise(function(res,rej){ac.decodeAudioData(buf,res,rej)})}).then(function(d){
+ if(d.duration>240)throw new Error("long");var SR=24000;var off=new OfflineAudioContext(1,Math.ceil(d.duration*SR),SR);
+ var s=off.createBufferSource();s.buffer=d;s.connect(off.destination);s.start();return off.startRendering()}).then(function(r){
+ var f=r.getChannelData(0),n=f.length,pcm=new Int16Array(n);for(var i=0;i<n;i++){var v=Math.max(-1,Math.min(1,f[i]));pcm[i]=v<0?v*32768:v*32767}
+ var enc=new lamejs.Mp3Encoder(2,24000,48),out=[];for(var j=0;j<n;j+=1152){var c=pcm.subarray(j,j+1152);var m=enc.encodeBuffer(c,c);if(m.length)out.push(new Int8Array(m))}
+ var e=enc.flush();if(e.length)out.push(new Int8Array(e));return new Blob(out,{type:"audio/mpeg"})})}
+function b64(blob){return new Promise(function(res){var r=new FileReader();r.onload=function(){res(r.result.split(",")[1])};r.readAsDataURL(blob)})}
+$("upBtn").onclick=function(){var m=$("upMsg");m.className="";var file=$("file").files[0];var raw=$("name").value.trim();var n=slug(raw);
+ if(!file){m.className="err";m.textContent=t("noFile");return} if(!n){m.className="err";m.textContent=t("badName");return}
+ $("upBtn").disabled=true;m.textContent=t("converting");
+ toMp3(file).then(function(blob){m.textContent=t("uploading");return b64(blob)}).then(function(d){return api("/api/upload",{name:n,data:d})})
+ .then(function(j){if(j.ok){m.className="ok";m.textContent=t("done")+'"ask voice box to play '+raw.toLowerCase()+'"';$("file").value="";$("name").value="";load()}
+  else{m.className="err";m.textContent=j.error=="too_many"?t("tooMany"):t("fail")+j.error}})
+ .catch(function(e){m.className="err";m.textContent=e.message=="long"?t("tooLong"):t("fail")+e.message})
+ .then(function(){$("upBtn").disabled=false})};
+apply();show();
+</script>
+</body>
+</html>

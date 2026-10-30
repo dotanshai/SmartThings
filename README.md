@@ -4,6 +4,9 @@
 
 Free SmartThings integrations for the Israeli SmartThings community.
 
+### 🆕 New: [Voice Box – Alexa skill](alexa-skills/voice-box)
+Your own audio messages on Alexa – upload any recording, TTS or short music clip and play it by voice or from a Routine. Free, no ads – no more My Pod. [Enable in the Alexa store](https://www.amazon.com/dp/B0H8GGHJNB/) · Upload: https://tinyurl.com/voicebox-il
+
 ### 🆕 New: [Z-Wave Window Treatment SD LAN](drivers/zwave-window-treatment-sd-lan)
 For Fibaro Roller Shutter 4 (FGR-224) blinds that keep showing "offline" or don't respond from the app. Adds an always-online "(App)" device with open / close / pause and a slider (works with routines, Alexa and SharpTools), automatic command retries, a live position display while the blind moves, and an estimated position when you stop it mid-way. Based on Mariano's Z-Wave Window Treatment Mc, so all its other blinds are still supported.
 
@@ -52,6 +55,11 @@ Invite links are renewed about every 30 days. If a link has expired, ask in the 
 
 Secrets (client secrets, tokens, passwords, AWS account ID) are not included.
 Set them as Lambda environment variables when deploying your own copy.
+
+## Alexa Skills
+| Skill | Install | Source |
+|---|---|---|
+| Voice Box | [Alexa store](https://www.amazon.com/dp/B0H8GGHJNB/) | [code](alexa-skills/voice-box) |
 
 ## Legacy
 Old Groovy device handlers (pre-Edge) are in `legacy-groovy/`.

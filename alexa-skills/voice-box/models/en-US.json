@@ -1,0 +1,59 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "voice box",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "CodeIntent",
+          "slots": [],
+          "samples": [
+            "my code",
+            "a code",
+            "code",
+            "my upload code",
+            "get my code",
+            "give me my code",
+            "give me a code",
+            "for my code"
+          ]
+        },
+        {
+          "name": "PlayIntent",
+          "slots": [
+            {
+              "name": "message",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "play {message}",
+            "say {message}",
+            "message {message}",
+            "to read {message}"
+          ]
+        }
+      ],
+      "types": []
+    }
+  }
+}
