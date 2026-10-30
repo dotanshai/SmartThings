@@ -35,15 +35,16 @@ Install from the **Shai D. Shared Drivers** channel:
 ## Schema Connectors (cloud, AWS Lambda)
 | Integration | Install | Link valid until | Source |
 |---|---|---|---|
-| ARAD Water Meter | [Invite link](https://invitations.smartthings.com/schemaApp/d0752d6c-6dd4-43ab-b820-c8123207a0d8) | 2026-10-30 | [code](schemas/arad-water-meter) |
-| Dolphin Boiler | [Invite link](https://invitations.smartthings.com/schemaApp/96459033-b004-49d3-b023-f10a03b162ff) | 2026-11-18 | [code](schemas/dolphin-boiler) |
-| IEC Electric Meter | [Invite link](https://invitations.smartthings.com/schemaApp/147990f6-e861-4b1b-94e5-aae52006861c) | 2026-11-18 | [code](schemas/iec-electric-meter) |
-| LG ThinQ Laundry | [Invite link](https://invitations.smartthings.com/schemaApp/f19ad31d-e680-40d5-8d0b-4d409e2b8273) | 2026-11-18 | [code](schemas/lg-thinq-laundry) |
-| LG ThinQ Fridge | [Invite link](https://invitations.smartthings.com/schemaApp/a53a155d-aae7-4046-a7da-eca12e560f41) | 2026-10-30 | [code](schemas/lg-thinq-fridge) |
-| Shabbat Switch | [Invite link](https://invitations.smartthings.com/schemaApp/f17d560c-b5bc-445e-a79d-187cf55edd8f) | 2026-11-18 | [code](schemas/shabbat-switch) |
-| Tadiran AC | [Invite link](https://invitations.smartthings.com/schemaApp/3528d96c-9484-420b-bf01-02b62884dacf) | 2026-11-18 | [code](schemas/tadiran-ac) |
-| Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/467ddf56-644f-473b-85f3-0f361253edfe) | 2026-11-22 | [code](schemas/tornado-ac) |
-| Electra AC | [Invite link](https://invitations.smartthings.com/schemaApp/2b6fae7f-826a-4e8e-8c4d-26a26574ed16) | 2026-11-22 | [code](schemas/electra-ac) |
+| ARAD Water Meter | [Invite link](https://invitations.smartthings.com/schemaApp/cfe42894-6b7c-4f0a-83d5-18e7e8e251ab) | 2026-11-29 | [code](schemas/arad-water-meter) |
+| Dolphin Boiler | [Invite link](https://invitations.smartthings.com/schemaApp/8a428650-aeef-4392-b347-7199926cfaaa) | 2026-11-29 | [code](schemas/dolphin-boiler) |
+| IEC Electric Meter | [Invite link](https://invitations.smartthings.com/schemaApp/b00287e7-21e9-41fe-b860-1db1f36d954d) | 2026-11-29 | [code](schemas/iec-electric-meter) |
+| LG ThinQ Laundry | [Invite link](https://invitations.smartthings.com/schemaApp/0e7e41bf-3421-4bd1-9173-c88b1f46fee1) | 2026-11-29 | [code](schemas/lg-thinq-laundry) |
+| LG ThinQ Fridge | [Invite link](https://invitations.smartthings.com/schemaApp/38df91e7-d06b-4df5-847d-ee1529201a40) | 2026-11-29 | [code](schemas/lg-thinq-fridge) |
+| Shabbat Switch | [Invite link](https://invitations.smartthings.com/schemaApp/b270b129-8d22-4e65-904e-6805c5669c7a) | 2026-11-29 | [code](schemas/shabbat-switch) |
+| Tadiran AC | [Invite link](https://invitations.smartthings.com/schemaApp/a628c756-db56-43fa-a941-5736965262be) | 2026-11-29 | [code](schemas/tadiran-ac) |
+| Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/b35a7966-cbfa-4949-a96c-7747683f39e4) | 2026-11-29 | [code](schemas/tornado-ac) |
+| Electra AC | [Invite link](https://invitations.smartthings.com/schemaApp/4ca11785-2aed-4d43-8ddc-07989a6305d6) | 2026-11-29 | [code](schemas/electra-ac) |
+| Oref Alert (Pikud HaOref) | [Invite link](https://invitations.smartthings.com/schemaApp/f1f3bde9-df3c-494c-9829-309572a4a9a4) | 2026-11-29 | - |
 
 Invite links are renewed about every 30 days. If a link has expired, ask in the Facebook group.
 
