@@ -69,3 +69,8 @@ Old Groovy device handlers (pre-Edge) are in `legacy-groovy/`.
 Thank you to my supporters:
 
 - Gil Rozenberg
+
+## Zigbee Live Map
+Live map of your SmartThings Zigbee devices with RSSI / LQI, in the browser (PC or phone). Paste a SmartThings token (Devices: List + See all devices); it stays in your browser.
+
+**Open:** https://dotanshai.github.io/SmartThings/zigbee-map/
