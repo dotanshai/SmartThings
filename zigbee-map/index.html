@@ -57,6 +57,7 @@ footer{color:var(--mut);font-size:12px;margin-top:20px}
 <span>Link LQI: <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">unknown</b></span><span>Click a node for details · drag · scroll/pinch to zoom</span></p>
 <svg id="mesh" viewBox="0 0 1000 800"></svg>
 <div id="minfo"></div>
+<div class="tw"><table><thead><tr><th>Device</th><th>Role</th><th>Parent</th><th>Links</th><th>Best link</th><th>Weakest link</th><th>LQI</th><th>RSSI</th></tr></thead><tbody id="mtb"></tbody></table></div>
 </div>
 </div>
 <footer>By Shai D. · <a href="https://github.com/dotanshai/SmartThings" target="_blank">GitHub</a> · <a href="https://buymeacoffee.com/dotan_shai" target="_blank">Buy me a coffee</a></footer>
@@ -162,7 +163,7 @@ function drawMesh(force){
  if(!force&&sig===meshSig&&MG)return;meshSig=sig;
  const M=buildMesh();MG=M;const svg=d3.select('#mesh');svg.selectAll('*').remove();if(sim)sim.stop();
  const reps=M.nodes.filter(n=>n.rep).length;
- if(!reps){$('minfo').innerHTML='No device reports a Zigbee neighbor table yet. The Mesh view needs Edge drivers that publish a <b>zigbeeNeighbors</b> capability.';return}
+ if(!reps){$('mtb').innerHTML='';$('minfo').innerHTML='No device reports a Zigbee neighbor table yet. The Mesh view needs Edge drivers that publish a <b>zigbeeNeighbors</b> capability.';return}
  const W=1000,H=800,minL=+$('minlqi').value,tree=$('treeonly').checked,nm=id=>{const n=M.map.get(id);return n?n.label:id};
  const L=M.links.filter(l=>{const q=qOf(l);return tree?l.tree:(l.tree||q==null||q>=minL)});
  const g=svg.append('g');svg.call(d3.zoom().scaleExtent([.3,5]).on('zoom',e=>g.attr('transform',e.transform)));
@@ -183,7 +184,7 @@ function drawMesh(force){
   sh.attr('stroke',off?'#ff3b3b':d.rep?'#fff':'#000').attr('stroke-width',off?3:d.rep?2.5:1);
   s.append('text').attr('x',d.kind=='hub'?0:12).attr('y',4).attr('text-anchor',d.kind=='hub'?'middle':'start')
    .attr('fill',d.kind=='hub'?'#fff':'#ddd').attr('font-size',d.kind=='hub'?12:11).attr('font-weight',d.kind=='hub'?'bold':null).style('direction','ltr').text(d.label);
-  s.append('title').text(`${d.label}\n${d.kind}${d.rep?' · reports table ('+d.nb.length+')':''}\nEUI ${d.id}`);});
+  s.append('title').text(`${d.label}\n${d.kind}${d.rep?' · reports table ('+d.nb.length+')':''}${d.dev?`\nLQI ${d.dev.lqi??'-'} · RSSI ${d.dev.rssi??'-'} (last hop)`:''}`);});
  nd.on('click',(e,d)=>{e.stopPropagation();sel=sel===d.id?null:d.id;hl();info(sel?d:null)});
  sim=d3.forceSimulation(M.nodes)
   .force('link',d3.forceLink(L).id(d=>d.id).distance(l=>{const q=qOf(l);return l.tree?60+(255-(q??150))/255*120:90+(255-(q??120))/255*220}).strength(l=>l.tree?.7:.12))
@@ -192,7 +193,8 @@ function drawMesh(force){
  sim.on('tick',()=>{lk.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);
   nd.attr('transform',d=>`translate(${d.x},${d.y})`);M.nodes.forEach(n=>{mpos[n.id]={x:n.x,y:n.y}})});
  function hl(){const near=new Set([sel]);if(sel)L.forEach(l=>{if(l.a==sel)near.add(l.b);if(l.b==sel)near.add(l.a)});
-  lk.attr('opacity',l=>!sel?.75:(l.a==sel||l.b==sel)?1:.05);nd.attr('opacity',d=>!sel||near.has(d.id)?1:.18);}
+  lk.attr('opacity',l=>!sel?.75:(l.a==sel||l.b==sel)?1:.05);nd.attr('opacity',d=>!sel||near.has(d.id)?1:.18);
+  document.querySelectorAll('#mtb tr').forEach(tr=>tr.style.background=tr.dataset.id==sel?'#2a3b4d':'');}
  function info(d){if(!d){$('minfo').innerHTML=`${reps} device(s) report a neighbor table · ${M.nodes.length} nodes · ${L.length} links shown`;return}
   const rowsH=[];
   if(d.rep)d.nb.slice().sort((a,b)=>b.lqi-a.lqi).forEach(e=>{const k=d.id<e.eui?d.id+'|'+e.eui:e.eui+'|'+d.id,l=M.links.find(x=>(x.a+'|'+x.b)==k||(x.b+'|'+x.a)==k);
@@ -200,8 +202,16 @@ function drawMesh(force){
    rowsH.push(`<tr><td dir="auto">${esc(nm(e.eui))}</td><td>${REL[e.r]||e.r}</td><td style="color:${lqC(e.lqi||null)}">${e.lqi||'-'}</td><td>${back??'-'}</td></tr>`)});
   else M.links.filter(l=>l.a==d.id||l.b==d.id).forEach(l=>{const o=l.a==d.id?l.b:l.a,q=l.a==d.id?l.ba:l.ab;
    rowsH.push(`<tr><td dir="auto">${esc(nm(o))}</td><td>${l.tree?(l.parent==o?'parent':'child'):'neighbor'}</td><td>-</td><td style="color:${lqC(q||null)}">${q||'-'}</td></tr>`)});
-  $('minfo').innerHTML=`<b dir="auto">${esc(d.label)}</b> · ${d.kind}${d.rep?' · table '+age(d.nbTs):' · seen by '+rowsH.length+' router(s)'} · EUI ${d.id}
+  $('minfo').innerHTML=`<b dir="auto">${esc(d.label)}</b> · ${d.kind}${d.rep?' · table '+age(d.nbTs):' · seen by '+rowsH.length+' router(s)'} · LQI ${d.dev&&d.dev.lqi!=null?d.dev.lqi:'-'} · RSSI ${d.dev&&d.dev.rssi!=null?d.dev.rssi:'-'}
    <div class="tw"><table><thead><tr><th>Neighbor</th><th>Relation</th><th>LQI (this sees it)</th><th>LQI (it sees this)</th></tr></thead><tbody>${rowsH.join('')||'<tr><td colspan=4>No links</td></tr>'}</tbody></table></div>`;}
+ const TR=M.nodes.filter(n=>n.kind!='hub').map(n=>{const ls=M.links.filter(l=>l.a==n.id||l.b==n.id);
+  const pl=ls.find(l=>l.tree&&l.parent&&l.parent!=n.id);
+  const lq=ls.map(l=>({o:l.a==n.id?l.b:l.a,q:qOf(l)})).filter(x=>x.q!=null).sort((a,b)=>b.q-a.q);
+  return{n,parent:pl?nm(pl.parent):'',links:ls.length,best:lq[0]||null,worst:lq.length>1?lq[lq.length-1]:null}});
+ TR.sort((a,b)=>((a.best&&a.best.q)??999)-((b.best&&b.best.q)??999));
+ const lc=x=>x?`<span style="color:${lqC(x.q)};font-weight:bold">${x.q}</span> <span dir="auto">${esc(nm(x.o))}</span>`:'-';
+ $('mtb').innerHTML=TR.map(r=>{const d=r.n.dev;return `<tr data-id="${r.n.id}" style="cursor:pointer"><td dir="auto">${esc(r.n.label)}</td><td>${r.n.kind=='end'?'End device':'Router'}${r.n.rep?' ✓':''}</td><td dir="auto">${esc(r.parent)||'-'}</td><td>${r.links}</td><td>${lc(r.best)}</td><td>${lc(r.worst)}</td><td>${d&&d.lqi!=null?d.lqi:'-'}</td><td style="color:${col(d?d.rssi:null)}">${d&&d.rssi!=null?d.rssi:'-'}</td></tr>`}).join('');
+ $('mtb').querySelectorAll('tr').forEach(tr=>tr.onclick=()=>{sel=tr.dataset.id;hl();info(M.map.get(sel));$('mesh').scrollIntoView({behavior:'smooth'})});
  sel=sel&&M.map.has(sel)?sel:null;hl();info(sel?M.map.get(sel):null);
 }
 /* ---------- ui ---------- */
