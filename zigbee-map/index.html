@@ -29,7 +29,7 @@ footer{color:var(--mut);font-size:12px;margin-top:20px}
 </style></head><body>
 <h2>Zigbee Live Map <small>for SmartThings · RSSI / LQI · Mesh</small></h2>
 <div id="login" class="card">
-<p>Paste a SmartThings Personal Access Token. Create one at <a href="https://account.smartthings.com/tokens" target="_blank">account.smartthings.com/tokens</a> with <b>Devices → List all devices + See all devices</b>. New tokens expire after 24h.</p>
+<p>Paste a SmartThings Personal Access Token. Create one at <a href="https://account.smartthings.com/tokens" target="_blank">account.smartthings.com/tokens</a> with <b>Devices → List all devices + See all devices</b> (add <b>Control all devices</b> to use "remove ghost"). New tokens expire after 24h.</p>
 <p style="color:var(--mut);font-size:13px">The token is used only in your browser and is sent only to api.smartthings.com. Devices show LQI/RSSI only if their Edge driver reports signal metrics; the Mesh tab needs drivers that report Zigbee neighbor tables.</p>
 <input id="tok" type="password" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"><br>
 <label style="font-size:13px"><input type="checkbox" id="rem"> Remember on this device</label><br>
@@ -70,16 +70,16 @@ let tok=null,rows=[],hist={},timer=null,nextAt=0,last=null,busy=false,locs=null,
 async function api(u){let r;try{r=await fetch(u.startsWith('http')?u:API+u,{headers:{Authorization:'Bearer '+tok}})}catch(e){throw{net:true}}if(!r.ok)throw{code:r.status};return r.json();}
 async function list(u){let out=[];while(u){const p=await api(u);out=out.concat(p.items||[]);u=p._links&&p._links.next&&p._links.next.href;}return out;}
 async function pool(items,n,fn){const out=[];let i=0;await Promise.all(Array.from({length:Math.min(n,items.length)},async()=>{while(i<items.length){const k=i++;out[k]=await fn(items[k]);}}));return out;}
-function metrics(st){let lqi=null,rssi=null,ts=null,nb=null,nbTs=null;
- for(const c of Object.values(st.components||{}))for(const[cn,cap]of Object.entries(c||{})){
-  if(/zigbeeNeighbors$/i.test(cn)){if(cap&&cap.neighbors&&cap.neighbors.value){nb=parseNb(cap.neighbors.value);nbTs=cap.neighbors.timestamp}continue}
+function metrics(st){let lqi=null,rssi=null,ts=null,nb=null,nbTs=null,nbComp=null,nbCap=null;
+ for(const[cid,c]of Object.entries(st.components||{}))for(const[cn,cap]of Object.entries(c||{})){
+  if(/zigbeeNeighbors$/i.test(cn)){if(cap&&cap.neighbors&&cap.neighbors.value){nb=parseNb(cap.neighbors.value);nbTs=cap.neighbors.timestamp;nbComp=cid;nbCap=cn}continue}
   const sig=/signal|lqi|rssi/i.test(cn);
   for(const[an,a]of Object.entries(cap||{})){const v=a&&a.value!=null?String(a.value):'';let hit=false;
    if(/lqi/i.test(an)&&/^-?\d+$/.test(v)){lqi=+v;hit=true}
    else if(/rssi/i.test(an)&&/^-?\d+/.test(v)){rssi=parseInt(v);hit=true}
    else if(sig){let m=v.match(/LQI\D{0,20}?(\d+)/i);if(m){lqi=+m[1];hit=true}m=v.match(/RSSI\D{0,20}?(-\d+)/i);if(m){rssi=+m[1];hit=true}}
    if(hit&&a.timestamp)ts=a.timestamp;}}
- return{lqi,rssi,ts,nb,nbTs};}
+ return{lqi,rssi,ts,nb,nbTs,nbComp,nbCap};}
 function parseNb(v){return String(v).split(';').filter(Boolean).map(s=>{const[e,l,r,t]=s.split(',');return{eui:(e||'').toUpperCase(),lqi:+l,r,t}}).filter(x=>x.eui.length==16);}
 function fail(e){if(e&&(e.code==401||e.code==403)){signOut('Token rejected: expired, wrong, or missing Devices scopes.');return true}
  $('err2').textContent=e&&e.net?'Request blocked by the browser or no network.':'API error '+(e&&e.code||e);return false;}
@@ -198,14 +198,16 @@ function drawMesh(force){
   lk.attr('opacity',l=>!sel?.75:(l.a==sel||l.b==sel)?1:.05);nd.attr('opacity',d=>!sel||near.has(d.id)?1:.18);
   document.querySelectorAll('#mtb tr').forEach(tr=>tr.style.background=tr.dataset.id==sel?'#2a3b4d':'');}
  function info(d){if(!d){$('minfo').innerHTML=`${reps} device(s) report a neighbor table · ${M.nodes.length} nodes · ${L.length} links shown`;return}
-  const rowsH=[];
+  const rowsH=[];let gb='';
+  if(!d.known){const rs=M.links.filter(l=>l.a==d.id||l.b==d.id).map(l=>M.map.get(l.a==d.id?l.b:l.a)).filter(n=>n&&n.rep&&n.dev&&n.dev.nbCap);
+   gb=rs.length?`<div style="margin:8px 0">${rs.map(n=>`<button class="gbtn" data-r="${n.id}" style="background:#c0392b">Ask <span dir="auto">${esc(n.label)}</span> to remove it</button>`).join('')}<div id="gst" style="margin-top:6px;color:#f1c40f"></div></div>`:'';}
   if(d.rep)d.nb.slice().sort((a,b)=>b.lqi-a.lqi).forEach(e=>{const k=d.id<e.eui?d.id+'|'+e.eui:e.eui+'|'+d.id,l=M.links.find(x=>(x.a+'|'+x.b)==k||(x.b+'|'+x.a)==k);
    const back=l?(l.a==d.id?l.ba:l.ab):null;
    rowsH.push(`<tr><td dir="auto">${esc(nm(e.eui))}</td><td>${REL[e.r]||e.r}</td><td style="color:${lqC(e.lqi||null)}">${e.lqi||'-'}</td><td>${back??'-'}</td></tr>`)});
   else M.links.filter(l=>l.a==d.id||l.b==d.id).forEach(l=>{const o=l.a==d.id?l.b:l.a,q=l.a==d.id?l.ba:l.ab;
    rowsH.push(`<tr><td dir="auto">${esc(nm(o))}</td><td>${l.tree?(l.parent==o?'parent':'child'):'neighbor'}</td><td>-</td><td style="color:${lqC(q||null)}">${q||'-'}</td></tr>`)});
   $('minfo').innerHTML=`<b dir="auto">${esc(d.label)}</b> · ${d.kind}${d.known?'':' · <span style="color:#e67e22">not in your device list · EUI '+d.id+' · '+vendor(d.id)+'</span>'}${d.rep?' · table '+age(d.nbTs):' · seen by '+rowsH.length+' router(s)'} · LQI ${d.dev&&d.dev.lqi!=null?d.dev.lqi:'-'} · RSSI ${d.dev&&d.dev.rssi!=null?d.dev.rssi:'-'}
-   <div class="tw"><table><thead><tr><th>Neighbor</th><th>Relation</th><th>LQI (this sees it)</th><th>LQI (it sees this)</th></tr></thead><tbody>${rowsH.join('')||'<tr><td colspan=4>No links</td></tr>'}</tbody></table></div>`;}
+   <div class="tw"><table><thead><tr><th>Neighbor</th><th>Relation</th><th>LQI (this sees it)</th><th>LQI (it sees this)</th></tr></thead><tbody>${rowsH.join('')||'<tr><td colspan=4>No links</td></tr>'}</tbody></table></div>${gb}`;document.querySelectorAll('.gbtn').forEach(b=>b.onclick=()=>removeGhost(b.dataset.r,d.id));}
  const TR=M.nodes.filter(n=>n.kind!='hub').map(n=>{const ls=M.links.filter(l=>l.a==n.id||l.b==n.id);
   const pl=ls.find(l=>l.tree&&l.parent&&l.parent!=n.id);
   const lq=ls.map(l=>({o:l.a==n.id?l.b:l.a,q:qOf(l)})).filter(x=>x.q!=null).sort((a,b)=>b.q-a.q);
@@ -216,6 +218,17 @@ function drawMesh(force){
  $('mtb').querySelectorAll('tr').forEach(tr=>tr.onclick=()=>{sel=tr.dataset.id;hl();info(M.map.get(sel));$('mesh').scrollIntoView({behavior:'smooth'})});
  sel=sel&&M.map.has(sel)?sel:null;hl();info(sel?M.map.get(sel):null);
 }
+async function removeGhost(rid,eui){const r=MG&&MG.map.get(rid),dv=r&&r.dev;if(!dv)return;
+ if(!confirm(`Ask "${r.label}" to remove ${eui} from the Zigbee network?\nOnly do this for devices that are not yours.`))return;
+ const out=$('gst');out.textContent='Sending…';
+ try{const res=await fetch(API+'/devices/'+dv.id+'/commands',{method:'POST',headers:{Authorization:'Bearer '+tok,'Content-Type':'application/json'},
+   body:JSON.stringify({commands:[{component:dv.nbComp||'main',capability:dv.nbCap,command:'leaveNeighbor',arguments:[eui]}]})});
+  if(res.status==401||res.status==403){out.textContent='Your token needs "Devices → Control all devices" to do this. Create a new token with that scope.';return}
+  if(!res.ok){out.textContent='Command failed: HTTP '+res.status+' (is this router on an updated driver?)';return}
+  out.textContent='Sent. Waiting for the router answer…';
+  setTimeout(async()=>{try{const st=await api('/devices/'+dv.id+'/status'),c=st.components[dv.nbComp||'main'],a=c&&c[dv.nbCap]&&c[dv.nbCap].lastAction;
+   out.textContent=(a&&a.value?a.value:'No answer yet')+' · the map updates after the next refresh.';}catch(e){out.textContent='Could not read the answer.'}},8000);
+ }catch(e){out.textContent='Network error.'}}
 /* ---------- ui ---------- */
 setInterval(()=>{if(!last||busy)return;const n=Math.max(0,Math.round((nextAt-Date.now())/1000));
  $('meta').textContent=`${cur.length} Zigbee devices · ${cur.filter(d=>d.lqi!=null).length} with metrics · ${cur.filter(d=>d.nb).length} with neighbor table · updated ${last.toLocaleTimeString()} · next in ${n}s`;},1000);
