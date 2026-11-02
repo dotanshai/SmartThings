@@ -112,6 +112,8 @@ components:
     capabilities:
       - id: perfectworld33337.signalMetrics
         version: 1
+      - id: perfectworld33337.zigbeeNeighbors
+        version: 1
     categories:
       - name: Switch
 

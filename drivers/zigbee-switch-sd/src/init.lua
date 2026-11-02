@@ -16,6 +16,7 @@
 
 local capabilities = require "st.capabilities"
 local ZigbeeDriver = require "st.zigbee"
+local neighbors = require "neighbors"
 local defaults = require "st.zigbee.defaults"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local utils = require "st.utils"
@@ -201,5 +202,7 @@ local zigbee_switch_driver_template = {
 -- run driver
 defaults.register_for_default_handlers(zigbee_switch_driver_template, zigbee_switch_driver_template.supported_capabilities, {native_capability_cmds_enabled = true})
 --defaults.register_for_default_handlers(zigbee_switch_driver_template, zigbee_switch_driver_template.supported_capabilities)
+neighbors.add_handlers(zigbee_switch_driver_template)
 local zigbee_switch = ZigbeeDriver("Zigbee_Switch_Mc", zigbee_switch_driver_template)
+neighbors.start(zigbee_switch)
 zigbee_switch:run()

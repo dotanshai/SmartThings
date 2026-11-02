@@ -600,7 +600,10 @@ local rf_cloner_driver_template = {
   },
 }
 
-local ZigbeeDriver = require "st.zigbee"
+local ZigbeeDriver = require "st.zigbee"
+local neighbors = require "neighbors"
+neighbors.add_handlers(rf_cloner_driver_template)
 local rf_cloner_driver = ZigbeeDriver("rf-cloner-8ch", rf_cloner_driver_template)
 log.info("[rf-cloner] driver starting (v3)")
+neighbors.start(rf_cloner_driver)
 rf_cloner_driver:run()

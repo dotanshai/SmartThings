@@ -7,7 +7,7 @@
                                          "capability":  "switch",
                                          "version":  1,
                                          "group":  "main",
-                                         "composite":  true
+                                         "composite":  false
                                      },
                                      {
                                          "component":  "main01",
@@ -129,6 +129,11 @@
                            "version":  1
                        },
                        {
+                           "component":  "master",
+                           "capability":  "switch",
+                           "version":  1
+                       },
+                       {
                            "component":  "channeltype1",
                            "capability":  "vehiclepatch55148.channelType",
                            "version":  1
@@ -225,6 +230,11 @@
                                               "component":  "childlock",
                                               "capability":  "vehiclepatch55148.childlock",
                                               "version":  1
+                                          },
+                                          {
+                                              "component":  "master",
+                                              "capability":  "switch",
+                                              "version":  1
                                           }
                                       ],
                        "actions":  [
@@ -286,6 +296,11 @@
                                        {
                                            "component":  "childlock",
                                            "capability":  "vehiclepatch55148.childlock",
+                                           "version":  1
+                                       },
+                                       {
+                                           "component":  "master",
+                                           "capability":  "switch",
                                            "version":  1
                                        }
                                    ]

@@ -2,6 +2,8 @@ name: basic-alarm
 components:
 - id: main
   capabilities:
+  - id: perfectworld33337.zigbeeNeighbors
+    version: 1
   - id: alarm
     version: 1
   - id: firmwareUpdate

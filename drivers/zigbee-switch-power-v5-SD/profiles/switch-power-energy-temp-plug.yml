@@ -1,0 +1,314 @@
+name: switch-temp-power-energy-plug
+components:
+- id: main
+  capabilities:
+  - id: switch
+    version: 1
+  - id: powerMeter
+    version: 1
+  - id: energyMeter
+    version: 1
+  - id: legendabsolute60149.randomOnOff2
+    version: 1
+  - id: legendabsolute60149.randomNextStep2
+    version: 1
+  - id: voltageMeasurement
+    version: 1
+  - id: temperatureMeasurement
+    version: 1
+  - id: powerConsumptionReport
+    version: 1
+  - id: legendabsolute60149.getGroups
+    version: 1
+  - id: legendabsolute60149.signalMetrics
+    version: 1
+  - id: perfectworld33337.zigbeeNeighbors
+    version: 1
+  - id: refresh
+    version: 1
+  - id: firmwareUpdate
+    version: 1
+  categories:
+  - name: SmartPlug
+preferences:
+  - name: "version"
+    title: "Version 6.6 (Sep 2023)"
+    description: "Added: Device custom interval reports"  
+    required: false
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 0
+      maxLength: 0
+      default: ""
+  - name: "onOffReports"
+    title: "Device On-Off Interval Report(Sec)"
+    description: "IF YOUR DEVICE & NETWORK WORK FINE THEN DON'T TOUCH. Set Device Interval Report (300 to 1200 sec). Smartthings Default = 300. Longer intervals reduce zigbee network traffic and Hub work. If Offline states occur with high values, then reduce the interval. Restore default Value before Driver Change."
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 300
+      maximum: 1200
+      default:  300
+  - name: "localTimeOffset"
+    title: "Local Time Offset to UTC (-12 to 12)"
+    description: "Select Your Local Time Offset to UTC Time Hours (-12 to 12)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: -12
+      maximum: 12
+      default: 0 
+  - name: "simpleMeteringDivisor1"
+    title: "Custom Simple Metering Divisor"
+    description: "If you device has Power & Energy measurement then this Custom Divisor is used for Total Energy Calcualtioins. Some devices could use it for Power Instantaneous Demand calcualtions too, instead the Active Power. SET TO DEFAULT VALUE= 0, TO USE DEFAULTS DIVISOR OF DRIVER."
+    required: false
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 1000000
+      default: 0
+  - name: "electricalMeasureDiviso1"
+    title: "Custom Electrical Measure Divisor"
+    description: "This Custom divisor will be used for Active Power Calcualtioins. SET TO DEFAULT VALUE= 0, TO USE DEFAULTS DIVISOR OF DRIVER."
+    required: false
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 1000000
+      default: 0
+  - name: "powerMaxTime"
+    title: "Power Max time Report Interval"
+    description: "Select Power Maximum time Report Interval (0 sec to 65535 sec). 65535 = Reports interval disabled. Default: 3600"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 65535
+      default: 3600
+  - name: "powerChangeReported"
+    title: "Power Change Reported"
+    description: "Select Power Change Reported (1 w to 255 w). Default: 5 w."
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 5
+  - name: "energyMaxTime"
+    title: "Energy Max time Report Interval"
+    description: "Select Energy Maximum time Report Interval (0 sec to 65535 sec). 65535 = Reports interval disabled. Default: 3600"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 65535
+      default: 3600
+  - name: "energyChangeReported"
+    title: "Energy Change Reported"
+    description: "Select Energy Change Reported (1 kw/h to 255 kw/h). Default: 1 kw/h."
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 255
+      default: 1
+  - name: "tempMaxTime"
+    title: "Temperature Max time Report Interval"
+    description: "Select Temperature Maximum time Report Interval (0 sec to 65535 sec). 65535 = Reports interval disabled. Default: 1800"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 65535
+      default: 1800
+  - name: "tempChangeRep"
+    title: "Temperature Reportable Change"
+    description: "Select Temp. Reportable Change 1º to 6º. (Default: 1º)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 6
+      default: 1
+  - name: "voltageMaxTime"
+    title: "Voltage Max time Report Interval"
+    description: "Select Voltage Maximum time Report Interval (0 sec to 65535 sec). 65535 = Reports interval disabled. Default: 1800"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 65535
+      default: 1800
+  - name: "voltageChangeRep"
+    title: "Voltage Reportable Change"
+    description: "Select Voltage Reportable Change 1v to 10v. (Default: 1v)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 10
+      default: 1
+  - name: "randomMin"
+    title: "Random ON-OFF Minimum Time"
+    description: "Select Minimum Time ON-OFF Interval (0.5 min to 60 min)"
+    required: false
+    preferenceType: number
+    definition:
+      minimum: 0.5
+      maximum: 60
+      default: 1 
+  - name: "randomMax"
+    title: "Random ON-OFF Maximum Time"
+    description: "Select Maximum Time ON-OFF Interval (0.5 min to 60 min)"
+    required: false
+    preferenceType: number
+    definition:
+      minimum: 0.5
+      maximum: 60
+      default: 10 
+  - name: "onTime"
+    title: "Programmed time for ON State"
+    description: "Selec Programmed time for ON State (1 min to 60 min)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 600
+      default: 10
+  - name: "offTime"
+    title: "Programmed time for OFF State"
+    description: "Selec Programmed time for OFF State (1 min to 60 min)"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 600
+      default: 10
+  - name: "groupAdd"
+    title: "Add Group Number"
+    description: "Insert Group number to Add. Value = 0, Get All Groups in History Events"
+    required: false
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 65535
+      default: 0 
+  - name: "groupRemove"
+    title: "Remove Group Number"
+    description: "Insert Group number to Remove. Value = 0, all Groups Removed"
+    required: false
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 65535
+      default: 1
+  - name: "signalMetricsVisibles"
+    title: "Signal Metrics Visible in History"
+    description: "Signal Metrics Visible in App History:"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "Yes" : "Signal Metrics Visible"
+        "No": "Signal Metrics No Visible"
+      default: "No"
+  - name: "logDebugPrint"
+    title: "Show Logs Debug Prints in CLI"
+    required: false
+    preferenceType: boolean
+    definition:
+      default: false
+metadata:
+  deviceType: SmartPlug
+  ocfDeviceType: oic.d.smartplug
+  deviceTypeId: SmartPlug
+deviceConfig:
+  dashboard:
+    states:
+      - component: main
+        capability: switch
+        version: 1
+        group: main
+        composite: true
+      - component: main
+        capability: powerMeter
+        version: 1
+        group: main
+        values:
+          - label: " | {{power.value}} {{power.unit}}"
+        composite: true
+    actions:
+      - component: main
+        capability: switch
+        version: 1
+        group: main
+        composite: true
+    basicPlus: []
+  detailView:
+    - component: main
+      capability: switch
+      version: 1
+    - component: main
+      capability: legendabsolute60149.randomOnOff2
+      version: 1
+    - component: main
+      capability: legendabsolute60149.randomNextStep2
+      version: 1
+    - component: main
+      capability: temperatureMeasurement
+      version: 1
+    - component: main
+      capability: voltageMeasurement
+      version: 1
+    - component: main
+      capability: powerMeter
+      version: 1
+    - component: main
+      capability: energyMeter
+      version: 1
+    - component: main
+      capability: legendabsolute60149.getGroups
+      version: 1
+    - component: main
+      capability: legendabsolute60149.signalMetrics
+      version: 1
+    - component: main
+      capability: refresh
+      version: 1
+  automation:
+    conditions:
+      - component: main
+        capability: switch
+        version: 1
+      - component: main
+        capability: legendabsolute60149.randomOnOff2
+        version: 1
+      - component: main
+        capability: powerMeter
+        version: 1
+      - component: main
+        capability: energyMeter
+        version: 1
+      - component: main
+        capability: temperatureMeasurement
+        version: 1
+      - component: main
+        capability: voltageMeasurement
+        version: 1
+      - component: main
+        capability: legendabsolute60149.getGroups
+        version: 1
+    actions:
+      - component: main
+        capability: switch
+        version: 1
+      - component: main
+        capability: legendabsolute60149.randomOnOff2
+        version: 1
+      - component: main
+        capability: energyMeter
+        version: 1
+      - component: main
+        capability: legendabsolute60149.getGroups
+        version: 1

@@ -3,7 +3,7 @@ name: smarthome4u-2gang-switch-multi-v2
 
 components:
   - id: main
-    label: Switch All
+    label: Dashboard Switch
     capabilities:
       - id: switch
         version: 1
@@ -28,6 +28,14 @@ components:
     categories:
       - name: SmartPlug
 
+
+  - id: master
+    label: Master Switch
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Switch
 
   - id: channeltype1
     label: "Channel Type (Gangs 1+2)"
@@ -60,6 +68,8 @@ components:
     capabilities:
       - id: perfectworld33337.signalMetrics
         version: 1
+      - id: perfectworld33337.zigbeeNeighbors
+        version: 1
     categories:
       - name: Switch
 
@@ -76,6 +86,18 @@ preferences:
       default: "off"
 
 
+  - name: dashboardSwitch
+    title: "Dashboard Button Controls"
+    description: "Which light the main dashboard button controls"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "main01": "Light 1"
+        "main02": "Light 2"
+        "all": "All lights"
+      default: "all"
+
   - name: createChildDevices
     title: Create Child Devices
     description: Create child switch devices
@@ -90,4 +112,4 @@ preferences:
 
 metadata:
   mnmn: SmartThingsCommunity
-  vid: 4078a6ad-d881-3772-ad5d-cf2a7b2fc00a
+  vid: 3156c5b4-18d3-3db0-9f53-3aa6ae5537ed

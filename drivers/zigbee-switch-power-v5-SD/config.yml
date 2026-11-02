@@ -1,0 +1,5 @@
+name: 'Zigbee Switch Power SD'
+packageKey: 'zigbee-switch-power-v5-sd'
+description: 'Devices Supported: https://github.com/Mariano-Github/Edge-Drivers-Beta/blob/main/zigbee-switch-power-v5/fingerprints.yml'
+permissions:
+  zigbee: {}

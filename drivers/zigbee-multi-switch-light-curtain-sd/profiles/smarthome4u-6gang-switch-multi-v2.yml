@@ -3,7 +3,7 @@ name: smarthome4u-6gang-switch-multi-v2
 
 components:
   - id: main
-    label: Switch All
+    label: Dashboard Switch
     capabilities:
       - id: switch
         version: 1
@@ -61,6 +61,14 @@ components:
       - name: SmartPlug
 
 
+  - id: master
+    label: Master Switch
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: Switch
+
   - id: channeltype1
     label: "Channel Type Left Col (1+4)"
     capabilities:
@@ -110,6 +118,8 @@ components:
     capabilities:
       - id: perfectworld33337.signalMetrics
         version: 1
+      - id: perfectworld33337.zigbeeNeighbors
+        version: 1
     categories:
       - name: Switch
 
@@ -155,4 +165,4 @@ preferences:
 
 metadata:
   mnmn: SmartThingsCommunity
-  vid: 6668f055-449f-340a-85b7-c1d0d61a66b6
+  vid: 80771fe5-0f28-3764-b960-0f0a411417af

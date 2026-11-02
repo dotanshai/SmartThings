@@ -68,6 +68,14 @@ components:
     categories:
       - name: Blind
 
+  - id: childlock
+    label: Child Lock Mode
+    capabilities:
+      - id: vehiclepatch55148.childlock
+        version: 1
+    categories:
+      - name: Switch
+
   - id: channeltype1
     label: "Channel Type — Pair 1 (OUT1+OUT5)"
     capabilities:
@@ -104,6 +112,8 @@ components:
     label: Signal Quality
     capabilities:
       - id: perfectworld33337.signalMetrics
+        version: 1
+      - id: perfectworld33337.zigbeeNeighbors
         version: 1
     categories:
       - name: Switch
@@ -148,4 +158,4 @@ preferences:
 
 metadata:
   mnmn: SmartThingsCommunity
-  vid: 5e43f398-0659-3931-b5ea-5e13caf3a1c6
+  vid: 56340444-969e-33e6-8adc-2788ac9629ed

@@ -12,6 +12,8 @@ components:
     version: 1
   - id: vehiclepatch55148.signalMetrics
     version: 1
+  - id: perfectworld33337.zigbeeNeighbors
+    version: 1
   - id: firmwareUpdate
     version: 1
   - id: refresh

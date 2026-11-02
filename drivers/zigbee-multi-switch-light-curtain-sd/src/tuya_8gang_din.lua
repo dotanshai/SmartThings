@@ -53,7 +53,10 @@ for i, dp in ipairs(SW_DPS) do DP_TO_GANG[dp] = i end
 
 local DP_MASTER = 13
 local DP_TYPE0  = 110            -- pair c type = 110 + c  (111..114)
-local DP_UNKNOWN = { [101] = true }
+local DP_BACKLIGHT = 16           -- rep sheet: backlight (bool)
+local DP_CHILDLOCK = 101          -- rep sheet: child lock = buttons disabled (bool)
+local DP_CURTAIN0  = 120          -- rep sheet: curtain c command = 120 + c (121..124, write only)
+                                  --   0 stop, 1 open 5 min, 2 close 5 min, 3 open tt time, 4 close tt time
 -- DP 102: curtain "jog" mode. 1 (factory) = a Zigbee relay command is a short
 -- jog (~0.5 s); 0 = runs until stopped. Found by test: set to 0 when the
 -- layout has a curtain pair (a long press on the module runs either way).
@@ -64,6 +67,9 @@ local STOP_SETTLE_SEC     = 1    -- wait before treating "both relays off" as a 
 
 local FORCE_HIDDEN = { state_change = true, visibility = { displayed = false } }
 local CHANNEL_CAP  = "vehiclepatch55148.channelType"
+local BACKLIGHT_CAP = "perfectworld33337.backlightMode"
+local CHILDLOCK_CAP = "vehiclepatch55148.childlock"
+local FORCE         = { state_change = true }
 local TAG = "8din"
 
 local SEQ = 0
@@ -132,6 +138,16 @@ local function send_bools(device, dps, on)
   local items = {}
   for _, dp in ipairs(dps) do items[#items + 1] = { dp, on } end
   send_dps(device, items)
+end
+
+local function send_enum_one(device, dp, value)
+  log.info(string.format("%s send: %d=e%d", TAG, dp, value))
+  send_frame(device, CMD_SEND, string.char(0x00, next_seq(), dp, 0x04, 0x00, 0x01, value))
+end
+
+-- curtainMode preference: "relay" (default, tested) or "module" (DP 121-124)
+local function module_mode(device)
+  return true   -- module curtain command always (built-in 5 min fail-safe)
 end
 
 local function request_dump(device)
@@ -272,8 +288,16 @@ local function evaluate_curtain(device, c)
     -- safety: switch the relays off when the run time is over
     device.thread:call_with_delay(curtain_duration(device, c) + 1, function()
       if device:get_field(ts_key) == start then
-        log.info(string.format("%s: curtain %d run time over -> relays off", TAG, c))
-        send_dps(device, { { dp_open, false }, { dp_close, false } })
+        if module_mode(device) then
+          log.info(string.format("%s: curtain %d run time over -> module stop", TAG, c))
+          send_enum_one(device, DP_CURTAIN0 + c, 0)
+          -- module does not report relays: mark them off ourselves
+          device:set_field("relay_" .. dp_open, 0); device:set_field("relay_" .. dp_close, 0)
+          evaluate_curtain(device, c)
+        else
+          log.info(string.format("%s: curtain %d run time over -> relays off", TAG, c))
+          send_dps(device, { { dp_open, false }, { dp_close, false } })
+        end
       end
     end)
     return
@@ -350,6 +374,10 @@ end
 
 local function emit_static(device)
   emit_channeltypes(device)
+  local bl = device:get_field("cached_backlight_value")
+  emit(device, "backlight", capabilities[BACKLIGHT_CAP].backlightMode(bl == 1 and "on" or "off", FORCE_HIDDEN))
+  local cl = device:get_field("cached_childlock_value")
+  emit(device, "childlock", capabilities[CHILDLOCK_CAP].childLockMode(cl == 1 and "enabled" or "disabled", FORCE_HIDDEN))
   local sup = { "open", "close", "pause" }
   for c = 1, COLS do
     if col_is_curtain(device, c) then
@@ -448,8 +476,20 @@ local function handle_dp(device, dp, dtype, value)
     return
   end
 
-  if DP_UNKNOWN[dp] then
-    log.debug(string.format("%s: dp %d = %d (unknown)", TAG, dp, value))
+  if dp == DP_BACKLIGHT then
+    device:set_field("cached_backlight_value", value, { persist = true })
+    emit(device, "backlight", capabilities[BACKLIGHT_CAP].backlightMode(value == 1 and "on" or "off", FORCE))
+    return
+  end
+
+  if dp == DP_CHILDLOCK then
+    device:set_field("cached_childlock_value", value, { persist = true })
+    emit(device, "childlock", capabilities[CHILDLOCK_CAP].childLockMode(value == 1 and "enabled" or "disabled", FORCE))
+    return
+  end
+
+  if dp > DP_CURTAIN0 and dp <= DP_CURTAIN0 + COLS then
+    log.info(string.format("%s: curtain command dp %d = %d (echo)", TAG, dp, value))
     return
   end
 
@@ -525,6 +565,20 @@ local function shade_cmd(device, cmd, action)
     if c and col_is_curtain(target, c) then cols[1] = c end
   end
   if #cols == 0 then log.warn(TAG .. ": curtain command ignored for " .. tostring(comp)) return end
+  if module_mode(target) then
+    -- module curtain command: 1 open (5 min), 2 close (5 min), 0 stop; one frame per curtain
+    local v = (action == "open") and 1 or ((action == "close") and 2 or 0)
+    for i, c in ipairs(cols) do
+      if i == 1 then send_enum_one(target, DP_CURTAIN0 + c, v)
+      else target.thread:call_with_delay(FRAME_GAP * (i - 1), function() send_enum_one(target, DP_CURTAIN0 + c, v) end) end
+      -- module does not report relays while it runs: track the state ourselves
+      local o, cl = curtain_dps(target, c)
+      target:set_field("relay_" .. o,  (action == "open")  and 1 or 0)
+      target:set_field("relay_" .. cl, (action == "close") and 1 or 0)
+      evaluate_curtain(target, c)
+    end
+    return
+  end
   local items = {}
   for _, c in ipairs(cols) do
     local dp_open, dp_close = curtain_dps(target, c)
@@ -542,6 +596,19 @@ end
 local function shade_open(driver, device, cmd)  shade_cmd(device, cmd, "open")  end
 local function shade_close(driver, device, cmd) shade_cmd(device, cmd, "close") end
 local function shade_pause(driver, device, cmd) shade_cmd(device, cmd, "pause") end
+
+local function set_backlight(driver, device, cmd)
+  local on = (cmd.args.value == "on")
+  send_bools(device, { DP_BACKLIGHT }, on)
+  -- module does not echo DP 16: show the new state right away
+  device:set_field("cached_backlight_value", on and 1 or 0, { persist = true })
+  emit(device, "backlight", capabilities[BACKLIGHT_CAP].backlightMode(on and "on" or "off", FORCE))
+end
+local function set_childlock(driver, device, cmd)
+  send_bools(device, { DP_CHILDLOCK }, cmd.args.value == "enabled")
+end
+local function childlock_on(driver, device, cmd)  send_bools(device, { DP_CHILDLOCK }, true)  end
+local function childlock_off(driver, device, cmd) send_bools(device, { DP_CHILDLOCK }, false) end
 
 -- Channel type is set by the DIP switches: app changes are ignored
 local function set_channel_type_noop(driver, device, cmd)
@@ -647,6 +714,14 @@ local sub_driver = {
     },
     [capabilities.refresh.ID] = {
       [capabilities.refresh.commands.refresh.NAME] = do_refresh,
+    },
+    [BACKLIGHT_CAP] = {
+      ["setBacklightMode"] = set_backlight,
+    },
+    [CHILDLOCK_CAP] = {
+      ["setChildLockMode"] = set_childlock,
+      ["on"]               = childlock_on,
+      ["off"]              = childlock_off,
     },
     [CHANNEL_CAP] = {
       ["setChannelType"] = set_channel_type_noop,

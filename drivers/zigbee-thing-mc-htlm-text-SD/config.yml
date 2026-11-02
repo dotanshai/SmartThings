@@ -1,0 +1,5 @@
+name: 'Zigbee Thing SD'
+packageKey: 'zigbee-thing-mc-htlm-text-sd'
+description: 'For Zigbbe Devices: Show Fingerprints and End Points Clusters'
+permissions:
+  zigbee: {}

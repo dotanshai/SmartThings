@@ -1,0 +1,262 @@
+zigbeeManufacturer:
+  # added 09 mar 2023
+  - id: "Vimar/xx594-roller-shutter"
+    deviceLabel: Vimar Smart Roller Shutter
+    manufacturer: Vimar
+    model: Window_Cov_v1.0
+    deviceProfileName: window-treatment-profile-no-firmware-update
+  - id: "Vimar/03982-roller-shutter-module"
+    deviceLabel: Vimar Smart Roller Shutter Module
+    manufacturer: Vimar
+    model: Window_Cov_Module_v1.0
+    deviceProfileName: window-treatment-profile-no-firmware-update
+  - id: "LUMI/lumi.curtain.aq2"
+    deviceLabel: Aqara Roller Shade Controller
+    manufacturer: LUMI
+    model: lumi.curtain.aq2
+    deviceProfileName: window-treatment-aqara-roller-shade-rotate
+  # prior to 09 mar 2023
+  - id: "LUMI/lumi.curtain"
+    deviceLabel: Aqara Curtain Controller
+    manufacturer: LUMI
+    model: lumi.curtain
+    deviceProfileName: window-treatment-aqara
+  - id: "LUMI/lumi.curtain.v1"
+    deviceLabel: Aqara Curtain Controller
+    manufacturer: LUMI
+    model: lumi.curtain.v1
+    deviceProfileName: window-treatment-aqara
+  #- id: "LUMI/lumi.curtain.acn002"
+  #  deviceLabel: Aqara Curtain Controller
+  #  manufacturer: LUMI
+  #  model: lumi.curtain.acn002
+  #  deviceProfileName: window-treatment-aqara #no funciona y falta depuracion
+  - id: "REXENSE/KG0001"
+    deviceLabel: Window Treatment
+    manufacturer: REXENSE
+    model: KG0001
+    deviceProfileName: window-treatment-profile
+  - id: "REXENSE/DY0010"
+    deviceLabel: Window Treatment
+    manufacturer: REXENSE
+    model: DY0010
+    deviceProfileName: window-treatment-profile
+  - id: "Feibit Co.Ltd/FTB56-ZT218AK1.6"
+    deviceLabel: Wistar Window Treatment
+    manufacturer: Feibit Co.Ltd
+    model: FTB56-ZT218AK1.6
+    deviceProfileName: window-treatment-profile
+  - id: "Feibit Co.Ltd/FTB56-ZT218AK1.8"
+    deviceLabel: Wistar Window Treatment
+    manufacturer: Feibit Co.Ltd
+    model: FTB56-ZT218AK1.8
+    deviceProfileName: window-treatment-profile
+  - id: "SOMFY/Glydea Ultra Curtain"
+    deviceLabel: SOMFY Window Treatment
+    manufacturer: SOMFY
+    model: Glydea Ultra Curtain
+    deviceProfileName: window-treatment-profile
+  - id: "SOMFY/Sonesse 30 WF Roller"
+    deviceLabel: SOMFY Window Treatment
+    manufacturer: SOMFY
+    model: Sonesse 30 WF Roller
+    deviceProfileName: window-treatment-profile
+  - id: "SOMFY/Sonesse 40 Roller"
+    deviceLabel: SOMFY Window Treatment
+    manufacturer: SOMFY
+    model: Sonesse 40 Roller
+    deviceProfileName: window-treatment-profile
+  - id: "/E2B0-KR000Z0-HA"
+    deviceLabel: eZEX Window Treatment
+    model: E2B0-KR000Z0-HA
+    deviceProfileName: window-treatment-profile
+  - id: "IKEA/KADRILJ"
+    deviceLabel: IKEA Window Treatment
+    manufacturer: IKEA of Sweden
+    model: KADRILJ roller blind
+    deviceProfileName: window-treatment-battery
+  - id: "IKEA/FYRTUR"
+    deviceLabel: IKEA Window Treatment
+    manufacturer: IKEA of Sweden
+    model: FYRTUR block-out roller blind
+    deviceProfileName: window-treatment-battery
+  - id: "Yookee/D10110"
+    deviceLabel: Yookee Window Treatment
+    manufacturer: Yookee
+    model: D10110
+    deviceProfileName: window-treatment-battery-invert
+  - id: "yooksmart/D10110"
+    deviceLabel: yooksmart Window Treatment
+    manufacturer: yooksmart
+    model: D10110
+    deviceProfileName: window-treatment-battery-invert
+  - id: "Rooms Beautiful/C001"
+    deviceLabel: Rooms Beautiful Window Treatment
+    manufacturer: Rooms Beautiful
+    model: C001
+    deviceProfileName: window-treatment-no-preset
+  - id: "AXIS/Gear"
+    deviceLabel: AXIS Window Treatment
+    manufacturer: AXIS
+    model: Gear
+    deviceProfileName: window-treatment-battery
+  # fingerprints added
+  - id: "Third Reality/3RSB015B"
+    deviceLabel: Third Reality Window Treatment
+    manufacturer: Third Reality, Inc
+    model: 3RSB015BZ
+    deviceProfileName: window-treatment-battery
+  - id: "Feibit Co.Ltd/FB56-CUR17SB2.2"
+    deviceLabel: Wistar Window Treatment
+    manufacturer: Feibit Co.Ltd
+    model: FB56+CUR17SB2.2
+    deviceProfileName: window-treatment-profile
+  - id: "TS130F/_TZ3000_vd43bbfq"
+    deviceLabel: Lonsonho QS-Zigbee-C01
+    manufacturer: _TZ3000_vd43bbfq
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_fccpjz5z"
+    deviceLabel: Lonsonho QS-Zigbee-C01
+    manufacturer: _TZ3000_fccpjz5z
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_4uuaja4a"
+    deviceLabel: Lonsonho QS-Zigbee-CP03
+    manufacturer: _TZ3000_4uuaja4a
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_zirycpws"
+    deviceLabel: Lonsonho QS-Zigbee-CP03
+    manufacturer: _TZ3000_zirycpws
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "MS-108ZR/_TZ3000_1dd0d5yi"
+    deviceLabel: MS-108ZR
+    manufacturer: _TZ3000_1dd0d5yi
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib-2
+  - id: "Smartwings/WM25/L-Z"
+    deviceLabel: Smartwings Window Treatment
+    manufacturer: Smartwings
+    model: WM25/L-Z
+    deviceProfileName: window-treatment-battery
+  - id: "TS130F_TZ3000_qqdbccb3"
+    deviceLabel: Lonsonho QS-Zigbee-CP03
+    manufacturer: _TZ3000_qqdbccb3
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_dph3rpss"
+    deviceLabel: Lonsonho QS-Zigbee-CP03
+    manufacturer: _TZ3000_dph3rpss
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3210_dwytrmda"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3210_dwytrmda
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_dbpmpco1"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_dbpmpco1
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "_TZE204_fzbskaga/TS0601"  #copy from stock driver aug 2023
+    deviceLabel: Hanssem Window Treatment
+    manufacturer: _TZE204_fzbskaga
+    model: TS0601
+    deviceProfileName: window-treatment-hanssem
+  # august 2023
+  - id: "TS0302/_TYZB01_dazsid15"
+    deviceLabel: TS0302 Window Treatment
+    manufacturer: _TYZB01_dazsid15
+    model: TS0302
+    deviceProfileName: window-treatment-profile
+  - id: "SOMFY/Sonesse 28 WF Li-Ion Roller"
+    deviceLabel: SOMFY Window Treatment
+    manufacturer: SOMFY
+    model: Sonesse 28 WF Li-Ion Roller
+    deviceProfileName: window-treatment-battery
+  - id: "Products Corp/E-Wand"
+    deviceLabel: E-Wand Window Treatment
+    manufacturer: Current Products Corp
+    model: E-Wand
+    deviceProfileName: window-treatment-battery
+  - id: "_TZE200_9caxna4s/TS0301"
+    deviceLabel: yoolax Window Treatment
+    manufacturer: _TZE200_9caxna4s
+    model: TS0301
+    deviceProfileName: window-treatment-battery-invert
+  - id: "_TZE210_z2tpoj46/TS0301" #added 1-agosto-2025
+    deviceLabel: yoolax Window Treatment
+    manufacturer: _TZE210_z2tpoj46
+    model: TS0301
+    deviceProfileName: window-treatment-battery-invert
+  - id: "TS130F/_TZ3000_drk3g2st"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_drk3g2st
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_eg7awg6a"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_eg7awg6a
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3210_ol1uhvza"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3210_ol1uhvza
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS130F/_TZ3000_wptayaqr"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_wptayaqr
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  #Agosto 2024
+  - id: "TS130F/_TZ3000_ctbafvhm"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_ctbafvhm
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  # this device has invisible character in manufacturer and model
+  - id: "Legrand/K 4027C"
+    deviceLabel: BTICINO LIVING NOW K 4027C
+    manufacturer: Legrand
+    model: Shutter SW with level control
+    deviceProfileName: window-treatment-profile-generic
+  - id: "TS130F/_TZ3000_e3vhyirx"
+    deviceLabel: TS130F Window Treatment
+    manufacturer: _TZ3000_e3vhyirx
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  
+  #Tuya Window Treatment generic
+  - id: "TS130F/window-treatment"
+    deviceLabel: TS130F Window Treatment
+    model: TS130F
+    deviceProfileName: window-treatment-profile-calib
+  - id: "TS0302/window-treatment"
+    deviceLabel: TS0302 Window Treatment
+    model: TS0302
+    deviceProfileName: window-treatment-profile
+
+  #Raex Tubular motor (added by Shai D.)
+  - id: "Raex/TQL25-2211"
+    deviceLabel: Raex Tubular Motor
+    model: TQL25-2211
+    deviceProfileName: window-treatment-battery-invert
+
+zigbeeGeneric:
+  - id: "genericShade"
+    deviceLabel: Zigbee Window Treatment
+    clusters:
+      server:
+        - 0x0102 #Window Covering
+    deviceProfileName: window-treatment-profile-generic
+  - id: "genericShade-battery"
+    deviceLabel: Zigbee Window Treatment
+    clusters:
+      server:
+        - 0x0102 #Window Covering
+        - 0x0001 #Power Configuration
+    deviceProfileName: window-treatment-battery

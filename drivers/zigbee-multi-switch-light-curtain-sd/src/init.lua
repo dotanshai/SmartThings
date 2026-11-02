@@ -3,6 +3,7 @@ local capabilities  = require "st.capabilities"
 local tuya_multi    = require "tuya_multi_switch"
 local tuya_12gang   = require "tuya_12gang"
 local tuya_8gang_din = require "tuya_8gang_din"
+local neighbors = require "neighbors"
 
 local driver_template = {
   supported_capabilities = {
@@ -13,6 +14,7 @@ local driver_template = {
     capabilities.healthCheck,
     capabilities.signalStrength,
     capabilities["perfectworld33337.signalMetrics"],
+    capabilities["perfectworld33337.zigbeeNeighbors"],
   },
 
   health_check = false,  -- opt out of deprecated monitored-attributes health check
@@ -24,5 +26,7 @@ local driver_template = {
   sub_drivers = { tuya_12gang, tuya_8gang_din },  -- 12-gang panel + 8-gang DIN (own DP maps)
 }
 
+neighbors.add_handlers(driver_template)
 local driver = zigbee_driver("zigbee_multi_switch_child_sd", driver_template)
+neighbors.start(driver)
 driver:run()

@@ -1,4 +1,5 @@
-local ZigbeeDriver = require "st.zigbee"
+local ZigbeeDriver = require "st.zigbee"
+local neighbors = require "neighbors"
 local capabilities = require "st.capabilities"
 local data_types = require "st.zigbee.data_types"
 local clusters = require "st.zigbee.zcl.clusters"
@@ -207,5 +208,7 @@ local driver_template = {
   },
 }
 
+neighbors.add_handlers(driver_template)
 local driver = ZigbeeDriver("zigbee_siren_sd_metrics_v2", driver_template)
+neighbors.start(driver)
 driver:run()

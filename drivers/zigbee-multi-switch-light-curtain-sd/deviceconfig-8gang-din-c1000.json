@@ -60,6 +60,7 @@
       "capability": "switch",
       "version": 1
     },
+    {"component": "childlock", "capability": "vehiclepatch55148.childlock", "version": 1},
     {
       "component": "channeltype1",
       "capability": "vehiclepatch55148.channelType",
@@ -87,7 +88,7 @@
     }
   ],
   "automation": {
-    "conditions": [
+    "conditions": [{"component": "childlock", "capability": "vehiclepatch55148.childlock", "version": 1}, 
       {
         "component": "main",
         "capability": "switch",
@@ -149,7 +150,7 @@
         "version": 1
       }
     ],
-    "actions": [
+    "actions": [{"component": "childlock", "capability": "vehiclepatch55148.childlock", "version": 1}, 
       {
         "component": "main",
         "capability": "switch",

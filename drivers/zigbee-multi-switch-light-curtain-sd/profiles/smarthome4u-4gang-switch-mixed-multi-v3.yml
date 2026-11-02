@@ -74,6 +74,8 @@ components:
     capabilities:
       - id: perfectworld33337.signalMetrics
         version: 1
+      - id: perfectworld33337.zigbeeNeighbors
+        version: 1
     categories:
       - name: Switch
 
@@ -125,4 +127,4 @@ preferences:
 
 metadata:
   mnmn: SmartThingsCommunity
-  vid: 0263d11d-50a1-3a9c-abfb-2a5a26f24fc9
+  vid: 932e8956-f435-3d89-b46e-16a78f960f64
