@@ -36,3 +36,14 @@ No Tasker, no Samsung Modes & Routines tricks, no MacroDroid, no phone in the lo
 ### ⚠️ Disclaimer
 This integration **supplements, and does not replace**, the official Home Front Command app and sirens.
 It is unofficial and not affiliated with the IDF Home Front Command. Always keep the official app installed and active.
+
+### Code layout
+| Folder | Lambda | Region | Notes |
+|---|---|---|---|
+| [`poller/`](poller) | `oref-poller` | `il-central-1` (Tel Aviv) | Polls every 2 s, ~15 min per run, re-started every 14 min by EventBridge Scheduler; a DynamoDB lease keeps one instance at a time |
+| [`schema/`](schema) | `oref-schema` | `eu-west-1` | Schema Connector webhook + OAuth/install flow, exposed via a Lambda Function URL (not supported in `il-central-1`) |
+
+- `oref_common.py` is shared by both functions (state building, SmartThings callbacks)
+- `schema/` also needs `districts.json` (area list + shelter times) bundled in the zip — download it from an Israeli IP: `https://alerts-history.oref.org.il/Shared/Ajax/GetDistricts.aspx?lang=he`
+- DynamoDB tables (`il-central-1`, provisioned 2/2 = free tier): `OrefAlert` (lease + state), `OrefInstalls` (installs, TTL on `ttl`)
+- Secrets (client IDs/secrets) live only in Lambda environment variables — never in this repo
