@@ -4,6 +4,9 @@
 
 Free SmartThings integrations for the Israeli and global SmartThings community.
 
+### 🆕 New: [Oref Alert – Pikud HaOref alerts](schemas/oref-alert)
+Real-time Home Front Command alerts in SmartThings – direct connection to the official alerts feed, no Tasker / MacroDroid / phone needed. Alert, pre-alert, event ended, time to shelter, and a contact sensor for Routines. Supplements, not replaces, the official app.
+
 ### 🆕 New: [Voice Box – Alexa skill](alexa-skills/voice-box)
 Your own audio messages on Alexa – upload any recording, TTS or short music clip and play it by voice or from a Routine. Free, no ads – no more My Pod. [Enable in the Alexa store](https://www.amazon.com/dp/B0H8GGHJNB/) · Upload: https://tinyurl.com/voicebox-il
 
@@ -49,7 +52,7 @@ Install from the **Shai D. Shared Drivers** channel:
 | Tadiran AC | [Invite link](https://invitations.smartthings.com/schemaApp/a628c756-db56-43fa-a941-5736965262be) | 2026-11-29 | [code](schemas/tadiran-ac) |
 | Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/b35a7966-cbfa-4949-a96c-7747683f39e4) | 2026-11-29 | [code](schemas/tornado-ac) |
 | Electra AC | [Invite link](https://invitations.smartthings.com/schemaApp/4ca11785-2aed-4d43-8ddc-07989a6305d6) | 2026-11-29 | [code](schemas/electra-ac) |
-| Oref Alert (Pikud HaOref) | [Invite link](https://invitations.smartthings.com/schemaApp/f1f3bde9-df3c-494c-9829-309572a4a9a4) | 2026-11-29 | - |
+| Oref Alert (Pikud HaOref) | [Invite link](https://invitations.smartthings.com/schemaApp/f1f3bde9-df3c-494c-9829-309572a4a9a4) | 2026-11-29 | [docs](schemas/oref-alert) |
 
 Invite links are renewed about every 30 days. If a link has expired, ask in the Facebook group.
 
