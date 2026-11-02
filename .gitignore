@@ -10,3 +10,5 @@ env*.json
 __pycache__/
 .venv/
 venv/
+
+*.ps1
