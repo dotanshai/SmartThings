@@ -12,3 +12,8 @@ __pycache__/
 venv/
 
 *.ps1
+
+*.mp4
+*.mov
+luac.out
+*.pdf
