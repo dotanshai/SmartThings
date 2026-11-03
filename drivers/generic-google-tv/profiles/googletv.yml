@@ -58,6 +58,46 @@ components:
     capabilities:
       - id: momentary
         version: 1
+  - id: num0
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num1
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num2
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num3
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num4
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num5
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num6
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num7
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num8
+    capabilities:
+      - id: momentary
+        version: 1
+  - id: num9
+    capabilities:
+      - id: momentary
+        version: 1
 metadata:
   deviceType: Television
   ocfDeviceType: oic.d.tv

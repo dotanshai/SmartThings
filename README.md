@@ -73,7 +73,39 @@ Thank you to my supporters:
 
 - Gil Rozenberg
 
-## Zigbee Live Map
-Live map of your SmartThings Zigbee devices with RSSI / LQI, in the browser (PC or phone). Paste a SmartThings token (Devices: List + See all devices); it stays in your browser.
+<!-- ZIGBEE-MAP START -->
+## 📡 Zigbee Live Map
+
+Live map of your SmartThings Zigbee network, in the browser (PC or phone):
+- **Signal map** – RSSI / LQI per device, refreshed every minute
+- **Mesh** – real neighbor tables: who connects through whom, link quality per link, weak devices
+- **Ghost removal** – ask a router to drop devices that were deleted from the app but are still in the mesh
 
 **Open:** https://dotanshai.github.io/SmartThings/zigbee-map/
+
+**Token:** create one at https://account.smartthings.com/tokens with *Devices → List all devices + See all devices* (add *Control all devices* for ghost removal). The token stays in your browser and is sent only to SmartThings.
+
+The **Mesh** tab is built from neighbor tables reported by routers (plugs, switches, bulbs, repeaters) running the ✓ drivers below. Battery devices appear automatically through their parent router.
+
+## Edge drivers in my channel
+
+[Join the channel](https://bestow-regional.api.smartthings.com/invite/Q1jP7By0KVlL)
+
+| Driver | Mesh | Code |
+|---|---|---|
+| rf-cloner-8ch | ✓ | [source](rf-cloner-8ch) |
+| Zigbee Multi Switch and Child SD | ✓ | [source](drivers/zigbee-driver-SD) |
+| Zigbee Multi Switch Light Curtain SD | ✓ | [source](drivers/zigbee-multi-switch-light-curtain-sd) |
+| Zigbee Range Extender SD | ✓ | [source](drivers/zigbee-range-extender-SD) |
+| Zigbee Switch Power SD | ✓ | [source](drivers/zigbee-switch-power-v5-SD) |
+| Zigbee Switch SD | ✓ | [source](drivers/zigbee-switch-sd) |
+| Zigbee Thing SD | ✓ | [source](drivers/zigbee-thing-mc-htlm-text-SD) |
+| Zigbee Window Treatment SD | ✓ | [source](drivers/Zigbee%20Window%20Treatment%20SD) |
+| zigbee_siren_sd_metrics_v2 | ✓ | [source](drivers/zigbee-siren-sd) |
+| Generic Google TV |  | [source](drivers/generic-google-tv) |
+| LG TV webOS |  | [source](drivers/lg-tv-webos) |
+| ONVIF Camera NVR SD |  | [source](drivers/onvif-camera-nvr-sd) |
+| WiFi Presence SD |  | [source](drivers/wifi-presence-sd) |
+| Zigbee Leakage Sensor SD |  | [source](drivers/zigbee-leakage-sensor-sd) |
+| Z-Wave Window Treatment SD LAN |  | [source](drivers/zwave-window-treatment-sd-lan) |
+<!-- ZIGBEE-MAP END -->

@@ -13,7 +13,7 @@ local REMOTE_PORT = 6466
 -- Bump this whenever the pairing/remote protocol code changes meaningfully.
 -- Logged at startup so a bug report (a logcat capture from someone in the
 -- Facebook group) can be matched to the exact build that produced it.
-local DRIVER_VERSION = '2026-07-31.1'
+local DRIVER_VERSION = '2026-10-31.1'
 log.info('[googletv] driver version ' .. DRIVER_VERSION)
 
 -- Creates one placeholder device when the user taps "Scan nearby" /

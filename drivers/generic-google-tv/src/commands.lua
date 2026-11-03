@@ -30,6 +30,10 @@ function M.connect_remote(driver, device, on_connected)
   if not ip or ip == '' then return end
 
   if device:get_field('reconnect_loop_active') then
+    -- Wake the retry loop out of its backoff sleep so a fresh trigger
+    -- (pairing done, WoL sent) reconnects within ~1s instead of waiting
+    -- up to 5 minutes.
+    device:set_field('reconnect_now', true, { persist = false })
     if on_connected then
       cosock.spawn(function()
         local waited = 0
@@ -122,8 +126,19 @@ function M.connect_remote(driver, device, on_connected)
         log.warn('[googletv] ' .. device.label .. ': connect attempt failed: ' .. tostring(err))
       end
 
-      cosock_socket.sleep(backoff)
-      backoff = math.min(backoff * 2, 300)
+      do
+        local slept = 0
+        while slept < backoff and not device:get_field('reconnect_now') do
+          cosock_socket.sleep(1)
+          slept = slept + 1
+        end
+        if device:get_field('reconnect_now') then
+          device:set_field('reconnect_now', false, { persist = false })
+          backoff = 5
+        else
+          backoff = math.min(backoff * 2, 300)
+        end
+      end
       ::continue::
     end
   end, 'googletv-connect-' .. device.id)
@@ -552,6 +567,16 @@ function M.momentary_press(driver, device, command)
     dpadLeft = remotemessage.KEYCODE.DPAD_LEFT,
     dpadRight = remotemessage.KEYCODE.DPAD_RIGHT,
     dpadCenter = remotemessage.KEYCODE.DPAD_CENTER,
+    num0 = remotemessage.KEYCODE.NUMBER_0,
+    num1 = remotemessage.KEYCODE.NUMBER_1,
+    num2 = remotemessage.KEYCODE.NUMBER_2,
+    num3 = remotemessage.KEYCODE.NUMBER_3,
+    num4 = remotemessage.KEYCODE.NUMBER_4,
+    num5 = remotemessage.KEYCODE.NUMBER_5,
+    num6 = remotemessage.KEYCODE.NUMBER_6,
+    num7 = remotemessage.KEYCODE.NUMBER_7,
+    num8 = remotemessage.KEYCODE.NUMBER_8,
+    num9 = remotemessage.KEYCODE.NUMBER_9,
   }
   if command.component == 'liveTv' then
     ensure_awake_then(driver, device, function(handle)

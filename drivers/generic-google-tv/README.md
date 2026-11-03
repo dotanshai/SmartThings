@@ -1,7 +1,5 @@
 # Generic Google TV / Android TV SmartThings Edge Driver
 
-Install from the **Shai D. Shared Drivers** channel: [Join the channel](https://bestow-regional.api.smartthings.com/invite/Q1jP7By0KVlL)
-
 Controls **any** Google TV / Android TV device (TCL, Sony, Hisense, Chromecast
 with Google TV, etc.) over the standard Android TV Remote Service protocol
 that ships with the OS itself — not a brand-specific API. This is a
@@ -164,7 +162,3 @@ src/wol.lua                 Wake-on-LAN magic packet
 src/cert.lua                the shared bundled TLS client certificate
 src/frame.lua                length-prefixed message framing
 ```
-
-## Supported Devices
-
-Any Google TV / Android TV on the local network (tested on TCL). Added via LAN scan.

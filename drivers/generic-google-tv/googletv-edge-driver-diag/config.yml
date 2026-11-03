@@ -1,0 +1,6 @@
+name: Generic Google TV Diag2
+packageKey: googletv-generic-diag-v2
+author: Shai D.
+permissions:
+  lan: {}
+  discovery: {}
