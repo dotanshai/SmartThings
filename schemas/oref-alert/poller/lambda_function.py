@@ -8,7 +8,7 @@ TABLE = os.environ.get("TABLE", "OrefAlert")
 tbl = boto3.resource("dynamodb").Table(TABLE)
 OREF = "https://www.oref.org.il/WarningMessages/alert/alerts.json"
 TZOFAR = "https://api.tzevaadom.co.il/notifications"
-H = {"Referer": "https://www.oref.org.il/", "X-Requested-With": "XMLHttpRequest", "User-Agent": "Mozilla/5.0"}
+H = {"Referer": "https://www.oref.org.il/", "X-Requested-With": "XMLHttpRequest", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36", "Accept": "application/json, text/plain, */*", "Accept-Language": "he-IL,he;q=0.9"}
 POLL = float(os.environ.get("POLL_SEC", "2"))
 TIMEOUT = {"alert": int(os.environ.get("ALERT_TIMEOUT", "1800")),
            "preAlert": int(os.environ.get("PRE_TIMEOUT", "1800")),
