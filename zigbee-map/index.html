@@ -37,7 +37,7 @@ footer{color:var(--mut);font-size:12px;margin-top:20px}
 </div>
 <div id="app" hidden>
 <div class="bar"><span id="meta">Loading…</span>
-<select id="loc"></select>
+<select id="loc"></select><select id="hub" hidden></select>
 <select id="iv"><option value="60">Every 1 min</option><option value="120">Every 2 min</option><option value="300">Every 5 min</option></select>
 <button id="rf">Refresh now</button><button id="out" style="background:#555">Sign out</button></div>
 <div id="err2" style="color:#e74c3c"></div>
@@ -86,13 +86,15 @@ function fail(e){if(e&&(e.code==401||e.code==403)){signOut('Token rejected: expi
 async function refresh(){if(busy)return;busy=true;clearTimeout(timer);$('err2').textContent='';$('meta').textContent='Refreshing…';
  try{
   if(!locs){locs=await list('/locations');const s=$('loc');s.innerHTML='<option value="">All locations</option>'+locs.map(l=>`<option value="${esc(l.locationId)}">${esc(l.name)}</option>`).join('');s.value=ls.get('zbloc')||'';s.hidden=locs.length<2;}
-  const D=(await list('/devices')).filter(d=>d.type=='ZIGBEE');
+  const ALL=await list('/devices');HUBN={};ALL.filter(d=>d.type=='HUB').forEach(h=>HUBN[h.deviceId]=h.label||h.name||'Hub');
+  {const s=$('hub'),ids=Object.keys(HUBN),cur=s.value||ls.get('zbhub')||ids[0]||'';s.innerHTML='<option value="">All hubs</option>'+ids.map(i=>`<option value="${esc(i)}">${esc(HUBN[i])}</option>`).join('');s.value=ids.includes(cur)||cur===''?cur:(ids[0]||'');s.hidden=ids.length<2;}
+  const D=ALL.filter(d=>d.type=='ZIGBEE');
   rows=await pool(D,6,async d=>{let st=null,hl=null;
    try{st=await api('/devices/'+d.deviceId+'/status')}catch(e){if(e.code==401||e.code==403)throw e}
    try{hl=(await api('/devices/'+d.deviceId+'/health')).state}catch(e){}
    const m=st?metrics(st):{lqi:null,rssi:null,ts:null,nb:null,nbTs:null},caps=(d.components||[]).flatMap(c=>(c.capabilities||[]).map(x=>x.id));
    const h=hist[d.deviceId]||(hist[d.deviceId]=[]);if(m.lqi!=null&&(!h.length||h[h.length-1].t!==m.ts)){h.push({t:m.ts,lqi:m.lqi,rssi:m.rssi});if(h.length>60)h.shift();}
-   return{id:d.deviceId,loc:d.locationId,eui:d.zigbee&&d.zigbee.eui?String(d.zigbee.eui).toUpperCase():null,label:d.label||d.name||d.deviceId,role:caps.includes('battery')?'End device':'Router',...m,health:hl,hist:h};});
+   return{id:d.deviceId,loc:d.locationId,hub:d.zigbee&&d.zigbee.hubId,eui:d.zigbee&&d.zigbee.eui?String(d.zigbee.eui).toUpperCase():null,label:d.label||d.name||d.deviceId,role:caps.includes('battery')?'End device':'Router',...m,health:hl,hist:h};});
   last=new Date();draw();if(tab=='mesh')drawMesh(false);
  }catch(e){if(fail(e)){busy=false;return}}
  busy=false;nextAt=Date.now()+(+$('iv').value)*1000;timer=setTimeout(refresh,(+$('iv').value)*1000);}
@@ -115,7 +117,7 @@ function move(o,x,y){const x0=o.x??C,y0=o.y??C,t0=performance.now();o.x=x;o.y=y;
   o.g.setAttribute('transform',`translate(${cx},${cy})`);o.ln.setAttribute('x2',cx);o.ln.setAttribute('y2',cy);if(k<1)requestAnimationFrame(step);};
  requestAnimationFrame(step);}
 function draw(){const lf=$('loc').value;
- const D=rows.filter(d=>!lf||d.loc==lf).sort((a,b)=>a.label.localeCompare(b.label));cur=D;const seen={};
+ const D=rows.filter(vis).sort((a,b)=>a.label.localeCompare(b.label));cur=D;const seen={};
  D.forEach((d,i)=>{seen[d.id]=1;let o=N[d.id];
   if(!o){o=N[d.id]={};o.ln=el('line',{x1:C,y1:C,x2:C,y2:C,opacity:.55},LG);o.g=el('g',{},NG);
    o.sh=d.role=='Router'?el('rect',{x:-8,y:-8,width:16,height:16,rx:3},o.g):el('circle',{r:8},o.g);
@@ -144,7 +146,7 @@ const REL={P:'parent',C:'child',S:'neighbor',N:'none',X:'prev child'};
 const lqC=q=>q==null?'#888':q>=150?'#2ecc71':q>=100?'#f1c40f':q>=50?'#e67e22':'#e74c3c';
 const qOf=l=>{const v=[l.ab,l.ba].filter(x=>x!=null&&x>0);return v.length?Math.min(...v):null};
 let mpos={},sel=null,sim=null,meshSig='',MG=null;
-function buildMesh(){const lf=$('loc').value,R=rows.filter(d=>!lf||d.loc==lf),by={};R.forEach(d=>{if(d.eui)by[d.eui]=d});
+function buildMesh(){const lf=$('loc').value,R=rows.filter(vis),by={};R.forEach(d=>{if(d.eui)by[d.eui]=d});
  const Nm=new Map(),Lm=new Map();
  const node=(eui,t)=>{let n=Nm.get(eui);if(!n){const d=by[eui];
    const kind=t=='Z'?'hub':d?(d.role=='Router'?'router':'end'):(t=='E'?'end':'router');
@@ -153,7 +155,7 @@ function buildMesh(){const lf=$('loc').value,R=rows.filter(d=>!lf||d.loc==lf),by
   return n};
  R.forEach(d=>{if(d.eui)node(d.eui,d.role=='Router'?'R':'E')});
  R.forEach(d=>{if(!d.nb||!d.eui)return;const a=Nm.get(d.eui);a.rep=true;a.nb=d.nb;a.nbTs=d.nbTs;
-  d.nb.forEach(e=>{const b=node(e.eui,e.t);if(b===a)return;
+  d.nb.forEach(e=>{const b=node(e.eui,e.t);if(e.t=='Z'&&d.hub&&HUBN[d.hub])b.label=HUBN[d.hub];if(b===a)return;
    const k=a.id<b.id?a.id+'|'+b.id:b.id+'|'+a.id;let l=Lm.get(k);
    if(!l){l={a:a.id,b:b.id,source:a.id,target:b.id,ab:null,ba:null,tree:false,parent:null};Lm.set(k,l)}
    if(l.a==a.id)l.ab=e.lqi;else l.ba=e.lqi;
@@ -161,7 +163,7 @@ function buildMesh(){const lf=$('loc').value,R=rows.filter(d=>!lf||d.loc==lf),by
  return{nodes:[...Nm.values()],links:[...Lm.values()],map:Nm};}
 function drawMesh(force){
  if(typeof d3==='undefined'){$('minfo').textContent='Graph library failed to load (cdnjs blocked?).';return}
- const sig=rows.map(d=>d.id+(d.nbTs||'')).join()+'|'+$('loc').value+'|'+$('minlqi').value+'|'+$('treeonly').checked;
+ const sig=rows.map(d=>d.id+(d.nbTs||'')).join()+'|'+$('loc').value+'|'+$('hub').value+'|'+$('minlqi').value+'|'+$('treeonly').checked;
  if(!force&&sig===meshSig&&MG)return;meshSig=sig;
  const M=buildMesh();MG=M;const svg=d3.select('#mesh');svg.selectAll('*').remove();if(sim)sim.stop();
  const reps=M.nodes.filter(n=>n.rep).length;
@@ -170,7 +172,7 @@ function drawMesh(force){
  const L=M.links.filter(l=>{const q=qOf(l);return tree?l.tree:(l.tree||q==null||q>=minL)});
  const g=svg.append('g');svg.call(d3.zoom().scaleExtent([.3,5]).on('zoom',e=>g.attr('transform',e.transform)));
  svg.on('click',e=>{if(e.target===svg.node()){sel=null;hl();info(null)}});
- M.nodes.forEach(n=>{const p=mpos[n.id];if(p){n.x=p.x;n.y=p.y}else{n.x=W/2+(Math.random()-.5)*400;n.y=H/2+(Math.random()-.5)*400}if(n.kind=='hub'){n.fx=W/2;n.fy=H/2}});
+ M.nodes.forEach(n=>{const p=mpos[n.id];if(p){n.x=p.x;n.y=p.y}else{n.x=W/2+(Math.random()-.5)*400;n.y=H/2+(Math.random()-.5)*400}if(n.kind=='hub'){const hs=M.nodes.filter(x=>x.kind=='hub'),k=hs.indexOf(n);n.fx=W/2+(k-(hs.length-1)/2)*420;n.fy=H/2}});
  const lk=g.append('g').selectAll('line').data(L).join('line')
   .attr('stroke',l=>lqC(qOf(l))).attr('stroke-width',l=>{const q=qOf(l);return q==null?1.2:1+q/55})
   .attr('stroke-dasharray',l=>l.tree?null:'5 4').attr('opacity',.75);
@@ -229,6 +231,7 @@ async function removeGhost(rid,eui){const r=MG&&MG.map.get(rid),dv=r&&r.dev;if(!
   setTimeout(async()=>{try{const st=await api('/devices/'+dv.id+'/status'),c=st.components[dv.nbComp||'main'],a=c&&c[dv.nbCap]&&c[dv.nbCap].lastAction;
    out.textContent=(a&&a.value?a.value:'No answer yet')+' · the map updates after the next refresh.';}catch(e){out.textContent='Could not read the answer.'}},8000);
  }catch(e){out.textContent='Network error.'}}
+let HUBN={};const vis=d=>{const lf=$('loc').value,hf=$('hub').value;return(!lf||d.loc==lf)&&(!hf||d.hub==hf)};
 /* ---------- ui ---------- */
 setInterval(()=>{if(!last||busy)return;const n=Math.max(0,Math.round((nextAt-Date.now())/1000));
  $('meta').textContent=`${cur.length} Zigbee devices · ${cur.filter(d=>d.lqi!=null).length} with metrics · ${cur.filter(d=>d.nb).length} with neighbor table · updated ${last.toLocaleTimeString()} · next in ${n}s`;},1000);
@@ -243,6 +246,7 @@ $('rf').onclick=()=>refresh();
 $('out').onclick=()=>signOut();
 $('tSig').onclick=()=>setTab('sig');$('tMesh').onclick=()=>setTab('mesh');
 $('md').onclick=()=>{mode=mode=='rssi'?'lqi':'rssi';ls.set('zbmode',mode);rings();draw();};
+$('hub').onchange=()=>{ls.set('zbhub',$('hub').value);mpos={};draw();if(tab=='mesh')drawMesh(true);};
 $('loc').onchange=()=>{ls.set('zbloc',$('loc').value);draw();if(tab=='mesh')drawMesh(true);};
 $('minlqi').oninput=()=>{$('minv').textContent=$('minlqi').value;drawMesh(true)};
 $('treeonly').onchange=()=>drawMesh(true);
