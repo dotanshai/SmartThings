@@ -87,9 +87,9 @@ def installs_by_area(force=False):
         _ic.update(t=time.time(), by=by)
     return _ic["by"]
 
-def notify(area, rec):
+def notify(area, rec, only=None):
     st = {"state": rec["state"], "title": rec.get("title", "")} if rec else {"state": "safe"}
-    for inst in installs_by_area().get(area, []):
+    for inst in [x for x in installs_by_area().get(area, []) if not only or x["iid"] == only]:
         expr, vals = "SET areaState=:s", {":s": st}
         if st["state"] in ("alert", "preAlert"):
             inst["lastAlert"] = (il_time().strftime("%d/%m %H:%M") + " " + st.get("title", ""))[:200]
@@ -142,8 +142,9 @@ def handler(event, context):
         return out
     if "inject" in event:
         i = event["inject"]; installs_by_area(force=True)
+        if not i.get("iid"): return {"error": "iid required - inject targets one device only"}
         rec = None if i.get("state") == "safe" else {"state": i["state"], "title": i.get("title", "TEST")}
-        notify(i["area"], rec)
+        notify(i["area"], rec, i["iid"])
         return {"injected": i["state"], "devices": len(installs_by_area().get(i["area"], []))}
     me = str(uuid.uuid4())
     if not acquire(me, context):

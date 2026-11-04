@@ -14,7 +14,7 @@ SEC_TXT = "שניות"
 
 def log(**kw): print(json.dumps(kw, ensure_ascii=False, default=str))
 
-def req(url, data=None, headers=None, form=False, timeout=8):
+def _req(url, data=None, headers=None, form=False, timeout=8):
     h = dict(headers or {})
     body = None
     if data is not None:
@@ -92,3 +92,12 @@ def districts():
         _D = {}
         for d in arr: _D.setdefault(d["label"], d.get("migun_time"))
     return _D
+
+def req(url, data=None, headers=None, form=False, timeout=8):
+    try:
+        return _req(url, data, headers, form, timeout)
+    except urllib.error.HTTPError as e:
+        try: body = e.read().decode("utf-8", "replace")[:500]
+        except Exception: body = ""
+        log(http_error=e.code, url=url.split("?")[0], body=body)
+        raise

@@ -172,3 +172,23 @@ def webhook(b):
         log(info="deleted", iid=inst["iid"])
         return out()
     return out()
+
+_oauthin_st = oauthin
+def oauthin(qs):
+    try:
+        return _oauthin_st(qs)
+    except Exception as e:
+        log(warn="oauthin fallback", err=str(e))
+    pid = qs.get("state", ""); p = INST.get_item(Key={"pk": "pend#" + pid}).get("Item")
+    if not p: return resp(400, "Session expired - please start again", "text/plain")
+    iid = p.get("locId") or ("m-" + secrets.token_hex(12))
+    INST.update_item(Key={"pk": "pend#" + pid}, UpdateExpression="SET locId=:l, locName=:n",
+                     ExpressionAttributeValues={":l": iid, ":n": p.get("locName", "")})
+    D = districts()
+    hint = "\u05d4\u05e7\u05dc\u05d9\u05d3\u05d5 \u05d0\u05ea \u05e9\u05dd \u05d4\u05d9\u05d9\u05e9\u05d5\u05d1 \u05d1\u05d7\u05d9\u05e4\u05d5\u05e9 / Type your town in the search"
+    opts = "".join('<option value="%s">%s (%s %s)</option>' % (html.escape(a), html.escape(a),
+                   D[a] if D[a] is not None else "?", SEC_TXT) for a in sorted(D))
+    pg = (PAGE.replace("@@TITLE@@", T_TITLE).replace("@@HOME@@", hint).replace("@@LOC@@", "").replace("@@CITY@@", "")
+          .replace("@@PID@@", pid).replace("@@SEARCH@@", T_SEARCH).replace("@@OK@@", T_OK)
+          .replace("@@DISC@@", T_DISC).replace("@@OPTS@@", opts))
+    return resp(200, pg, "text/html")
