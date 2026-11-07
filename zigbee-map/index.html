@@ -161,9 +161,9 @@ function buildMesh(){const lf=$('loc').value,R=rows.filter(vis),by={};R.forEach(
    if(!l){l={a:a.id,b:b.id,source:a.id,target:b.id,ab:null,ba:null,tree:false,parent:null};Lm.set(k,l)}
    if(l.a==a.id)l.ab=e.lqi;else l.ba=e.lqi;
    if(e.r=='P'){l.tree=true;l.parent=b.id}else if(e.r=='C'){l.tree=true;l.parent=a.id}});});
- {const hubs=[...Nm.values()].filter(n=>n.kind=='hub'),linked=new Set(),nonRep=[...Nm.values()].filter(n=>n.kind=='router'&&n.known&&!n.rep&&n.seenR).length;Lm.forEach(l=>{linked.add(l.a);linked.add(l.b)});
+ {const hubs=[...Nm.values()].filter(n=>n.kind=='hub'),linked=new Set(),nonRepL=[...Nm.values()].filter(n=>n.kind=='router'&&n.known&&!n.rep&&n.seenR),nonRep=nonRepL.length;window.__blk=nonRepL.map(n=>n.label);Lm.forEach(l=>{linked.add(l.a);linked.add(l.b)});
   if(hubs.length)Nm.forEach(n=>{if(n.kind!='hub'&&n.known&&!linked.has(n.id)){const h=(n.dev&&n.dev.hub&&hubs.find(x=>x.label==HUBN[n.dev.hub]))||hubs[0];
-   Lm.set(n.id+'|?',{a:n.id,b:h.id,source:n.id,target:h.id,ab:null,ba:null,tree:(nonRep==0&&n.kind=='end'),parent:(nonRep==0&&n.kind=='end')?h.id:null,guess:true})}})}
+   Lm.set(n.id+'|?',{a:n.id,b:h.id,source:n.id,target:h.id,ab:null,ba:null,tree:(nonRep==0&&n.kind=='end')||HK.has(n.id),parent:((nonRep==0&&n.kind=='end')||HK.has(n.id))?h.id:null,guess:true,conf:HK.has(n.id)})}})}
  return{nodes:[...Nm.values()],links:[...Lm.values()],map:Nm};}
 const lCost=l=>{const q=qOf(l);return q==null?7:Math.max(1,Math.min(7,Math.round(7-q/40)))};
 function spt(M){const adj=new Map(),add=(x,y,l)=>{if(!adj.has(x))adj.set(x,[]);adj.get(x).push([y,l])};
@@ -186,7 +186,11 @@ function realRoute(M,id){const byN={};M.nodes.forEach(n=>{if(n.dev&&n.dev.nwk)by
   if(!nx&&M.RT.prev.has(c))nx=M.RT.prev.get(c)[0];
   if(!nx||hops.includes(nx))break;hops.push(nx);meas.push(m);c=nx}
  return{hops,meas}}
-const lnc=(M,l)=>{const m=$('mcolor').value;if(m!='type'&&(l.tree||l.up)&&M.RT){const da=M.RT.dist.get(l.a),db=M.RT.dist.get(l.b),ch=M.map.get((da??-1)>(db??-1)?l.a:l.b),dv=ch&&ch.dev;if(dv)return m=='rssi'?col(dv.rssi):lqC(dv.lqi!=null?dv.lqi:null)}return lqC(qOf(l))};
+let HK=new Set();try{HK=new Set(JSON.parse(localStorage.getItem('zbhubkids')||'[]'))}catch(e){}
+function hubBtn(sel,M){const rt=$('mroute');if(!rt||!sel)return;const n=M.map.get(sel);if(!n||n.kind!='end')return;
+ const g=M.links.some(l=>l.guess&&(l.a==sel||l.b==sel)),c=HK.has(sel);if(!g&&!c)return;
+ const b=document.createElement('button');b.textContent=c?'Undo "parent is Hub"':'Mark parent = Hub (confirmed in app Connection path)';b.style.marginLeft='10px';
+ b.onclick=()=>{c?HK.delete(sel):HK.add(sel);try{localStorage.setItem('zbhubkids',JSON.stringify([...HK]))}catch(e){};meshSig='';drawMesh(true)};rt.appendChild(b)}{const m=$('mcolor').value;if(m!='type'&&(l.tree||l.up)&&M.RT){const da=M.RT.dist.get(l.a),db=M.RT.dist.get(l.b),ch=M.map.get((da??-1)>(db??-1)?l.a:l.b),dv=ch&&ch.dev;if(dv)return m=='rssi'?col(dv.rssi):lqC(dv.lqi!=null?dv.lqi:null)}return lqC(qOf(l))};
 const nf=d=>{const m=$('mcolor').value,dv=d.dev;if(!dv||m=='type')return null;return m=='rssi'?col(dv.rssi):lqC(dv.lqi!=null?dv.lqi:null)};
 function drawMesh(force){
  {const m=$('mcolor').value,e=$('mleg');if(e)e.innerHTML=m=='rssi'?'Nodes + route lines, RSSI: <b style="color:#2ecc71">≥-65</b> · <b style="color:#f1c40f">-65..-80</b> · <b style="color:#e67e22">-80..-90</b> · <b style="color:#e74c3c">&lt;-90</b> · <b style="color:#777">no data</b> &nbsp;|&nbsp; ':m=='lqi'?'Nodes + route lines, LQI: <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">no data</b> &nbsp;|&nbsp; ':''}
@@ -228,8 +232,8 @@ function drawMesh(force){
   const P=new Set(),PN=new Set(),qs=[];let hops=[],meas=[];if(sel){const rr=realRoute(M,sel);hops=rr.hops;meas=rr.meas;hops.forEach(h=>PN.add(h));for(let i=0;i<hops.length-1;i++){const a=hops[i],b=hops[i+1],l=M.links.find(x=>(x.a==a&&x.b==b)||(x.a==b&&x.b==a));if(l)P.add(l);qs.push(l?qOf(l):null)}}
   lk.attr('opacity',l=>!sel?.75:P.has(l)?1:0).attr('stroke',l=>P.has(l)?'#ffffff':lnc(M,l)).attr('stroke-width',l=>P.has(l)?5:(qOf(l)==null?1.2:1+qOf(l)/55));
   nd.attr('opacity',d=>!sel||PN.has(d.id)?1:.12);
-  const rt=$('mroute');if(rt)rt.innerHTML=!sel?'':hops.length<2?'<b>Route to hub:</b> unknown – no reporting router sees this device':(meas.length&&meas.every(x=>x)?'<b>Route to hub (from routing tables ✓):</b> ':meas.some(x=>x)?'<b>Route to hub (✓ measured / rest estimated):</b> ':'<b>Route to hub (estimated):</b> ')+hops.map((h,i)=>`<span dir="auto">${esc(nm(h))}</span>`+(i<qs.length?` <b style="color:${lqC(qs[i])}">→ ${qs[i]??'?'}${meas[i]?' ✓':''} →</b> `:'')).join('')+` · ${hops.length-1} hop(s)`+([...P].some(l=>l.guess&&l.tree)?' · <span style="color:#2ecc71">parent = Hub (inferred: no router lists it as a child)</span>':[...P].some(l=>l.guess)?' · <span style="color:#e67e22">parent router unknown (hub or a non-SD router)</span>':'');
-  document.querySelectorAll('#mtb tr').forEach(tr=>tr.style.background=tr.dataset.id==sel?'#2a3b4d':'');}
+  const rt=$('mroute');if(rt)rt.innerHTML=!sel?'':hops.length<2?'<b>Route to hub:</b> unknown – no reporting router sees this device':(meas.length&&meas.every(x=>x)?'<b>Route to hub (from routing tables ✓):</b> ':meas.some(x=>x)?'<b>Route to hub (✓ measured / rest estimated):</b> ':'<b>Route to hub (estimated):</b> ')+hops.map((h,i)=>`<span dir="auto">${esc(nm(h))}</span>`+(i<qs.length?` <b style="color:${lqC(qs[i])}">→ ${qs[i]??'?'}${meas[i]?' ✓':''} →</b> `:'')).join('')+` · ${hops.length-1} hop(s)`+([...P].some(l=>l.conf)?' · <span style="color:#2ecc71">parent = Hub (confirmed in app)</span>':[...P].some(l=>l.guess&&l.tree)?' · <span style="color:#2ecc71">parent = Hub (inferred: no router lists it as a child)</span>':[...P].some(l=>l.guess)?' · <span style="color:#e67e22">parent router unknown (hub or a non-SD router)'+(window.__blk&&window.__blk.length?' – not reporting: '+window.__blk.join(', '):' – no blocking router found')+'</span>':'');
+  document.querySelectorAll('#mtb tr').forEach(tr=>tr.style.background=tr.dataset.id==sel?'#2a3b4d':'');hubBtn(sel,M);}
  function info(d){if(!d){$('minfo').innerHTML=`${reps} device(s) report a neighbor table · ${M.nodes.length} nodes · ${L.length} links shown`;return}
   const rowsH=[];let gb='';
   if(!d.known){const rs=M.links.filter(l=>l.a==d.id||l.b==d.id).map(l=>M.map.get(l.a==d.id?l.b:l.a)).filter(n=>n&&n.rep&&n.dev&&n.dev.nbCap);
