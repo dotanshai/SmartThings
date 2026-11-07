@@ -55,7 +55,7 @@ footer{color:var(--mut);font-size:12px;margin-top:20px}
 <button id="relayout">Re-layout</button><label>Color nodes by <select id="mcolor"><option value="type">Type</option><option value="rssi">RSSI</option><option value="lqi">LQI</option></select></label>
 </div>
 <p class="lg"><span><i class="dot" style="background:#3498db"></i>Hub</span><span><i class="sq" style="background:#9b59b6"></i>Router</span><span><i class="dot" style="background:#1abc9c"></i>End device</span><span><i class="dot" style="background:#555"></i>Unknown</span><span>white outline = reports its table · solid = parent/child or best route to hub · dashed = other neighbor link · click a device to see its route</span><br>
-<span>Link LQI: <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">unknown</b></span><span>Click a node for details · drag · scroll/pinch to zoom</span></p>
+<span id="mleg"></span><span>Link LQI (lines): <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">unknown</b></span><span>Click a node for details · drag · scroll/pinch to zoom</span></p>
 <svg id="mesh" viewBox="0 0 1000 800"></svg>
 <div id="mroute" style="font-size:13px;margin-top:10px"></div><div id="minfo"></div>
 <div class="tw"><table><thead><tr><th>Device</th><th>Role</th><th>Parent</th><th>Links</th><th>Best link</th><th>Weakest link</th><th>LQI</th><th>RSSI</th></tr></thead><tbody id="mtb"></tbody></table></div>
@@ -187,6 +187,7 @@ function realRoute(M,id){const byN={};M.nodes.forEach(n=>{if(n.dev&&n.dev.nwk)by
  return{hops,meas}}
 const nf=d=>{const m=$('mcolor').value,dv=d.dev;if(!dv||m=='type')return null;return m=='rssi'?col(dv.rssi):lqC(dv.lqi!=null?dv.lqi:null)};
 function drawMesh(force){
+ {const m=$('mcolor').value,e=$('mleg');if(e)e.innerHTML=m=='rssi'?'Node RSSI: <b style="color:#2ecc71">≥-65</b> · <b style="color:#f1c40f">-65..-80</b> · <b style="color:#e67e22">-80..-90</b> · <b style="color:#e74c3c">&lt;-90</b> · <b style="color:#777">no data</b> &nbsp;|&nbsp; ':m=='lqi'?'Node LQI: <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">no data</b> &nbsp;|&nbsp; ':''}
  if(typeof d3==='undefined'){$('minfo').textContent='Graph library failed to load (cdnjs blocked?).';return}
  const sig=rows.map(d=>d.id+(d.nbTs||'')).join()+'|'+$('loc').value+'|'+$('hub').value+'|'+$('minlqi').value+'|'+$('treeonly').checked;
  if(!force&&sig===meshSig&&MG)return;meshSig=sig;
