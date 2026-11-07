@@ -52,7 +52,7 @@ footer{color:var(--mut);font-size:12px;margin-top:20px}
 <div class="ctl">
 <label>Min link LQI <input type="range" id="minlqi" min="0" max="200" step="10" value="0"> <b id="minv">0</b></label>
 <label><input type="checkbox" id="treeonly"> Parent/child links only</label>
-<button id="relayout">Re-layout</button>
+<button id="relayout">Re-layout</button><label>Color nodes by <select id="mcolor"><option value="type">Type</option><option value="rssi">RSSI</option><option value="lqi">LQI</option></select></label>
 </div>
 <p class="lg"><span><i class="dot" style="background:#3498db"></i>Hub</span><span><i class="sq" style="background:#9b59b6"></i>Router</span><span><i class="dot" style="background:#1abc9c"></i>End device</span><span><i class="dot" style="background:#555"></i>Unknown</span><span>white outline = reports its table · solid = parent/child or best route to hub · dashed = other neighbor link · click a device to see its route</span><br>
 <span>Link LQI: <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">unknown</b></span><span>Click a node for details · drag · scroll/pinch to zoom</span></p>
@@ -185,6 +185,7 @@ function realRoute(M,id){const byN={};M.nodes.forEach(n=>{if(n.dev&&n.dev.nwk)by
   if(!nx&&M.RT.prev.has(c))nx=M.RT.prev.get(c)[0];
   if(!nx||hops.includes(nx))break;hops.push(nx);meas.push(m);c=nx}
  return{hops,meas}}
+const nf=d=>{const m=$('mcolor').value,dv=d.dev;if(!dv||m=='type')return null;return m=='rssi'?col(dv.rssi):lqC(dv.lqi!=null?dv.lqi:null)};
 function drawMesh(force){
  if(typeof d3==='undefined'){$('minfo').textContent='Graph library failed to load (cdnjs blocked?).';return}
  const sig=rows.map(d=>d.id+(d.nbTs||'')).join()+'|'+$('loc').value+'|'+$('hub').value+'|'+$('minlqi').value+'|'+$('treeonly').checked;
@@ -206,13 +207,13 @@ function drawMesh(force){
    .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y}).on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);if(d.kind!='hub'){d.fx=null;d.fy=null}}));
  nd.each(function(d){const s=d3.select(this);let sh;
   if(d.kind=='hub')sh=s.append('circle').attr('r',18).attr('fill','#3498db');
-  else if(d.kind=='router')sh=s.append('rect').attr('x',-8).attr('y',-8).attr('width',16).attr('height',16).attr('rx',3).attr('fill',d.known?'#9b59b6':'#555');
-  else sh=s.append('circle').attr('r',7).attr('fill',d.known?'#1abc9c':'#555');
+  else if(d.kind=='router')sh=s.append('rect').attr('x',-8).attr('y',-8).attr('width',16).attr('height',16).attr('rx',3).attr('fill',nf(d)||(d.known?'#9b59b6':'#555'));
+  else sh=s.append('circle').attr('r',7).attr('fill',nf(d)||(d.known?'#1abc9c':'#555'));
   const off=d.dev&&d.dev.health=='OFFLINE';
   sh.attr('stroke',off?'#ff3b3b':d.rep?'#fff':'#000').attr('stroke-width',off?3:d.rep?2.5:1);
   s.append('text').attr('x',d.kind=='hub'?0:12).attr('y',4).attr('text-anchor',d.kind=='hub'?'middle':'start')
    .attr('fill',d.kind=='hub'?'#fff':'#ddd').attr('font-size',d.kind=='hub'?12:11).attr('font-weight',d.kind=='hub'?'bold':null).style('direction','ltr').text(d.label);
-  s.append('title').text(`${d.label}\n${d.kind}${d.rep?' · reports table ('+d.nb.length+')':''}${d.dev?`\nLQI ${d.dev.lqi??'-'} · RSSI ${d.dev.rssi??'-'} (last hop)`:(d.known?'':'\nNot in your device list\nEUI '+d.id+'\n'+vendor(d.id))}`);});
+  s.append('title').text(`${d.label}${d.dev?(d.dev.health=='OFFLINE'?'\n🔴 OFFLINE':'\n🟢 online'):''}${d.dev&&d.dev.ts?' · last report '+age(d.dev.ts):''}\n${d.kind}${d.rep?' · reports table ('+d.nb.length+')':''}${d.dev?`\nLQI ${d.dev.lqi??'-'} · RSSI ${d.dev.rssi??'-'} (last hop)`:(d.known?'':'\nNot in your device list\nEUI '+d.id+'\n'+vendor(d.id))}`);});
  nd.on('click',(e,d)=>{e.stopPropagation();sel=sel===d.id?null:d.id;hl();info(sel?d:null)});
  sim=d3.forceSimulation(M.nodes)
   .force('link',d3.forceLink(L).id(d=>d.id).distance(l=>{const q=qOf(l);return l.tree?60+(255-(q??150))/255*120:90+(255-(q??120))/255*220}).strength(l=>l.tree?.7:.12))
@@ -277,6 +278,7 @@ $('hub').onchange=()=>{ls.set('zbhub',$('hub').value);mpos={};draw();if(tab=='me
 $('loc').onchange=()=>{ls.set('zbloc',$('loc').value);draw();if(tab=='mesh')drawMesh(true);};
 $('minlqi').oninput=()=>{$('minv').textContent=$('minlqi').value;drawMesh(true)};
 $('treeonly').onchange=()=>drawMesh(true);
+$('mcolor').value=ls.get('zbmcolor')||'type';$('mcolor').onchange=()=>{ls.set('zbmcolor',$('mcolor').value);drawMesh(true)};
 $('relayout').onclick=()=>{mpos={};drawMesh(true)};
 $('iv').value=ls.get('zbiv')||'60';$('iv').onchange=()=>{ls.set('zbiv',$('iv').value);if(!busy){clearTimeout(timer);nextAt=Date.now()+(+$('iv').value)*1000;timer=setTimeout(refresh,(+$('iv').value)*1000);}};
 const saved=ls.get('zbtok');if(saved)connect(saved,true);
