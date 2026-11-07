@@ -186,7 +186,7 @@ function realRoute(M,id){const byN={};M.nodes.forEach(n=>{if(n.dev&&n.dev.nwk)by
   if(!nx&&M.RT.prev.has(c))nx=M.RT.prev.get(c)[0];
   if(!nx||hops.includes(nx))break;hops.push(nx);meas.push(m);c=nx}
  return{hops,meas}}
-const lc=(M,l)=>{const m=$('mcolor').value;if(m!='type'&&(l.tree||l.up)&&M.RT){const da=M.RT.dist.get(l.a),db=M.RT.dist.get(l.b),ch=M.map.get((da??-1)>(db??-1)?l.a:l.b),dv=ch&&ch.dev;if(dv)return m=='rssi'?col(dv.rssi):lqC(dv.lqi!=null?dv.lqi:null)}return lqC(qOf(l))};
+const lnc=(M,l)=>{const m=$('mcolor').value;if(m!='type'&&(l.tree||l.up)&&M.RT){const da=M.RT.dist.get(l.a),db=M.RT.dist.get(l.b),ch=M.map.get((da??-1)>(db??-1)?l.a:l.b),dv=ch&&ch.dev;if(dv)return m=='rssi'?col(dv.rssi):lqC(dv.lqi!=null?dv.lqi:null)}return lqC(qOf(l))};
 const nf=d=>{const m=$('mcolor').value,dv=d.dev;if(!dv||m=='type')return null;return m=='rssi'?col(dv.rssi):lqC(dv.lqi!=null?dv.lqi:null)};
 function drawMesh(force){
  {const m=$('mcolor').value,e=$('mleg');if(e)e.innerHTML=m=='rssi'?'Nodes + route lines, RSSI: <b style="color:#2ecc71">≥-65</b> · <b style="color:#f1c40f">-65..-80</b> · <b style="color:#e67e22">-80..-90</b> · <b style="color:#e74c3c">&lt;-90</b> · <b style="color:#777">no data</b> &nbsp;|&nbsp; ':m=='lqi'?'Nodes + route lines, LQI: <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">no data</b> &nbsp;|&nbsp; ':''}
@@ -202,7 +202,7 @@ function drawMesh(force){
  svg.on('click',e=>{if(e.target===svg.node()){sel=null;hl();info(null)}});
  M.nodes.forEach(n=>{const p=mpos[n.id];if(p){n.x=p.x;n.y=p.y}else{n.x=W/2+(Math.random()-.5)*400;n.y=H/2+(Math.random()-.5)*400}if(n.kind=='hub'){const hs=M.nodes.filter(x=>x.kind=='hub'),k=hs.indexOf(n);n.fx=W/2+(k-(hs.length-1)/2)*420;n.fy=H/2}});
  const lk=g.append('g').selectAll('line').data(L).join('line')
-  .attr('stroke',l=>lc(M,l)).attr('stroke-width',l=>{const q=qOf(l);return q==null?1.2:1+q/55})
+  .attr('stroke',l=>lnc(M,l)).attr('stroke-width',l=>{const q=qOf(l);return q==null?1.2:1+q/55})
   .attr('stroke-dasharray',l=>l.guess?'2 5':(l.tree||l.up?null:'5 4')).attr('opacity',.75);
  lk.append('title').text(l=>`${nm(l.a)} sees ${nm(l.b)}: LQI ${l.ab??'-'}\n${nm(l.b)} sees ${nm(l.a)}: LQI ${l.ba??'-'}${l.tree?'\nparent/child: parent = '+nm(l.parent):''}`);
  const nd=g.append('g').selectAll('g').data(M.nodes).join('g').style('cursor','pointer')
@@ -226,7 +226,7 @@ function drawMesh(force){
   nd.attr('transform',d=>`translate(${d.x},${d.y})`);M.nodes.forEach(n=>{mpos[n.id]={x:n.x,y:n.y}})});
  function hl(){const near=new Set([sel]);if(sel)L.forEach(l=>{if(l.a==sel)near.add(l.b);if(l.b==sel)near.add(l.a)});
   const P=new Set(),PN=new Set(),qs=[];let hops=[],meas=[];if(sel){const rr=realRoute(M,sel);hops=rr.hops;meas=rr.meas;hops.forEach(h=>PN.add(h));for(let i=0;i<hops.length-1;i++){const a=hops[i],b=hops[i+1],l=M.links.find(x=>(x.a==a&&x.b==b)||(x.a==b&&x.b==a));if(l)P.add(l);qs.push(l?qOf(l):null)}}
-  lk.attr('opacity',l=>!sel?.75:P.has(l)?1:0).attr('stroke',l=>P.has(l)?'#ffffff':lc(M,l)).attr('stroke-width',l=>P.has(l)?5:(qOf(l)==null?1.2:1+qOf(l)/55));
+  lk.attr('opacity',l=>!sel?.75:P.has(l)?1:0).attr('stroke',l=>P.has(l)?'#ffffff':lnc(M,l)).attr('stroke-width',l=>P.has(l)?5:(qOf(l)==null?1.2:1+qOf(l)/55));
   nd.attr('opacity',d=>!sel||PN.has(d.id)?1:.12);
   const rt=$('mroute');if(rt)rt.innerHTML=!sel?'':hops.length<2?'<b>Route to hub:</b> unknown – no reporting router sees this device':(meas.length&&meas.every(x=>x)?'<b>Route to hub (from routing tables ✓):</b> ':meas.some(x=>x)?'<b>Route to hub (✓ measured / rest estimated):</b> ':'<b>Route to hub (estimated):</b> ')+hops.map((h,i)=>`<span dir="auto">${esc(nm(h))}</span>`+(i<qs.length?` <b style="color:${lqC(qs[i])}">→ ${qs[i]??'?'}${meas[i]?' ✓':''} →</b> `:'')).join('')+` · ${hops.length-1} hop(s)`+([...P].some(l=>l.guess)?' · <span style="color:#e67e22">parent router unknown (hub or a non-SD router)</span>':'');
   document.querySelectorAll('#mtb tr').forEach(tr=>tr.style.background=tr.dataset.id==sel?'#2a3b4d':'');}
