@@ -81,11 +81,11 @@ function metrics(st){let lqi=null,rssi=null,ts=null,nb=null,nbTs=null,nbComp=nul
    if(hit&&a.timestamp)ts=a.timestamp;}}
  return{lqi,rssi,ts,nb,nbTs,nbComp,nbCap};}
 function parseNb(v){return String(v).split(';').filter(Boolean).map(s=>{const[e,l,r,t]=s.split(',');return{eui:(e||'').toUpperCase(),lqi:+l,r,t}}).filter(x=>x.eui.length==16);}
-function fail(e){if(e&&(e.code==401||e.code==403)){signOut('Token rejected: expired, wrong, or missing Devices scopes.');return true}
+function fail(e){if(e&&e.code==401){signOut('Token rejected: expired (tokens last 24h) or wrong. Create a new one.');return true}if(e&&e.code==403){signOut('Token is missing scopes: tick Devices → List all devices + See all devices.');return true}
  $('err2').textContent=e&&e.net?'Request blocked by the browser or no network.':'API error '+(e&&e.code||e);return false;}
 async function refresh(){if(busy)return;busy=true;clearTimeout(timer);$('err2').textContent='';$('meta').textContent='Refreshing…';
  try{
-  if(!locs){locs=await list('/locations');const s=$('loc');s.innerHTML='<option value="">All locations</option>'+locs.map(l=>`<option value="${esc(l.locationId)}">${esc(l.name)}</option>`).join('');s.value=ls.get('zbloc')||'';s.hidden=locs.length<2;}
+  if(!locs){try{locs=await list('/locations')}catch(e){if(e.code==401)throw e;locs=[]}const s=$('loc');s.innerHTML='<option value="">All locations</option>'+locs.map(l=>`<option value="${esc(l.locationId)}">${esc(l.name)}</option>`).join('');s.value=ls.get('zbloc')||'';s.hidden=locs.length<2;}
   const ALL=await list('/devices');HUBN={};ALL.filter(d=>d.type=='HUB').forEach(h=>HUBN[h.deviceId]=h.label||h.name||'Hub');
   {const s=$('hub'),ids=Object.keys(HUBN),cur=s.value||ls.get('zbhub')||ids[0]||'';s.innerHTML='<option value="">All hubs</option>'+ids.map(i=>`<option value="${esc(i)}">${esc(HUBN[i])}</option>`).join('');s.value=ids.includes(cur)||cur===''?cur:(ids[0]||'');s.hidden=ids.length<2;}
   const D=ALL.filter(d=>d.type=='ZIGBEE');
