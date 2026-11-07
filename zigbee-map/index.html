@@ -54,10 +54,10 @@ footer{color:var(--mut);font-size:12px;margin-top:20px}
 <label><input type="checkbox" id="treeonly"> Parent/child links only</label>
 <button id="relayout">Re-layout</button>
 </div>
-<p class="lg"><span><i class="dot" style="background:#3498db"></i>Hub</span><span><i class="sq" style="background:#9b59b6"></i>Router</span><span><i class="dot" style="background:#1abc9c"></i>End device</span><span><i class="dot" style="background:#555"></i>Unknown</span><span>white outline = reports its table · solid = parent/child · dashed = neighbor</span><br>
+<p class="lg"><span><i class="dot" style="background:#3498db"></i>Hub</span><span><i class="sq" style="background:#9b59b6"></i>Router</span><span><i class="dot" style="background:#1abc9c"></i>End device</span><span><i class="dot" style="background:#555"></i>Unknown</span><span>white outline = reports its table · solid = parent/child or best route to hub · dashed = other neighbor link · click a device to see its route</span><br>
 <span>Link LQI: <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">unknown</b></span><span>Click a node for details · drag · scroll/pinch to zoom</span></p>
 <svg id="mesh" viewBox="0 0 1000 800"></svg>
-<div id="minfo"></div>
+<div id="mroute" style="font-size:13px;margin-top:10px"></div><div id="minfo"></div>
 <div class="tw"><table><thead><tr><th>Device</th><th>Role</th><th>Parent</th><th>Links</th><th>Best link</th><th>Weakest link</th><th>LQI</th><th>RSSI</th></tr></thead><tbody id="mtb"></tbody></table></div>
 </div>
 </div>
@@ -161,6 +161,15 @@ function buildMesh(){const lf=$('loc').value,R=rows.filter(vis),by={};R.forEach(
    if(l.a==a.id)l.ab=e.lqi;else l.ba=e.lqi;
    if(e.r=='P'){l.tree=true;l.parent=b.id}else if(e.r=='C'){l.tree=true;l.parent=a.id}});});
  return{nodes:[...Nm.values()],links:[...Lm.values()],map:Nm};}
+const lCost=l=>{const q=qOf(l);return q==null?7:Math.max(1,Math.min(7,Math.round(7-q/40)))};
+function spt(M){const adj=new Map(),add=(x,y,l)=>{if(!adj.has(x))adj.set(x,[]);adj.get(x).push([y,l])};
+ M.links.forEach(l=>{add(l.a,l.b,l);add(l.b,l.a,l)});
+ const dist=new Map(),prev=new Map(),Q=[];M.nodes.filter(n=>n.kind=='hub').forEach(h=>{dist.set(h.id,0);Q.push(h.id)});
+ const hasTree=id=>M.links.some(x=>x.tree&&(x.a==id||x.b==id));
+ while(Q.length){Q.sort((a,b)=>dist.get(a)-dist.get(b));const u=Q.shift(),un=M.map.get(u);if(un&&un.kind=='end')continue;
+  for(const[v,l]of adj.get(u)||[]){const vn=M.map.get(v);if(vn&&vn.kind=='end'&&!l.tree&&hasTree(v))continue;
+   const d=dist.get(u)+lCost(l);if(!dist.has(v)||d<dist.get(v)){dist.set(v,d);prev.set(v,[u,l]);if(!Q.includes(v))Q.push(v)}}}
+ return{dist,prev}}
 function drawMesh(force){
  if(typeof d3==='undefined'){$('minfo').textContent='Graph library failed to load (cdnjs blocked?).';return}
  const sig=rows.map(d=>d.id+(d.nbTs||'')).join()+'|'+$('loc').value+'|'+$('hub').value+'|'+$('minlqi').value+'|'+$('treeonly').checked;
@@ -169,13 +178,13 @@ function drawMesh(force){
  const reps=M.nodes.filter(n=>n.rep).length;
  if(!reps){$('mtb').innerHTML='';$('minfo').innerHTML='No device reports a Zigbee neighbor table yet. The Mesh view needs Edge drivers that publish a <b>zigbeeNeighbors</b> capability.';return}
  const W=1000,H=800,minL=+$('minlqi').value,tree=$('treeonly').checked,nm=id=>{const n=M.map.get(id);return n?n.label:id};
- const L=M.links.filter(l=>{const q=qOf(l);return tree?l.tree:(l.tree||q==null||q>=minL)});
+ M.links.forEach(l=>l.up=false);M.RT=spt(M);M.RT.prev.forEach(([u,l])=>l.up=true);const L=M.links.filter(l=>{const q=qOf(l);return tree?(l.tree||l.up):(l.tree||l.up||q==null||q>=minL)});
  const g=svg.append('g');svg.call(d3.zoom().scaleExtent([.3,5]).on('zoom',e=>g.attr('transform',e.transform)));
  svg.on('click',e=>{if(e.target===svg.node()){sel=null;hl();info(null)}});
  M.nodes.forEach(n=>{const p=mpos[n.id];if(p){n.x=p.x;n.y=p.y}else{n.x=W/2+(Math.random()-.5)*400;n.y=H/2+(Math.random()-.5)*400}if(n.kind=='hub'){const hs=M.nodes.filter(x=>x.kind=='hub'),k=hs.indexOf(n);n.fx=W/2+(k-(hs.length-1)/2)*420;n.fy=H/2}});
  const lk=g.append('g').selectAll('line').data(L).join('line')
   .attr('stroke',l=>lqC(qOf(l))).attr('stroke-width',l=>{const q=qOf(l);return q==null?1.2:1+q/55})
-  .attr('stroke-dasharray',l=>l.tree?null:'5 4').attr('opacity',.75);
+  .attr('stroke-dasharray',l=>l.tree||l.up?null:'5 4').attr('opacity',.75);
  lk.append('title').text(l=>`${nm(l.a)} sees ${nm(l.b)}: LQI ${l.ab??'-'}\n${nm(l.b)} sees ${nm(l.a)}: LQI ${l.ba??'-'}${l.tree?'\nparent/child: parent = '+nm(l.parent):''}`);
  const nd=g.append('g').selectAll('g').data(M.nodes).join('g').style('cursor','pointer')
   .call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y})
@@ -197,7 +206,10 @@ function drawMesh(force){
  sim.on('tick',()=>{lk.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);
   nd.attr('transform',d=>`translate(${d.x},${d.y})`);M.nodes.forEach(n=>{mpos[n.id]={x:n.x,y:n.y}})});
  function hl(){const near=new Set([sel]);if(sel)L.forEach(l=>{if(l.a==sel)near.add(l.b);if(l.b==sel)near.add(l.a)});
-  lk.attr('opacity',l=>!sel?.75:(l.a==sel||l.b==sel)?1:.05);nd.attr('opacity',d=>!sel||near.has(d.id)?1:.18);
+  const P=new Set(),PN=new Set(),hops=[],qs=[];if(sel){let c=sel,g=0;PN.add(c);hops.push(c);while(M.RT.prev.has(c)&&g++<30){const[u,l]=M.RT.prev.get(c);P.add(l);PN.add(u);hops.push(u);qs.push(qOf(l));c=u}}
+  lk.attr('opacity',l=>!sel?.75:P.has(l)?1:(l.a==sel||l.b==sel)?.35:.04).attr('stroke',l=>P.has(l)?'#ffffff':lqC(qOf(l))).attr('stroke-width',l=>P.has(l)?5:(qOf(l)==null?1.2:1+qOf(l)/55));
+  nd.attr('opacity',d=>!sel||PN.has(d.id)||near.has(d.id)?1:.15);
+  const rt=$('mroute');if(rt)rt.innerHTML=!sel?'':hops.length<2?'<b>Route to hub:</b> unknown – no reporting router sees this device':'<b>Route to hub (estimated):</b> '+hops.map((h,i)=>`<span dir="auto">${esc(nm(h))}</span>`+(i<qs.length?` <b style="color:${lqC(qs[i])}">→ ${qs[i]??'?'} →</b> `:'')).join('')+` · ${hops.length-1} hop(s)`;
   document.querySelectorAll('#mtb tr').forEach(tr=>tr.style.background=tr.dataset.id==sel?'#2a3b4d':'');}
  function info(d){if(!d){$('minfo').innerHTML=`${reps} device(s) report a neighbor table · ${M.nodes.length} nodes · ${L.length} links shown`;return}
   const rowsH=[];let gb='';
