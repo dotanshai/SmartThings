@@ -70,16 +70,16 @@ let tok=null,rows=[],hist={},timer=null,nextAt=0,last=null,busy=false,locs=null,
 async function api(u){let r;try{r=await fetch(u.startsWith('http')?u:API+u,{headers:{Authorization:'Bearer '+tok}})}catch(e){throw{net:true}}if(!r.ok)throw{code:r.status};return r.json();}
 async function list(u){let out=[];while(u){const p=await api(u);out=out.concat(p.items||[]);u=p._links&&p._links.next&&p._links.next.href;}return out;}
 async function pool(items,n,fn){const out=[];let i=0;await Promise.all(Array.from({length:Math.min(n,items.length)},async()=>{while(i<items.length){const k=i++;out[k]=await fn(items[k]);}}));return out;}
-function metrics(st){let lqi=null,rssi=null,ts=null,nb=null,nbTs=null,nbComp=null,nbCap=null;
+function metrics(st){let lqi=null,rssi=null,ts=null,nb=null,nbTs=null,nbComp=null,nbCap=null,rt=null;
  for(const[cid,c]of Object.entries(st.components||{}))for(const[cn,cap]of Object.entries(c||{})){
-  if(/zigbeeNeighbors$/i.test(cn)){if(cap&&cap.neighbors&&cap.neighbors.value){nb=parseNb(cap.neighbors.value);nbTs=cap.neighbors.timestamp;nbComp=cid;nbCap=cn}continue}
+  if(/zigbeeNeighbors$/i.test(cn)){if(cap&&cap.neighbors&&cap.neighbors.value){nb=parseNb(cap.neighbors.value);nbTs=cap.neighbors.timestamp;nbComp=cid;nbCap=cn}if(cap&&cap.hubRoute&&cap.hubRoute.value){const z=String(cap.hubRoute.value).split(",");rt={self:(z[0]||"").toUpperCase(),next:(z[1]||"-").toUpperCase(),st:z[2]||""}}continue}
   const sig=/signal|lqi|rssi/i.test(cn);
   for(const[an,a]of Object.entries(cap||{})){const v=a&&a.value!=null?String(a.value):'';let hit=false;
    if(/lqi/i.test(an)&&/^-?\d+$/.test(v)){lqi=+v;hit=true}
    else if(/rssi/i.test(an)&&/^-?\d+/.test(v)){rssi=parseInt(v);hit=true}
    else if(sig){let m=v.match(/LQI\D{0,20}?(\d+)/i);if(m){lqi=+m[1];hit=true}m=v.match(/RSSI\D{0,20}?(-\d+)/i);if(m){rssi=+m[1];hit=true}}
    if(hit&&a.timestamp)ts=a.timestamp;}}
- return{lqi,rssi,ts,nb,nbTs,nbComp,nbCap};}
+ return{lqi,rssi,ts,nb,nbTs,nbComp,nbCap,rt};}
 function parseNb(v){return String(v).split(';').filter(Boolean).map(s=>{const[e,l,r,t]=s.split(',');return{eui:(e||'').toUpperCase(),lqi:+l,r,t}}).filter(x=>x.eui.length==16);}
 function fail(e){if(e&&e.code==401){signOut('Token rejected: expired (tokens last 24h) or wrong. Create a new one.');return true}if(e&&e.code==403){signOut('Token is missing scopes: tick Devices → List all devices + See all devices.');return true}
  $('err2').textContent=e&&e.net?'Request blocked by the browser or no network.':'API error '+(e&&e.code||e);return false;}
@@ -94,7 +94,7 @@ async function refresh(){if(busy)return;busy=true;clearTimeout(timer);$('err2').
    try{hl=(await api('/devices/'+d.deviceId+'/health')).state}catch(e){}
    const m=st?metrics(st):{lqi:null,rssi:null,ts:null,nb:null,nbTs:null},caps=(d.components||[]).flatMap(c=>(c.capabilities||[]).map(x=>x.id));
    const h=hist[d.deviceId]||(hist[d.deviceId]=[]);if(m.lqi!=null&&(!h.length||h[h.length-1].t!==m.ts)){h.push({t:m.ts,lqi:m.lqi,rssi:m.rssi});if(h.length>60)h.shift();}
-   return{id:d.deviceId,loc:d.locationId,hub:d.zigbee&&d.zigbee.hubId,eui:d.zigbee&&d.zigbee.eui?String(d.zigbee.eui).toUpperCase():null,label:d.label||d.name||d.deviceId,role:caps.includes('battery')?'End device':'Router',...m,health:hl,hist:h};});
+   return{id:d.deviceId,loc:d.locationId,hub:d.zigbee&&d.zigbee.hubId,nwk:d.zigbee&&d.zigbee.networkId?String(d.zigbee.networkId).toUpperCase():null,eui:d.zigbee&&d.zigbee.eui?String(d.zigbee.eui).toUpperCase():null,label:d.label||d.name||d.deviceId,role:caps.includes('battery')?'End device':'Router',...m,health:hl,hist:h};});
   last=new Date();draw();if(tab=='mesh')drawMesh(false);
  }catch(e){if(fail(e)){busy=false;return}}
  busy=false;nextAt=Date.now()+(+$('iv').value)*1000;timer=setTimeout(refresh,(+$('iv').value)*1000);}
@@ -170,6 +170,18 @@ function spt(M){const adj=new Map(),add=(x,y,l)=>{if(!adj.has(x))adj.set(x,[]);a
   for(const[v,l]of adj.get(u)||[]){const vn=M.map.get(v);if(vn&&vn.kind=='end'&&!l.tree&&hasTree(v))continue;
    const d=dist.get(u)+lCost(l);if(!dist.has(v)||d<dist.get(v)){dist.set(v,d);prev.set(v,[u,l]);if(!Q.includes(v))Q.push(v)}}}
  return{dist,prev}}
+function realRoute(M,id){const byN={};M.nodes.forEach(n=>{if(n.dev&&n.dev.nwk)byN[n.dev.nwk]=n.id;if(n.dev&&n.dev.rt&&n.dev.rt.self)byN[n.dev.rt.self]=n.id});
+ const hub=M.nodes.find(n=>n.kind=='hub'),hops=[id],meas=[];let c=id,g=0;
+ const nearHub=x=>hub&&M.links.some(l=>(l.a==x&&l.b==hub.id)||(l.b==x&&l.a==hub.id));
+ while(g++<15){const n=M.map.get(c);if(!n||n.kind=='hub')break;let nx=null,m=false;
+  if(n.kind=='end'){const pl=M.links.find(l=>l.tree&&(l.a==c||l.b==c)&&l.parent&&l.parent!=c);if(pl){nx=pl.parent;m=true}}
+  else if(n.dev&&n.dev.rt){const r=n.dev.rt;
+   if(r.next=='0000'&&hub){nx=hub.id;m=true}
+   else if(r.next&&r.next!='-'&&byN[r.next]){nx=byN[r.next];m=true}
+   else if(r.next=='-'&&r.st!='NS'&&nearHub(c)){nx=hub.id;m=true}}
+  if(!nx&&M.RT.prev.has(c))nx=M.RT.prev.get(c)[0];
+  if(!nx||hops.includes(nx))break;hops.push(nx);meas.push(m);c=nx}
+ return{hops,meas}}
 function drawMesh(force){
  if(typeof d3==='undefined'){$('minfo').textContent='Graph library failed to load (cdnjs blocked?).';return}
  const sig=rows.map(d=>d.id+(d.nbTs||'')).join()+'|'+$('loc').value+'|'+$('hub').value+'|'+$('minlqi').value+'|'+$('treeonly').checked;
@@ -178,7 +190,7 @@ function drawMesh(force){
  const reps=M.nodes.filter(n=>n.rep).length;
  if(!reps){$('mtb').innerHTML='';$('minfo').innerHTML='No device reports a Zigbee neighbor table yet. The Mesh view needs Edge drivers that publish a <b>zigbeeNeighbors</b> capability.';return}
  const W=1000,H=800,minL=+$('minlqi').value,tree=$('treeonly').checked,nm=id=>{const n=M.map.get(id);return n?n.label:id};
- M.links.forEach(l=>l.up=false);M.RT=spt(M);M.RT.prev.forEach(([u,l])=>l.up=true);const L=M.links.filter(l=>{const q=qOf(l);return tree?(l.tree||l.up):(l.tree||l.up||q==null||q>=minL)});
+ M.links.forEach(l=>l.up=false);M.RT=spt(M);M.nodes.forEach(n=>{if(n.kind=="hub")return;const r=realRoute(M,n.id);let l=null;if(r.hops.length>1){const a=r.hops[0],b=r.hops[1];l=M.links.find(x=>(x.a==a&&x.b==b)||(x.a==b&&x.b==a))}if(!l&&M.RT.prev.has(n.id))l=M.RT.prev.get(n.id)[1];if(l)l.up=true});const L=M.links.filter(l=>{const q=qOf(l);return tree?(l.tree||l.up):(l.tree||l.up||q==null||q>=minL)});
  const g=svg.append('g');svg.call(d3.zoom().scaleExtent([.3,5]).on('zoom',e=>g.attr('transform',e.transform)));
  svg.on('click',e=>{if(e.target===svg.node()){sel=null;hl();info(null)}});
  M.nodes.forEach(n=>{const p=mpos[n.id];if(p){n.x=p.x;n.y=p.y}else{n.x=W/2+(Math.random()-.5)*400;n.y=H/2+(Math.random()-.5)*400}if(n.kind=='hub'){const hs=M.nodes.filter(x=>x.kind=='hub'),k=hs.indexOf(n);n.fx=W/2+(k-(hs.length-1)/2)*420;n.fy=H/2}});
@@ -206,10 +218,10 @@ function drawMesh(force){
  sim.on('tick',()=>{lk.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);
   nd.attr('transform',d=>`translate(${d.x},${d.y})`);M.nodes.forEach(n=>{mpos[n.id]={x:n.x,y:n.y}})});
  function hl(){const near=new Set([sel]);if(sel)L.forEach(l=>{if(l.a==sel)near.add(l.b);if(l.b==sel)near.add(l.a)});
-  const P=new Set(),PN=new Set(),hops=[],qs=[];if(sel){let c=sel,g=0;PN.add(c);hops.push(c);while(M.RT.prev.has(c)&&g++<30){const[u,l]=M.RT.prev.get(c);P.add(l);PN.add(u);hops.push(u);qs.push(qOf(l));c=u}}
-  lk.attr('opacity',l=>!sel?.75:P.has(l)?1:(l.a==sel||l.b==sel)?.35:.04).attr('stroke',l=>P.has(l)?'#ffffff':lqC(qOf(l))).attr('stroke-width',l=>P.has(l)?5:(qOf(l)==null?1.2:1+qOf(l)/55));
-  nd.attr('opacity',d=>!sel||PN.has(d.id)||near.has(d.id)?1:.15);
-  const rt=$('mroute');if(rt)rt.innerHTML=!sel?'':hops.length<2?'<b>Route to hub:</b> unknown – no reporting router sees this device':'<b>Route to hub (estimated):</b> '+hops.map((h,i)=>`<span dir="auto">${esc(nm(h))}</span>`+(i<qs.length?` <b style="color:${lqC(qs[i])}">→ ${qs[i]??'?'} →</b> `:'')).join('')+` · ${hops.length-1} hop(s)`;
+  const P=new Set(),PN=new Set(),qs=[];let hops=[],meas=[];if(sel){const rr=realRoute(M,sel);hops=rr.hops;meas=rr.meas;hops.forEach(h=>PN.add(h));for(let i=0;i<hops.length-1;i++){const a=hops[i],b=hops[i+1],l=M.links.find(x=>(x.a==a&&x.b==b)||(x.a==b&&x.b==a));if(l)P.add(l);qs.push(l?qOf(l):null)}}
+  lk.attr('opacity',l=>!sel?.75:P.has(l)?1:0).attr('stroke',l=>P.has(l)?'#ffffff':lqC(qOf(l))).attr('stroke-width',l=>P.has(l)?5:(qOf(l)==null?1.2:1+qOf(l)/55));
+  nd.attr('opacity',d=>!sel||PN.has(d.id)?1:.12);
+  const rt=$('mroute');if(rt)rt.innerHTML=!sel?'':hops.length<2?'<b>Route to hub:</b> unknown – no reporting router sees this device':(meas.length&&meas.every(x=>x)?'<b>Route to hub (from routing tables ✓):</b> ':meas.some(x=>x)?'<b>Route to hub (✓ measured / rest estimated):</b> ':'<b>Route to hub (estimated):</b> ')+hops.map((h,i)=>`<span dir="auto">${esc(nm(h))}</span>`+(i<qs.length?` <b style="color:${lqC(qs[i])}">→ ${qs[i]??'?'}${meas[i]?' ✓':''} →</b> `:'')).join('')+` · ${hops.length-1} hop(s)`;
   document.querySelectorAll('#mtb tr').forEach(tr=>tr.style.background=tr.dataset.id==sel?'#2a3b4d':'');}
  function info(d){if(!d){$('minfo').innerHTML=`${reps} device(s) report a neighbor table · ${M.nodes.length} nodes · ${L.length} links shown`;return}
   const rowsH=[];let gb='';
