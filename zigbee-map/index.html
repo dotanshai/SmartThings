@@ -94,7 +94,7 @@ async function refresh(){if(busy)return;busy=true;clearTimeout(timer);$('err2').
    try{hl=(await api('/devices/'+d.deviceId+'/health')).state}catch(e){}
    const m=st?metrics(st):{lqi:null,rssi:null,ts:null,nb:null,nbTs:null},caps=(d.components||[]).flatMap(c=>(c.capabilities||[]).map(x=>x.id));
    const h=hist[d.deviceId]||(hist[d.deviceId]=[]);if(m.lqi!=null&&(!h.length||h[h.length-1].t!==m.ts)){h.push({t:m.ts,lqi:m.lqi,rssi:m.rssi});if(h.length>60)h.shift();}
-   return{id:d.deviceId,loc:d.locationId,hub:d.zigbee&&d.zigbee.hubId,nwk:d.zigbee&&d.zigbee.networkId?String(d.zigbee.networkId).toUpperCase():null,eui:d.zigbee&&d.zigbee.eui?String(d.zigbee.eui).toUpperCase():null,label:d.label||d.name||d.deviceId,role:caps.includes('battery')?'End device':'Router',...m,health:hl,hist:h};});
+   return{id:d.deviceId,loc:d.locationId,hub:d.zigbee&&d.zigbee.hubId,nwk:d.zigbee&&d.zigbee.networkId?String(d.zigbee.networkId).toUpperCase():null,eui:d.zigbee&&d.zigbee.eui?String(d.zigbee.eui).toUpperCase():null,label:d.label||d.name||d.deviceId,role:(caps.some(c=>/battery/i.test(c))||(caps.includes('button')&&!caps.includes('switch')))?'End device':'Router',...m,health:hl,hist:h};});
   last=new Date();draw();if(tab=='mesh')drawMesh(false);
  }catch(e){if(fail(e)){busy=false;return}}
  busy=false;nextAt=Date.now()+(+$('iv').value)*1000;timer=setTimeout(refresh,(+$('iv').value)*1000);}
@@ -152,6 +152,7 @@ function buildMesh(){const lf=$('loc').value,R=rows.filter(vis),by={};R.forEach(
    const kind=t=='Z'?'hub':d?(d.role=='Router'?'router':'end'):(t=='E'?'end':'router');
    n={id:eui,kind,known:!!d||t=='Z',label:t=='Z'?'HUB':d?d.label:'? '+eui.slice(-4),rep:false,nb:null,dev:d||null};Nm.set(eui,n);}
   else if(t=='Z'&&n.kind!='hub'){n.kind='hub';n.label='HUB';n.known=true}
+  else if((t=='E'||t=='R')&&n.kind!='hub'){n.kind=t=='E'?'end':'router'}
   return n};
  R.forEach(d=>{if(d.eui)node(d.eui,d.role=='Router'?'R':'E')});
  R.forEach(d=>{if(!d.nb||!d.eui)return;const a=Nm.get(d.eui);a.rep=true;a.nb=d.nb;a.nbTs=d.nbTs;
