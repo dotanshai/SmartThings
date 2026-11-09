@@ -125,6 +125,9 @@ end
 
 -- Mgmt_Leave_req: DeviceAddress (IEEE, little endian) + flags (0 = no rejoin, keep children)
 function M.leave(device, eui, nwk)
+  do local s = tostring(eui or "")
+    if s == "" or s:match("^0+$") or s:match("^[Ff]+$") or s:match("^%z+$") or s:match("^\255+$") then
+      require("log").warn("[NEIGH] refusing leave for invalid EUI " .. s) return end end
   local ok, err = pcall(function()
     local generic_body = require "st.zigbee.generic_body"
     local b = {}
@@ -149,6 +152,7 @@ local function kick_ghosts(device, acc)
 end
 
 function M.handler(driver, device, zb_rx)
+  pcall(function() device:online() end)
   local ok, err = pcall(function()
     local p = raw_bytes(zb_rx)
     if not p then log.warn("[NEIGH] no raw bytes: " .. tostring(zb_rx:pretty_print())); return end
