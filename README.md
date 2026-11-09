@@ -108,4 +108,10 @@ The **Mesh** tab is built from neighbor tables reported by routers (plugs, switc
 | WiFi Presence SD |  | [source](drivers/wifi-presence-sd) |
 | Zigbee Leakage Sensor SD |  | [source](drivers/zigbee-leakage-sensor-sd) |
 | Z-Wave Window Treatment SD LAN |  | [source](drivers/zwave-window-treatment-sd-lan) |
+### 🏠 Floor plan mode
+- In the **Mesh** tab click **Upload plan…** and choose a PNG/JPG of your apartment (screenshot a PDF first).
+- Drag each device to its room – it stays pinned; right-click a device to un-pin it.
+- Links and the click-to-see route to the hub are drawn on top of your plan.
+- Your plan is saved **only in your browser** – it is never uploaded.
+- **Export layout** saves the plan + positions to a file; **Import layout** loads it on another browser, PC or phone.
 <!-- ZIGBEE-MAP END -->
