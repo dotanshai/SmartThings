@@ -168,6 +168,7 @@ local function check_presence(device)
 
   if alive then
     device:set_field("last_seen", now)
+    if current == "present" then log.debug(string.format("%s (%s): online [%s] -> stays present", device.label, hit, info)) end
     if current ~= "present" then
       log.info(string.format("%s (%s): online [%s] -> present", device.label, hit, info))
       device:emit_event(capabilities.presenceSensor.presence.present())
@@ -203,6 +204,14 @@ end
 local function start_learning(driver, device)
   local learn_comp = device.profile.components["learn"]
   if device:get_field("learning") then return end
+  for p in tostring(device.preferences.ipAddress or ""):gmatch("[^,%s]+") do
+    if valid_ip(p) then
+      log.info(device.label .. ": Phone IP is set (" .. p .. ") - Learn skipped")
+      emit_status(device, "Phone IP set - Learn not needed")
+      device:emit_component_event(learn_comp, capabilities.switch.switch.off())
+      return
+    end
+  end
   device:set_field("learning", true)
   device:set_field("learn_stop", false)
   device:emit_component_event(learn_comp, capabilities.switch.switch.on()); emit_status(device, "Scanning - keep WiFi OFF")

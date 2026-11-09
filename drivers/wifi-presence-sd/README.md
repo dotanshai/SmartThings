@@ -33,7 +33,7 @@ Any phone (Android or iPhone) on the same home network (subnet) as the hub. Mult
 
 | Setting | Description |
 |---|---|
-| Phone IP (optional) | Manual IP(s), comma-separated. Leave `0.0.0.0` to use learned IPs |
+| Phone IP (optional) | Manual IP(s), comma-separated. Leave `0.0.0.0` to use learned IPs. When set, Learn is skipped (not needed) |
 | Check every (seconds) | Poll interval, default 30 |
 | Away after (minutes offline) | Delay before "Not present", default 10 |
 | Clear learned IPs | Turn on, then off, to erase all learned IPs |
