@@ -218,6 +218,7 @@ end
 
 local function cmd_leave(driver, device, command)
   local eui = string.upper(tostring((command.args and command.args.eui) or ""))
+  if eui == "SCAN" then M.status(device, "Scan requested"); M.request(device, 0); return end
   if #eui ~= 16 or not eui:match("^%x+$") then M.status(device, "Invalid address: " .. eui); return end
   local nwk = nil
   for _, e in ipairs(device:get_field("neighbors") or {}) do
