@@ -39,6 +39,23 @@ end
 -- Mgmt_Lqi_req payload = 1 byte start index, identical to Mgmt_Bind_req, so reuse that body with cluster 0x0031
 function M.request(device, start_index)
   start_index = start_index or 0
+  if start_index == 0 then pcall(function()
+    local seq = (device:get_field("nb_seq") or 0) + 1
+    device:set_field("nb_seq", seq); device:set_field("nb_wait", seq)
+    device.thread:call_with_delay(45, function()
+      if device:get_field("nb_wait") ~= seq then return end
+      local miss = (device:get_field("nb_miss") or 0) + 1
+      device:set_field("nb_miss", miss)
+      local known = false
+      for id, _ in pairs(device.profile.components) do
+        if device:supports_capability_by_id(CAP_ID, id) and device:get_latest_state(id, CAP_ID, "neighbors") ~= nil then known = true end
+      end
+      log.info(string.format("[NEIGH] %s did not answer (%d)", tostring(device.label), miss))
+      if not known then return end
+      if miss >= 2 then pcall(function() device:offline() end); log.warn("[NEIGH] " .. tostring(device.label) .. " marked OFFLINE (no answer to 2 neighbor polls)")
+      else device.thread:call_with_delay(60, function() M.request(device, 0) end) end
+    end)
+  end) end
   local ok, err = pcall(function()
     local hdr = messages.AddressHeader(constants.HUB.ADDR, 0x00, device:get_short_address(), 0x00,
                                        constants.ZDO_PROFILE_ID, MGMT_LQI_REQ)
@@ -163,6 +180,7 @@ local function kick_ghosts(device, acc)
 end
 
 function M.handler(driver, device, zb_rx)
+  device:set_field("nb_wait", nil); device:set_field("nb_miss", 0); pcall(function() device:online() end)
   pcall(function() device:online() end)
   local ok, err = pcall(function()
     local p = raw_bytes(zb_rx)
