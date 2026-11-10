@@ -196,7 +196,7 @@ const nf=d=>{const m=$('mcolor').value,dv=d.dev;if(!dv||m=='type')return null;re
 function drawMesh(force){
  {const m=$('mcolor').value,e=$('mleg');if(e)e.innerHTML=m=='rssi'?'Nodes + route lines, RSSI: <b style="color:#2ecc71">≥-65</b> · <b style="color:#f1c40f">-65..-80</b> · <b style="color:#e67e22">-80..-90</b> · <b style="color:#e74c3c">&lt;-90</b> · <b style="color:#777">no data</b> &nbsp;|&nbsp; ':m=='lqi'?'Nodes + route lines, LQI: <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">no data</b> &nbsp;|&nbsp; ':''}
  if(typeof d3==='undefined'){$('minfo').textContent='Graph library failed to load (cdnjs blocked?).';return}
- const sig=rows.map(d=>d.id+(d.nbTs||'')).join()+'|'+$('loc').value+'|'+$('hub').value+'|'+$('minlqi').value+'|'+$('treeonly').checked;
+ const sig=rows.map(d=>d.id+(d.nbTs||'')+(d.health||'')).join()+'|'+$('loc').value+'|'+$('hub').value+'|'+$('minlqi').value+'|'+$('treeonly').checked;
  if(!force&&sig===meshSig&&MG)return;meshSig=sig;
  const M=buildMesh();MG=M;const svg=d3.select('#mesh');svg.selectAll('*').remove();if(sim)sim.stop();
  const reps=M.nodes.filter(n=>n.rep).length;
