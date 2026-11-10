@@ -51,7 +51,7 @@ footer{color:var(--mut);font-size:12px;margin-top:20px}
 <div id="vMesh" hidden>
 <div class="ctl">
 <label>Min link LQI <input type="range" id="minlqi" min="0" max="200" step="10" value="0"> <b id="minv">0</b></label>
-<label><input type="checkbox" id="treeonly"> Parent/child links only</label>
+<label><input type="checkbox" id="treeonly"> Parent/child links only</label> <label title="Faded lines = earlier parents / next hops seen by this browser">History <select id="hcount"><option value="0">off</option><option value="3">3</option><option value="5">5</option><option value="10">10</option></select></label><button id="hclr" title="Forget recorded route history">Clear history</button>
 <button id="relayout">Re-layout</button> <label title="Show the devices on your apartment plan"><input type="checkbox" id="fpmode"> Floor plan</label> <select id="fpfloor" hidden title="Floor"></select> <button id="fpup">Upload plan...</button><button id="fpadd" title="Add another floor">+ Floor</button><button id="fpclr" hidden>Remove plan</button> <button id="fpexp">Export layout</button><button id="fpimp">Import layout</button><input type="file" id="fpfile" accept="image/*" hidden><input type="file" id="fpimpf" accept=".json,application/json" hidden> <span id="fphint" hidden style="color:#aaa">Drag each device to its room - it stays there · right-click a device to un-pin · the plan stays in this browser only</span><label>Color nodes by <select id="mcolor"><option value="type">Type</option><option value="rssi">RSSI</option><option value="lqi">LQI</option></select></label>
 </div>
 <p class="lg"><span><i class="dot" style="background:#3498db"></i>Hub</span><span><i class="sq" style="background:#9b59b6"></i>Router</span><span><i class="dot" style="background:#1abc9c"></i>End device</span><span><i class="dot" style="background:#555"></i>Unknown</span><span>white outline = reports its table · solid = parent/child or best route to hub · dashed = other neighbor link · click a device to see its route</span><br>
@@ -202,13 +202,15 @@ function drawMesh(force){
  const reps=M.nodes.filter(n=>n.rep).length;
  if(!reps){$('mtb').innerHTML='';$('minfo').innerHTML='No device reports a Zigbee neighbor table yet. The Mesh view needs Edge drivers that publish a <b>zigbeeNeighbors</b> capability.';return}
  const W=1000,H=800,minL=+$('minlqi').value,tree=$('treeonly').checked,nm=id=>{const n=M.map.get(id);return n?n.label:id};
- M.links.forEach(l=>l.up=false);M.RT=spt(M);M.nodes.forEach(n=>{if(n.kind=="hub")return;const r=realRoute(M,n.id);let l=null;if(r.hops.length>1){const a=r.hops[0],b=r.hops[1];l=M.links.find(x=>(x.a==a&&x.b==b)||(x.a==b&&x.b==a))}if(!l&&M.RT.prev.has(n.id))l=M.RT.prev.get(n.id)[1];if(l)l.up=true});const L=M.links.filter(l=>{const q=qOf(l);return tree?(l.tree||l.up):(l.tree||l.up||q==null||q>=minL)});
+ M.links.forEach(l=>l.up=false);M.RT=spt(M);M.nodes.forEach(n=>{if(n.kind=="hub")return;const r=realRoute(M,n.id);let l=null;if(r.hops.length>1){const a=r.hops[0],b=r.hops[1];l=M.links.find(x=>(x.a==a&&x.b==b)||(x.a==b&&x.b==a))}if(!l&&M.RT.prev.has(n.id))l=M.RT.prev.get(n.id)[1];if(l)l.up=true});const L=M.links.filter(l=>{const q=qOf(l);return tree?(l.tree||l.up):(l.tree||l.up||q==null||q>=minL)});const HL=histLinks(M);
  const g=svg.append('g');if(fpOn())g.append('image').attr('href',fpCurImg()).attr('x',0).attr('y',0).attr('width',W).attr('height',H).attr('preserveAspectRatio','xMidYMid meet').attr('opacity',.65);svg.call(d3.zoom().scaleExtent([.3,5]).on('zoom',e=>g.attr('transform',e.transform)));
  svg.on('click',e=>{if(e.target===svg.node()){sel=null;hl();info(null)}});
  M.nodes.forEach(n=>{const p=mpos[n.id];if(p){n.x=p.x;n.y=p.y}else{n.x=W/2+(Math.random()-.5)*400;n.y=H/2+(Math.random()-.5)*400}if(n.kind=='hub'){const hs=M.nodes.filter(x=>x.kind=='hub'),k=hs.indexOf(n);n.fx=W/2+(k-(hs.length-1)/2)*420;n.fy=H/2}});M.nodes.forEach(n=>n.ofl=null);if(fpOn()){let oi=0;M.nodes.forEach(n=>{const p=fppos[n.id];if(!p)return;const f=p.f||0;if(f==fpCur){n.x=n.fx=p.x;n.y=n.fy=p.y}else{n.ofl=f;n.x=n.fx=14;n.y=n.fy=30+(oi++)*28}})}
  const lk=g.append('g').selectAll('line').data(L).join('line')
   .attr('stroke',l=>lnc(M,l)).attr('stroke-width',l=>{const q=qOf(l);return q==null?1.2:1+q/55})
   .attr('stroke-dasharray',l=>l.guess&&!l.tree?'2 5':(l.tree||l.up?null:'5 4')).attr('opacity',.75);
+ const hk=g.insert('g','g').selectAll('line').data(tree?HL:[]).join('line').attr('stroke','#ddd').attr('stroke-width',2).attr('stroke-dasharray','3 4').attr('opacity',x=>Math.max(.15,.55-x.rank*.1));
+ hk.append('title').text(x=>'earlier: '+nm(x.c)+' \u2192 '+nm(x.p)+' (last seen '+age(x.until)+')');
  lk.append('title').text(l=>`${nm(l.a)} sees ${nm(l.b)}: LQI ${l.ab??'-'}\n${nm(l.b)} sees ${nm(l.a)}: LQI ${l.ba??'-'}${l.tree?'\nparent/child: parent = '+nm(l.parent):''}`);
  const nd=g.append('g').selectAll('g').data(M.nodes).join('g').style('cursor','pointer')
   .call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y})
@@ -227,7 +229,7 @@ function drawMesh(force){
   .force('link',d3.forceLink(L).id(d=>d.id).distance(l=>{const q=qOf(l);return l.tree?60+(255-(q??150))/255*120:90+(255-(q??120))/255*220}).strength(l=>l.tree?.7:.12))
   .force('charge',d3.forceManyBody().strength(-280)).force('collide',d3.forceCollide(26))
   .force('x',d3.forceX(W/2).strength(.04)).force('y',d3.forceY(H/2).strength(.04));
- sim.on('tick',()=>{lk.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);
+ sim.on('tick',()=>{hk.attr('x1',x=>x.source.x).attr('y1',x=>x.source.y).attr('x2',x=>x.target.x).attr('y2',x=>x.target.y);lk.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);
   nd.attr('transform',d=>`translate(${d.x},${d.y})`);M.nodes.forEach(n=>{mpos[n.id]={x:n.x,y:n.y}})});
  function hl(){const near=new Set([sel]);if(sel)L.forEach(l=>{if(l.a==sel)near.add(l.b);if(l.b==sel)near.add(l.a)});
   const P=new Set(),PN=new Set(),qs=[];let hops=[],meas=[];if(sel){const rr=realRoute(M,sel);hops=rr.hops;meas=rr.meas;hops.forEach(h=>PN.add(h));for(let i=0;i<hops.length-1;i++){const a=hops[i],b=hops[i+1],l=M.links.find(x=>(x.a==a&&x.b==b)||(x.a==b&&x.b==a));if(l)P.add(l);{let q=l?qOf(l):null;if(q==null){const hn=M.map.get(b),dn=M.map.get(a);if(hn&&hn.kind=='hub'&&dn&&dn.dev&&dn.dev.lqi!=null)q=dn.dev.lqi}qs.push(q)}}}
@@ -245,7 +247,8 @@ function drawMesh(force){
   else M.links.filter(l=>l.a==d.id||l.b==d.id).forEach(l=>{const o=l.a==d.id?l.b:l.a,q=l.a==d.id?l.ba:l.ab;
    rowsH.push(`<tr><td dir="auto">${esc(nm(o))}</td><td>${l.tree?(l.parent==o?'parent':'child'):'neighbor'}</td><td>-</td><td style="color:${lqC(q||null)}">${q||'-'}</td></tr>`)});
   $('minfo').innerHTML=`<b dir="auto">${esc(d.label)}</b> · ${d.kind}${d.known?'':' · <span style="color:#e67e22">not in your device list · EUI '+d.id+' · '+vendor(d.id)+'</span>'}${d.rep?' · table '+age(d.nbTs):' · seen by '+rowsH.length+' router(s)'} · LQI ${d.dev&&d.dev.lqi!=null?d.dev.lqi:'-'} · RSSI ${d.dev&&d.dev.rssi!=null?d.dev.rssi:'-'}
-   <div class="tw"><table><thead><tr><th>Neighbor</th><th>Relation</th><th>LQI (this sees it)</th><th>LQI (it sees this)</th></tr></thead><tbody>${rowsH.join('')||'<tr><td colspan=4>No links</td></tr>'}</tbody></table></div>${gb}`;document.querySelectorAll('.gbtn').forEach(b=>b.onclick=()=>removeGhost(b.dataset.r,d.id));}
+   <div class="tw"><table><thead><tr><th>Neighbor</th><th>Relation</th><th>LQI (this sees it)</th><th>LQI (it sees this)</th></tr></thead><tbody>${rowsH.join('')||'<tr><td colspan=4>No links</td></tr>'}</tbody></table></div>${gb}`;document.querySelectorAll('.gbtn').forEach(b=>b.onclick=()=>removeGhost(b.dataset.r,d.id));
+  {let H={};try{H=JSON.parse(localStorage.getItem('zbhist')||'{}')||{}}catch(e){}const a=H[d.id]||[];if(a.length>1)$('minfo').insertAdjacentHTML('beforeend','<div style="margin-top:6px;color:#aaa">Route history (this browser): '+a.slice().reverse().slice(0,10).map((e,i)=>'<span dir="auto">'+esc(nm(e.p))+'</span> ('+(i==0?'now':'until '+new Date(e.l).toLocaleString())+')').join(' \u2190 ')+'</div>')}}
  const TR=M.nodes.filter(n=>n.kind!='hub').map(n=>{const ls=M.links.filter(l=>l.a==n.id||l.b==n.id);
   const pl=ls.find(l=>l.tree&&l.parent&&l.parent!=n.id);
   const lq=ls.map(l=>({o:l.a==n.id?l.b:l.a,q:qOf(l)})).filter(x=>x.q!=null).sort((a,b)=>b.q-a.q);
@@ -288,6 +291,17 @@ $('minlqi').oninput=()=>{$('minv').textContent=$('minlqi').value;drawMesh(true)}
 $('treeonly').onchange=()=>drawMesh(true);
 $('mcolor').value=ls.get('zbmcolor')||'type';$('mcolor').onchange=()=>{ls.set('zbmcolor',$('mcolor').value);drawMesh(true)};
 $('relayout').onclick=()=>{mpos={};drawMesh(true)};
+$('hcount').value=ls.get('zbhcount')||'5';$('hcount').onchange=()=>{ls.set('zbhcount',$('hcount').value);drawMesh(true)};$('hclr').onclick=()=>{ls.del('zbhist');drawMesh(true)};
+function histLinks(M){let H={};try{H=JSON.parse(localStorage.getItem('zbhist')||'{}')||{}}catch(e){}
+ const now=Date.now(),N=+$('hcount').value||0;
+ M.nodes.forEach(n=>{if(n.kind=='hub'||(n.dev&&n.dev.health=='OFFLINE'))return;const ls=M.links.filter(l=>(l.a==n.id||l.b==n.id)&&!l.guess);
+  let p=null;const t=ls.find(l=>l.tree&&l.parent&&l.parent!=n.id);if(t)p=t.parent;else{const u=ls.find(l=>l.up);if(u)p=u.a==n.id?u.b:u.a}
+  if(!p)return;const a=H[n.id]=H[n.id]||[];const last=a[a.length-1];if(last&&last.p==p)last.l=now;else a.push({p:p,f:now,l:now});if(a.length>12)a.splice(0,a.length-12)});
+ try{localStorage.setItem('zbhist',JSON.stringify(H))}catch(e){}
+ const out=[];if(!N)return out;
+ Object.keys(H).forEach(c=>{const a=H[c],cn=M.map.get(c);if(!cn||!a.length)return;const cur=a[a.length-1].p,seen=new Set([cur]);let r=0;
+  a.slice(0,-1).reverse().forEach(e=>{if(r>=N||seen.has(e.p))return;seen.add(e.p);const pn=M.map.get(e.p);if(pn)out.push({source:cn,target:pn,rank:r++,until:e.l,c:c,p:e.p})})});
+ return out}
 var fpFloors=[],fpCur=0,fppos={};
 try{fpFloors=JSON.parse(localStorage.getItem('zbfpfloors')||'null')||[];fppos=JSON.parse(localStorage.getItem('zbfppos')||'{}')||{};const old=localStorage.getItem('zbfpimg');if(!fpFloors.length&&old)fpFloors=[{name:'Floor 1',img:old}];fpCur=Math.max(0,Math.min(+(localStorage.getItem('zbfpcur')||0),fpFloors.length-1))}catch(e){}
 function fpCurImg(){const f=fpFloors[fpCur];return f&&f.img}
