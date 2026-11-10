@@ -1,0 +1,39 @@
+name: opple-switch
+components:
+  - id: main
+    capabilities:
+    - id: signalStrength
+      version: 1
+    - id: perfectworld33337.zigbeeNeighbors
+      version: 1
+    - id: switch
+      version: 1
+    - id: button
+      version: 1
+    - id: refresh
+      version: 1
+    categories:
+    - name: Switch
+
+preferences:
+  - title: "Mode"
+    name: operationMode
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "Light Commands (Bind to Group)"
+        1: "Button Events (Normal)"
+      default: "1"
+  - preferenceId: stse.changeToWirelessSwitch
+    explicit: true
+
+  - preferenceId: stse.restorePowerState
+    explicit: true
+  - preferenceId: stse.turnOffIndicatorLight
+    explicit: true
+
+metadata:
+  deviceType: Switch
+  ocfDeviceType: oic.d.switch
+  deviceTypeId: Switch  

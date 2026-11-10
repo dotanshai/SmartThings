@@ -1,0 +1,18 @@
+name: tuya-curtain-motor-sd
+components:
+  - id: main
+    capabilities:
+      - id: windowShade
+        version: 1
+      - id: windowShadeLevel
+        version: 1
+      - id: windowShadePreset
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: perfectworld33337.zigbeeNeighbors
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Blind

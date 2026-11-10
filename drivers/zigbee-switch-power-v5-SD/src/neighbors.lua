@@ -11,6 +11,8 @@ local MGMT_LQI_REQ    = 0x0031
 local MGMT_LQI_RESP   = 0x8031
 local MGMT_LEAVE_REQ  = 0x0034
 local MGMT_LEAVE_RESP = 0x8034
+local MGMT_RTG_REQ    = 0x0032
+local MGMT_RTG_RESP   = 0x8032
 local INTERVAL        = 900
 local REL       = { [0] = "parent", "child", "sibling", "none", "prev_child" }
 local TYPE      = { [0] = "coordinator", "router", "end_device", "unknown" }
@@ -108,6 +110,15 @@ function M.status(device, text)
   if not ok then log.warn("[NEIGH] status error: " .. tostring(err)) end
 end
 
+function M.publish_route(device, txt)
+  pcall(function()
+    local comp, cap = find_comp(device)
+    if comp and cap and cap.hubRoute then
+      device:emit_component_event(comp, cap.hubRoute(txt, { visibility = { displayed = false } }))
+    end
+  end)
+end
+
 function M.publish(device, acc)
   local ok, err = pcall(function()
     local comp, cap = find_comp(device)
@@ -152,7 +163,6 @@ local function kick_ghosts(device, acc)
 end
 
 function M.handler(driver, device, zb_rx)
-  pcall(function() device:online() end)
   local ok, err = pcall(function()
     local p = raw_bytes(zb_rx)
     if not p then log.warn("[NEIGH] no raw bytes: " .. tostring(zb_rx:pretty_print())); return end
@@ -168,6 +178,7 @@ function M.handler(driver, device, zb_rx)
       log.info(string.format("[NEIGH] %s done: %d neighbors", tostring(device.label), #acc))
       M.publish(device, acc)
       kick_ghosts(device, acc)
+      M.request_rtg(device, 0)
     end
   end)
   if not ok then log.warn("[NEIGH] handler error: " .. tostring(err)) end
@@ -196,11 +207,54 @@ local function cmd_leave(driver, device, command)
   if M.leave(device, eui, nwk) then M.status(device, "Removal request sent for " .. eui .. " - waiting for router answer") end
 end
 
+-- Mgmt_Rtg_req payload = 1 byte start index (same body as Mgmt_Bind_req), cluster 0x0032
+function M.request_rtg(device, start_index)
+  local ok, err = pcall(function()
+    local hdr = messages.AddressHeader(constants.HUB.ADDR, 0x00, device:get_short_address(), 0x00, constants.ZDO_PROFILE_ID, MGMT_RTG_REQ)
+    device:send(messages.ZigbeeMessageTx({ address_header = hdr, body = zdo.ZdoMessageBody({ zdo_body = mgmt_bind_req.MgmtBindRequest(start_index or 0) }) }))
+  end)
+  if not ok then log.warn("[NEIGH] rtg request failed: " .. tostring(err)) end
+end
+
+local function rtg_rsp(_, device, zb_rx)
+  local ok, err = pcall(function()
+    local p = raw_bytes(zb_rx)
+    if not p then return end
+    local len = #p
+    if (len - 4) % 5 ~= 0 and (len - 5) % 5 == 0 then p = p:sub(2); len = len - 1 end
+    local self_nwk = string.format("%04X", device:get_short_address())
+    local status = p:byte(1)
+    if status ~= 0 or len < 4 then
+      log.info(string.format("[NEIGH] %s routing table not supported (0x%02X)", tostring(device.label), status or 255))
+      M.publish_route(device, self_nwk .. ",-,NS")
+      return
+    end
+    local total, start, count = p:byte(2, 4)
+    local acc = (start == 0) and {} or (device:get_field("rtg_acc") or {})
+    local pos = 5
+    for _ = 1, count do
+      if pos + 4 > len then break end
+      acc[#acc + 1] = { dst = p:byte(pos) + p:byte(pos + 1) * 256, st = p:byte(pos + 2) & 0x07, nxt = p:byte(pos + 3) + p:byte(pos + 4) * 256 }
+      pos = pos + 5
+    end
+    device:set_field("rtg_acc", acc)
+    if count > 0 and start + count < total then M.request_rtg(device, start + count); return end
+    local nh, st = "-", "none"
+    for _, e in ipairs(acc) do
+      if e.dst == 0 and e.st ~= 3 then nh = string.format("%04X", e.nxt); st = tostring(e.st) end
+    end
+    log.info(string.format("[NEIGH] %s routing table: %d entries, to hub via %s", tostring(device.label), #acc, nh))
+    M.publish_route(device, string.format("%s,%s,%s", self_nwk, nh, st))
+  end)
+  if not ok then log.warn("[NEIGH] rtg error: " .. tostring(err)) end
+end
+
 function M.add_handlers(template)
   template.zigbee_handlers = template.zigbee_handlers or {}
   template.zigbee_handlers.zdo = template.zigbee_handlers.zdo or {}
   template.zigbee_handlers.zdo[MGMT_LQI_RESP] = M.handler
   template.zigbee_handlers.zdo[MGMT_LEAVE_RESP] = leave_rsp
+  template.zigbee_handlers.zdo[MGMT_RTG_RESP] = rtg_rsp
   template.capability_handlers = template.capability_handlers or {}
   template.capability_handlers[CAP_ID] = template.capability_handlers[CAP_ID] or {}
   template.capability_handlers[CAP_ID]["leaveNeighbor"] = cmd_leave

@@ -1,0 +1,52 @@
+name: plug_prefs
+components:
+- id: main
+  capabilities:
+  - id: signalStrength
+    version: 1
+  - id: perfectworld33337.zigbeeNeighbors
+    version: 1
+  - id: switch
+    version: 1
+  - id: powerMeter
+    version: 1
+  - id: energyMeter
+    version: 1
+  - id: voltageMeasurement
+    version: 1
+  - id: refresh
+    version: 1
+  - id: firmwareUpdate
+    version: 1
+  - id: configuration
+    version: 1
+  categories:
+  - name: SmartPlug
+preferences:
+  - preferenceId: stse.restorePowerState
+    explicit: true
+  - preferenceId: stse.turnOffIndicatorLight
+    explicit: true
+
+  - title: "Auto Off"
+    description: "Turn the device automatically off when attached device consumes less than 2W for 20 minutes"
+    name: autoOff
+    required: true
+    preferenceType: boolean
+    definition: 
+      default: false
+
+  - title: "Overload Protection"
+    description: "Maximum allowed load, turns off if exceeded (100 - 2200 W)"
+    name: overloadProtection
+    required: true
+    preferenceType: number
+    definition:
+      min: 100 
+      max: 2200
+      default: 2200
+      
+metadata:
+  deviceType: SmartPlug
+  ocfDeviceType: oic.d.smartplug
+  deviceTypeId: SmartPlug  

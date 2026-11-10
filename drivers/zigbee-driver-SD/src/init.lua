@@ -15,6 +15,7 @@
 local capabilities = require "st.capabilities"
 local ZigbeeDriver = require "st.zigbee"
 local neighbors = require "neighbors"
+local lumi_relay = require "lumi_relay"
 local defaults = require "st.zigbee.defaults"
 --local device_management = require "st.zigbee.device_management"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
@@ -1427,6 +1428,7 @@ health_check = false
 }
 
 defaults.register_for_default_handlers(zigbee_outlet_driver_template, zigbee_outlet_driver_template.supported_capabilities)
+lumi_relay.add_handlers(zigbee_outlet_driver_template)
 neighbors.add_handlers(zigbee_outlet_driver_template)
 local zigbee_outlet = ZigbeeDriver("Zigbee_Multi_Switch", zigbee_outlet_driver_template)
 neighbors.start(zigbee_outlet)

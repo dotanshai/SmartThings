@@ -1,0 +1,5 @@
+name: 'Aqara/Xiaomi Switch and Button SD'
+packageKey: 'xiaomi-switch-sd'
+description: 'Aqara/Xiaomi Switch and Button https://github.com/veonua/SmartThingsEdge-Xiaomi'
+permissions:
+  zigbee: {}

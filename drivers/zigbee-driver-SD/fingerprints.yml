@@ -673,7 +673,7 @@ zigbeeManufacturer:
     deviceLabel: LUMI Double Relay
     manufacturer: LUMI
     model: lumi.relay.c2acn01
-    deviceProfileName: two-switch-power-1
+    deviceProfileName: lumi-relay-c2acn01
   - id: "_TZ3000_yf8iuzil/TS011F"
     deviceLabel: Prakriti Smart 2-gang white switch
     manufacturer: _TZ3000_yf8iuzil

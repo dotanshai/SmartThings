@@ -101,6 +101,7 @@ The **Mesh** tab is built from neighbor tables reported by routers (plugs, switc
 | Zigbee Switch SD | ✓ | [source](drivers/zigbee-switch-sd) |
 | Zigbee Thing SD | ✓ | [source](drivers/zigbee-thing-mc-htlm-text-SD) |
 | Zigbee Window Treatment SD | ✓ | [source](drivers/Zigbee%20Window%20Treatment%20SD) |
+| Aqara/Xiaomi Switch and Button SD | ✓ | [source](drivers/xiaomi-switch-sd) – fork of [veonua/smartthingsedge-xiaomi](https://github.com/veonua/smartthingsedge-xiaomi) |
 | zigbee_siren_sd_metrics_v2 | ✓ | [source](drivers/zigbee-siren-sd) |
 | Generic Google TV |  | [source](drivers/generic-google-tv) |
 | LG TV webOS |  | [source](drivers/lg-tv-webos) |

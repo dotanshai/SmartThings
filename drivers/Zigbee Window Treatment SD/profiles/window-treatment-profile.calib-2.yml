@@ -2,6 +2,8 @@ name: window-treatment-profile-calib-2
 components:
 - id: main
   capabilities:
+  - id: signalStrength
+    version: 1
   - id: windowShade
     version: 1
   - id: windowShadePreset

@@ -15,6 +15,7 @@
 local capabilities = require "st.capabilities"
 local ZigbeeDriver = require "st.zigbee"
 local neighbors = require "neighbors"
+local signal_sd = require "signal_sd"
 local defaults = require "st.zigbee.defaults"
 
 local write = require "writeAttribute"
@@ -134,5 +135,6 @@ local zigbee_window_treatment_driver_template = {
 defaults.register_for_default_handlers(zigbee_window_treatment_driver_template, zigbee_window_treatment_driver_template.supported_capabilities)
 neighbors.add_handlers(zigbee_window_treatment_driver_template)
 local zigbee_window_treatment = ZigbeeDriver("zigbee_window_treatment", zigbee_window_treatment_driver_template)
+signal_sd.wrap(zigbee_window_treatment)
 neighbors.start(zigbee_window_treatment)
 zigbee_window_treatment:run()

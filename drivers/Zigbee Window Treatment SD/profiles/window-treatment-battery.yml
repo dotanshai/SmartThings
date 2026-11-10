@@ -2,6 +2,8 @@ name: window-treatment-battery
 components:
 - id: main
   capabilities:
+  - id: signalStrength
+    version: 1
   - id: perfectworld33337.zigbeeNeighbors
     version: 1
   - id: windowShade

@@ -128,3 +128,10 @@ zigbeeManufacturer:
     manufacturer: "_TZE284_9kz6bl6s"
     model: "TS0601"
     deviceProfileName: smarthome4u-8gang-din-v2
+
+  # ── Tuya curtain motor (EF00) ───────────────────────────────────
+  - id: TuyaCurtainMotor-cxu0jkjk
+    deviceLabel: "Tuya curtain motor"
+    manufacturer: "_TZE200_cxu0jkjk"
+    model: "TS0601"
+    deviceProfileName: tuya-curtain-motor-sd
