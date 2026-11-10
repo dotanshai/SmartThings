@@ -52,7 +52,7 @@ footer{color:var(--mut);font-size:12px;margin-top:20px}
 <div class="ctl">
 <label>Min link LQI <input type="range" id="minlqi" min="0" max="200" step="10" value="0"> <b id="minv">0</b></label>
 <label><input type="checkbox" id="treeonly"> Parent/child links only</label>
-<button id="relayout">Re-layout</button> <label title="Show the devices on your apartment plan"><input type="checkbox" id="fpmode"> Floor plan</label> <button id="fpup">Upload plan...</button><button id="fpclr" hidden>Remove plan</button> <button id="fpexp">Export layout</button><button id="fpimp">Import layout</button><input type="file" id="fpfile" accept="image/*" hidden><input type="file" id="fpimpf" accept=".json,application/json" hidden> <span id="fphint" hidden style="color:#aaa">Drag each device to its room - it stays there · right-click a device to un-pin · the plan stays in this browser only</span><label>Color nodes by <select id="mcolor"><option value="type">Type</option><option value="rssi">RSSI</option><option value="lqi">LQI</option></select></label>
+<button id="relayout">Re-layout</button> <label title="Show the devices on your apartment plan"><input type="checkbox" id="fpmode"> Floor plan</label> <select id="fpfloor" hidden title="Floor"></select> <button id="fpup">Upload plan...</button><button id="fpadd" title="Add another floor">+ Floor</button><button id="fpclr" hidden>Remove plan</button> <button id="fpexp">Export layout</button><button id="fpimp">Import layout</button><input type="file" id="fpfile" accept="image/*" hidden><input type="file" id="fpimpf" accept=".json,application/json" hidden> <span id="fphint" hidden style="color:#aaa">Drag each device to its room - it stays there · right-click a device to un-pin · the plan stays in this browser only</span><label>Color nodes by <select id="mcolor"><option value="type">Type</option><option value="rssi">RSSI</option><option value="lqi">LQI</option></select></label>
 </div>
 <p class="lg"><span><i class="dot" style="background:#3498db"></i>Hub</span><span><i class="sq" style="background:#9b59b6"></i>Router</span><span><i class="dot" style="background:#1abc9c"></i>End device</span><span><i class="dot" style="background:#555"></i>Unknown</span><span>white outline = reports its table · solid = parent/child or best route to hub · dashed = other neighbor link · click a device to see its route</span><br>
 <span id="mleg"></span><span>Link LQI (dashed lines; all lines in Type mode): <b style="color:#2ecc71">≥150</b> · <b style="color:#f1c40f">100-149</b> · <b style="color:#e67e22">50-99</b> · <b style="color:#e74c3c">&lt;50</b> · <b style="color:#888">unknown</b></span><span>Click a node for details · drag · scroll/pinch to zoom</span></p>
@@ -203,16 +203,16 @@ function drawMesh(force){
  if(!reps){$('mtb').innerHTML='';$('minfo').innerHTML='No device reports a Zigbee neighbor table yet. The Mesh view needs Edge drivers that publish a <b>zigbeeNeighbors</b> capability.';return}
  const W=1000,H=800,minL=+$('minlqi').value,tree=$('treeonly').checked,nm=id=>{const n=M.map.get(id);return n?n.label:id};
  M.links.forEach(l=>l.up=false);M.RT=spt(M);M.nodes.forEach(n=>{if(n.kind=="hub")return;const r=realRoute(M,n.id);let l=null;if(r.hops.length>1){const a=r.hops[0],b=r.hops[1];l=M.links.find(x=>(x.a==a&&x.b==b)||(x.a==b&&x.b==a))}if(!l&&M.RT.prev.has(n.id))l=M.RT.prev.get(n.id)[1];if(l)l.up=true});const L=M.links.filter(l=>{const q=qOf(l);return tree?(l.tree||l.up):(l.tree||l.up||q==null||q>=minL)});
- const g=svg.append('g');if(fpOn())g.append('image').attr('href',fpImg).attr('x',0).attr('y',0).attr('width',W).attr('height',H).attr('preserveAspectRatio','xMidYMid meet').attr('opacity',.65);svg.call(d3.zoom().scaleExtent([.3,5]).on('zoom',e=>g.attr('transform',e.transform)));
+ const g=svg.append('g');if(fpOn())g.append('image').attr('href',fpCurImg()).attr('x',0).attr('y',0).attr('width',W).attr('height',H).attr('preserveAspectRatio','xMidYMid meet').attr('opacity',.65);svg.call(d3.zoom().scaleExtent([.3,5]).on('zoom',e=>g.attr('transform',e.transform)));
  svg.on('click',e=>{if(e.target===svg.node()){sel=null;hl();info(null)}});
- M.nodes.forEach(n=>{const p=mpos[n.id];if(p){n.x=p.x;n.y=p.y}else{n.x=W/2+(Math.random()-.5)*400;n.y=H/2+(Math.random()-.5)*400}if(n.kind=='hub'){const hs=M.nodes.filter(x=>x.kind=='hub'),k=hs.indexOf(n);n.fx=W/2+(k-(hs.length-1)/2)*420;n.fy=H/2}});if(fpOn())M.nodes.forEach(n=>{const p=fppos[n.id];if(p){n.x=n.fx=p.x;n.y=n.fy=p.y}});
+ M.nodes.forEach(n=>{const p=mpos[n.id];if(p){n.x=p.x;n.y=p.y}else{n.x=W/2+(Math.random()-.5)*400;n.y=H/2+(Math.random()-.5)*400}if(n.kind=='hub'){const hs=M.nodes.filter(x=>x.kind=='hub'),k=hs.indexOf(n);n.fx=W/2+(k-(hs.length-1)/2)*420;n.fy=H/2}});M.nodes.forEach(n=>n.ofl=null);if(fpOn()){let oi=0;M.nodes.forEach(n=>{const p=fppos[n.id];if(!p)return;const f=p.f||0;if(f==fpCur){n.x=n.fx=p.x;n.y=n.fy=p.y}else{n.ofl=f;n.x=n.fx=14;n.y=n.fy=30+(oi++)*28}})}
  const lk=g.append('g').selectAll('line').data(L).join('line')
   .attr('stroke',l=>lnc(M,l)).attr('stroke-width',l=>{const q=qOf(l);return q==null?1.2:1+q/55})
   .attr('stroke-dasharray',l=>l.guess&&!l.tree?'2 5':(l.tree||l.up?null:'5 4')).attr('opacity',.75);
  lk.append('title').text(l=>`${nm(l.a)} sees ${nm(l.b)}: LQI ${l.ab??'-'}\n${nm(l.b)} sees ${nm(l.a)}: LQI ${l.ba??'-'}${l.tree?'\nparent/child: parent = '+nm(l.parent):''}`);
  const nd=g.append('g').selectAll('g').data(M.nodes).join('g').style('cursor','pointer')
   .call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y})
-   .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y}).on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);if(fpOn()){fppos[d.id]={x:Math.round(d.fx),y:Math.round(d.fy)};fpSave()}else if(d.kind!='hub'){d.fx=null;d.fy=null}}));
+   .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y}).on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);if(fpOn()){fppos[d.id]={x:Math.round(d.fx),y:Math.round(d.fy),f:fpCur};d.ofl=null;fpSave()}else if(d.kind!='hub'){d.fx=null;d.fy=null}}));
  nd.each(function(d){const s=d3.select(this);let sh;
   if(d.kind=='hub')sh=s.append('circle').attr('r',18).attr('fill','#3498db');
   else if(d.kind=='router')sh=s.append('rect').attr('x',-8).attr('y',-8).attr('width',16).attr('height',16).attr('rx',3).attr('fill',nf(d)||(d.known?'#9b59b6':'#555'));
@@ -222,7 +222,7 @@ function drawMesh(force){
   s.append('text').attr('x',d.kind=='hub'?0:12).attr('y',4).attr('text-anchor',d.kind=='hub'?'middle':'start')
    .attr('fill',d.kind=='hub'?'#fff':'#ddd').attr('font-size',d.kind=='hub'?12:11).attr('font-weight',d.kind=='hub'?'bold':null).style('direction','ltr').text(d.label);
   s.append('title').text(`${d.label}${d.dev?(d.dev.health=='OFFLINE'?'\n🔴 OFFLINE':'\n🟢 online'):''}${d.dev&&d.dev.ts?' · last report '+age(d.dev.ts):''}\n${d.kind}${d.rep?' · reports table ('+d.nb.length+')':''}${d.dev?`\nLQI ${d.dev.lqi??'-'} · RSSI ${d.dev.rssi??'-'} (last hop)`:(d.known?'':'\nNot in your device list\nEUI '+d.id+'\n'+vendor(d.id))}`);});
- nd.on('click',(e,d)=>{e.stopPropagation();sel=sel===d.id?null:d.id;hl();info(sel?d:null)});nd.on('contextmenu',(e,d)=>{if(!fpOn())return;e.preventDefault();delete fppos[d.id];fpSave();if(d.kind!='hub'){d.fx=null;d.fy=null}sim.alpha(.3).restart()});
+ nd.on('click',(e,d)=>{e.stopPropagation();sel=sel===d.id?null:d.id;hl();info(sel?d:null)});nd.on('contextmenu',(e,d)=>{if(!fpOn())return;e.preventDefault();delete fppos[d.id];fpSave();if(d.kind!='hub'){d.fx=null;d.fy=null}sim.alpha(.3).restart()});if(fpOn())nd.filter(d=>d.ofl!=null).style('opacity',.55).append('text').attr('x',0).attr('y',-9).attr('text-anchor','middle').attr('font-size',9).attr('fill','#fc6').text(d=>'\u2195 '+fpName(d.ofl));
  sim=d3.forceSimulation(M.nodes)
   .force('link',d3.forceLink(L).id(d=>d.id).distance(l=>{const q=qOf(l);return l.tree?60+(255-(q??150))/255*120:90+(255-(q??120))/255*220}).strength(l=>l.tree?.7:.12))
   .force('charge',d3.forceManyBody().strength(-280)).force('collide',d3.forceCollide(26))
@@ -288,19 +288,26 @@ $('minlqi').oninput=()=>{$('minv').textContent=$('minlqi').value;drawMesh(true)}
 $('treeonly').onchange=()=>drawMesh(true);
 $('mcolor').value=ls.get('zbmcolor')||'type';$('mcolor').onchange=()=>{ls.set('zbmcolor',$('mcolor').value);drawMesh(true)};
 $('relayout').onclick=()=>{mpos={};drawMesh(true)};
-var fpImg=null,fppos={};try{fpImg=localStorage.getItem('zbfpimg');fppos=JSON.parse(localStorage.getItem('zbfppos')||'{}')||{}}catch(e){}
-function fpOn(){return $('fpmode').checked&&!!fpImg}
+var fpFloors=[],fpCur=0,fppos={};
+try{fpFloors=JSON.parse(localStorage.getItem('zbfpfloors')||'null')||[];fppos=JSON.parse(localStorage.getItem('zbfppos')||'{}')||{};const old=localStorage.getItem('zbfpimg');if(!fpFloors.length&&old)fpFloors=[{name:'Floor 1',img:old}];fpCur=Math.max(0,Math.min(+(localStorage.getItem('zbfpcur')||0),fpFloors.length-1))}catch(e){}
+function fpCurImg(){const f=fpFloors[fpCur];return f&&f.img}
+function fpName(i){return String((fpFloors[i]&&fpFloors[i].name)||('Floor '+(i+1))).replace(/[<>&"]/g,'')}
+function fpOn(){return $('fpmode').checked&&!!fpCurImg()}
 function fpSave(){try{localStorage.setItem('zbfppos',JSON.stringify(fppos))}catch(e){}}
-function fpUI(){$('fpmode').disabled=!fpImg;if(!fpImg)$('fpmode').checked=false;$('fpclr').hidden=!fpImg;$('fphint').hidden=!fpOn()}
-function fpSetImg(u){fpImg=u;try{u?localStorage.setItem('zbfpimg',u):localStorage.removeItem('zbfpimg')}catch(e){$('minfo').textContent='Plan is too large to remember in this browser - it works until you reload.'}if(u){$('fpmode').checked=true;ls.set('zbfp','1')}fpUI();if(rows.length)drawMesh(true)}
+function fpStore(){try{localStorage.setItem('zbfpfloors',JSON.stringify(fpFloors));localStorage.setItem('zbfpcur',String(fpCur));localStorage.removeItem('zbfpimg')}catch(e){$('minfo').textContent='Plans are too large to remember in this browser - they work until you reload.'}}
+function fpUI(){const s=$('fpfloor');s.innerHTML=fpFloors.map((f,i)=>'<option value="'+i+'">'+fpName(i)+'</option>').join('');s.value=String(fpCur);s.hidden=fpFloors.length<2;$('fpmode').disabled=!fpCurImg();if(!fpCurImg())$('fpmode').checked=false;$('fpclr').hidden=!fpCurImg();$('fphint').hidden=!fpOn()}
+function fpRedraw(){fpUI();if(rows.length)drawMesh(true)}
+function fpSetImg(u){if(!fpFloors.length)fpFloors=[{name:'Floor 1',img:null}];if(u){fpFloors[fpCur].img=u;$('fpmode').checked=true;ls.set('zbfp','1')}else{fpFloors.splice(fpCur,1);Object.keys(fppos).forEach(k=>{const f=fppos[k].f||0;if(f==fpCur)delete fppos[k];else if(f>fpCur)fppos[k].f=f-1});fpCur=Math.max(0,Math.min(fpCur,fpFloors.length-1));fpSave()}fpStore();fpRedraw()}
 $('fpmode').checked=ls.get('zbfp')=='1';
-$('fpmode').onchange=()=>{ls.set('zbfp',$('fpmode').checked?'1':'0');fpUI();drawMesh(true)};
+$('fpmode').onchange=()=>{ls.set('zbfp',$('fpmode').checked?'1':'0');fpRedraw()};
+$('fpfloor').onchange=()=>{fpCur=+$('fpfloor').value;fpStore();fpRedraw()};
+$('fpadd').onclick=()=>{const n=prompt('Name of the new floor:','Floor '+(fpFloors.length+1));if(n===null)return;if(!fpFloors.length&&!fpCurImg())fpFloors=[];fpFloors.push({name:n.trim()||('Floor '+(fpFloors.length+1)),img:null});fpCur=fpFloors.length-1;fpStore();fpUI();$('fpfile').click()};
 $('fpup').onclick=()=>$('fpfile').click();
 $('fpfile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);fpSetImg(c.toDataURL('image/jpeg',.8))};im.onerror=()=>{$('minfo').textContent='Could not read that image (use PNG or JPG).'};im.src=r.result};r.readAsDataURL(f)};
 $('fpclr').onclick=()=>fpSetImg(null);
-$('fpexp').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({plan:fpImg,pos:fppos})],{type:'application/json'}));a.download='zigbee-floorplan.json';a.click()};
+$('fpexp').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({floors:fpFloors,pos:fppos})],{type:'application/json'}));a.download='zigbee-floorplan.json';a.click()};
 $('fpimp').onclick=()=>$('fpimpf').click();
-$('fpimpf').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;f.text().then(t=>{const j=JSON.parse(t);fppos=j.pos||{};fpSave();fpSetImg(j.plan||null)}).catch(()=>{$('minfo').textContent='That is not a floor-plan layout file.'})};
+$('fpimpf').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;f.text().then(t=>{const j=JSON.parse(t);fpFloors=j.floors||(j.plan?[{name:'Floor 1',img:j.plan}]:[]);fppos=j.pos||{};fpCur=0;fpSave();fpStore();if(fpCurImg()){$('fpmode').checked=true;ls.set('zbfp','1')}fpRedraw()}).catch(()=>{$('minfo').textContent='That is not a floor-plan layout file.'})};
 fpUI();
 $('iv').value=ls.get('zbiv')||'60';$('iv').onchange=()=>{ls.set('zbiv',$('iv').value);if(!busy){clearTimeout(timer);nextAt=Date.now()+(+$('iv').value)*1000;timer=setTimeout(refresh,(+$('iv').value)*1000);}};
 const saved=ls.get('zbtok');if(saved)connect(saved,true);
