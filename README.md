@@ -115,4 +115,10 @@ The **Mesh** tab is built from neighbor tables reported by routers (plugs, switc
 - Links and the click-to-see route to the hub are drawn on top of your plan.
 - Your plan is saved **only in your browser** – it is never uploaded.
 - **Export layout** saves the plan + positions to a file; **Import layout** loads it on another browser, PC or phone.
+- **+ Floor** adds another level (or the stairs); switch floors from the selector. Devices on other floors show faded at the edge with their links.
+
+### 🔄 Live routes
+- **Scan now** asks every SD router to report its tables immediately (token needs *Control all devices*); otherwise they report every 15 min.
+- **History** (in *Parent/child links only*): faded dotted lines show earlier parents / next hops – useful after adding a repeater. **Clear history** starts fresh.
+- A router that misses two neighbor polls is marked **offline** by the SD drivers within ~3 min, and its stale table is ignored by the map.
 <!-- ZIGBEE-MAP END -->
