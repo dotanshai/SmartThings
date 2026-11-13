@@ -44,7 +44,7 @@ Install from the **Shai D. Shared Drivers** channel:
 | Integration | Install | Link valid until | Source |
 |---|---|---|---|
 | ARAD Water Meter | [Invite link](https://invitations.smartthings.com/schemaApp/cfe42894-6b7c-4f0a-83d5-18e7e8e251ab) | 2026-11-29 | [code](schemas/arad-water-meter) |
-| Dolphin Boiler | [Invite link](https://invitations.smartthings.com/schemaApp/8a428650-aeef-4392-b347-7199926cfaaa) | 2026-11-29 | [code](schemas/dolphin-boiler) |
+| Dolphin Boiler | [Invite link](https://invitations.smartthings.com/schemaApp/8a428650-aeef-4392-b347-7199926cfaaa) <br>Official version now available: SmartThings app, Add device, Partner devices, Dolphin Boiler ([partner page](https://partners.smartthings.com/partners/dolphin-boiler)) | 2026-11-29 | [code](schemas/dolphin-boiler) |
 | IEC Electric Meter | [Invite link](https://invitations.smartthings.com/schemaApp/b00287e7-21e9-41fe-b860-1db1f36d954d) | 2026-11-29 | [code](schemas/iec-electric-meter) |
 | LG ThinQ Laundry | [Invite link](https://invitations.smartthings.com/schemaApp/0e7e41bf-3421-4bd1-9173-c88b1f46fee1) | 2026-11-29 | [code](schemas/lg-thinq-laundry) |
 | LG ThinQ Fridge | [Invite link](https://invitations.smartthings.com/schemaApp/38df91e7-d06b-4df5-847d-ee1529201a40) | 2026-11-29 | [code](schemas/lg-thinq-fridge) |
