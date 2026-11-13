@@ -2,9 +2,9 @@ name: rf-slot-switch
 components:
   - id: main
     capabilities:
-      - id: perfectworld33337.zigbeeNeighbors
-        version: 1
       - id: switch
+        version: 1
+      - id: perfectworld33337.zigbeeNeighbors
         version: 1
     categories:
       - name: Switch
