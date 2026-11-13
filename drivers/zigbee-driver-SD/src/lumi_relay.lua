@@ -107,7 +107,7 @@ end
 local SUB = {
   NAME = "Aqara relay c2acn01 (main = all)",
   can_handle = function(opts, driver, device, ...)
-    local ok, r = pcall(function() if device.network_type == "DEVICE_EDGE_CHILD" then local p = device:get_parent_device() return p ~= nil and p:get_model() == SUB_MODEL end return device:get_model() == SUB_MODEL end)
+    local ok, r = pcall(function() local p = device if device.network_type == "DEVICE_EDGE_CHILD" then p = device:get_parent_device() end return p ~= nil and p:get_model() == SUB_MODEL and p.preferences.mainMode == "all" end)
     return ok and r == true
   end,
   zigbee_handlers = { attr = { [0x0006] = { [0x0000] = lr_onoff_attr } } },

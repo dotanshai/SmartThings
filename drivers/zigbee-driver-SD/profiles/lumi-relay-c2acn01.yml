@@ -85,9 +85,19 @@ preferences:
         "Yes" : "Signal Metrics Visible"
         "No": "Signal Metrics No Visible"
       default: "No"
+  - name: "mainMode"
+    title: "Main Switch Controls"
+    description: "Channel 1 only (default), or Both channels - one tap on the main tile turns both on/off"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        "ch1": "Channel 1 only"
+        "all": "Both channels"
+      default: "ch1"
   - name: "switch1Child"
-    title: "Create Single Device for Channel 1"
-    description: "Separate device for channel 1 only (the main tile controls both channels):"
+    title: "Single Device: Ch1 or All"
+    description: "Main = Both channels: a separate Channel 1 device. Main = Channel 1: a device that switches both channels."
     required: false
     preferenceType: enumeration
     definition:
