@@ -309,6 +309,7 @@ end
 -- Emit event for all Switch On-Off and child device
 local function emit_event_all_On_Off(driver, device, total_on, total,status_Text)
   local child_device = device:get_child_by_parent_assigned_key("main")
+  if device.preferences.mainMode == "all" then child_device = nil end -- main-key child = channel 1, handled by lumi_relay
   if total_on == total then
     device:emit_event(switch_All_On_Off.switchAllOnOff("All On"))
     if child_device ~= nil then
