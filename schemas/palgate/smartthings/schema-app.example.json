@@ -1,0 +1,15 @@
+{
+  "appName": "PalGate",
+  "partnerName": "Shai D.",
+  "userEmail": "<your developer account email>",
+  "schemaType": "st-schema",
+  "hostingType": "webhook",
+  "webhookUrl": "https://<api-id>.execute-api.us-east-1.amazonaws.com/schema",
+  "oAuthAuthorizationUrl": "https://<api-id>.execute-api.us-east-1.amazonaws.com/authorize",
+  "oAuthTokenUrl": "https://<api-id>.execute-api.us-east-1.amazonaws.com/token",
+  "oAuthClientId": "<CLIENT_ID>",
+  "oAuthClientSecret": "<CLIENT_SECRET>",
+  "oAuthScope": "",
+  "permissions": [],
+  "icon": "https://<api-id>.execute-api.us-east-1.amazonaws.com/icon.png"
+}

@@ -4,6 +4,9 @@
 
 Free SmartThings integrations for the Israeli and global SmartThings community.
 
+### 🆕 New: [PalGate – open gates from SmartThings](schemas/palgate)
+Open PalGate gates from the SmartThings app, by voice (Alexa / Google / Bixby) or from Routines, with a "last result" tile showing if the gate opened. Needs remote-open permission from your gate admin and a second screen for one minute while linking. Unofficial, not affiliated with PAL Electronics.
+
 ### 🆕 New: [Oref Alert – Pikud HaOref alerts](schemas/oref-alert)
 Real-time Home Front Command alerts in SmartThings – direct connection to the official alerts feed, no Tasker / MacroDroid / phone needed. Alert, pre-alert, event ended, time to shelter, and a contact sensor for Routines. Supplements, not replaces, the official app.
 
@@ -53,6 +56,7 @@ Install from the **Shai D. Shared Drivers** channel:
 | Tornado AC | [Invite link](https://invitations.smartthings.com/schemaApp/b35a7966-cbfa-4949-a96c-7747683f39e4) | 2026-11-29 | [code](schemas/tornado-ac) |
 | Electra AC | [Invite link](https://invitations.smartthings.com/schemaApp/4ca11785-2aed-4d43-8ddc-07989a6305d6) | 2026-11-29 | [code](schemas/electra-ac) |
 | Oref Alert (Pikud HaOref) | [Invite link](https://invitations.smartthings.com/schemaApp/f1f3bde9-df3c-494c-9829-309572a4a9a4) | 2026-11-29 | [docs](schemas/oref-alert) |
+| PalGate | [Invite link](https://invitations.smartthings.com/schemaApp/47903f19-c9a8-41b8-b061-70ed8bc578e2) | 2026-12-13 | [code](schemas/palgate) |
 
 Invite links are renewed about every 30 days. If a link has expired, ask in the Facebook group.
 
