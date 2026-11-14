@@ -241,19 +241,20 @@ def discovery(req, creds):
     for x in d.get('devices', []):
         did = x.get('id') or x.get('_id')
         name = x.get('name1') or x.get('name') or did
+        log.info('gate %s local=%s out1dis=%s out2dis=%s outputs=%s type=%s', did, x.get('localOnly'), x.get('output1Disabled'), x.get('output2Disabled'), x.get('outputs'), x.get('type'))
         if x.get('localOnly'):
             log.info('skip BT-only %s', did)
             continue
         model = x.get('model') or 'PalGate'
-        if not x.get('output1Disabled'):
+        if True:  # show every non-BT gate; admin-blocked ones surface a clear error
             out.append({'externalDeviceId': did, 'deviceUniqueId': did, 'friendlyName': name,
                         'manufacturerInfo': {'manufacturerName': 'PalGate', 'modelName': model},
                         'deviceHandlerType': PROFILE_ID or 'c2c-switch'})
-        if int(x.get('outputs') or 1) >= 2 and not x.get('output2Disabled'):
+        if int(x.get('outputs') or 1) >= 2:
             out.append({'externalDeviceId': did + ':2', 'deviceUniqueId': did + ':2', 'friendlyName': name + ' (2)',
                         'manufacturerInfo': {'manufacturerName': 'PalGate', 'modelName': model},
                         'deviceHandlerType': PROFILE_ID or 'c2c-switch'})
-    log.info('discovery status=%s devices=%d', d.get('status'), len(out))
+    log.info('discovery status=%s palgate=%d devices=%d', d.get('status'), len(d.get('devices', [])), len(out))
     return {'headers': hdr(req, 'discoveryResponse'), 'requestGrantCallbackAccess': False, 'devices': out}
 
 def open_gate(ext, creds):

@@ -25,6 +25,9 @@ Open PalGate gates from SmartThings — from the app, by voice (Alexa / Google /
 
 To disconnect: PalGate → ⋮ → Linked Devices → delete the "SmartThings" entry, and remove PalGate in SmartThings.
 
+### A gate opens with "not authorized"?
+The gate admin has disabled **linked (secondary) devices** for your user on that gate — the PalGate app still opens it (your phone is the primary device), but a linked device cannot. If you are the gate admin, enable linked devices for your user in the PalGate app / `portal.pal-es.com` gate settings; otherwise ask whoever manages the gate. The gate still appears as a switch so you can see this status.
+
 ### Privacy
 - Your PalGate login is never shared — linking creates a separate **linked device** on your own account
 - Only the linked-device session token is stored (DynamoDB, encrypted at rest), used only to list gates and send open commands
