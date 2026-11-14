@@ -1,0 +1,1 @@
+{"dashboard":{"states":[],"actions":[]},"detailView":[{"label":"Last result","displayType":"state","state":{"label":"{{lastResult.value}}"}}],"automation":{"conditions":[],"actions":[]}}

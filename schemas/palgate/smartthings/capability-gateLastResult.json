@@ -1,0 +1,1 @@
+{"name":"Gate Last Result","attributes":{"lastResult":{"schema":{"type":"object","properties":{"value":{"type":"string","maxLength":120}},"additionalProperties":false,"required":["value"]}}},"commands":{}}

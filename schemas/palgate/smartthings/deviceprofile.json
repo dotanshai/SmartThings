@@ -1,0 +1,15 @@
+{
+  "name": "PalGate Gate v2",
+  "components": [
+    {
+      "id": "main",
+      "capabilities": [
+        { "id": "switch", "version": 1 },
+        { "id": "vehiclepatch55148.gateLastResult", "version": 1 },
+        { "id": "healthCheck", "version": 1 }
+      ],
+      "categories": [ { "name": "Switch" } ]
+    }
+  ],
+  "metadata": { "ocfDeviceType": "oic.d.switch" }
+}
