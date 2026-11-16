@@ -25,6 +25,14 @@ Open PalGate gates from SmartThings — from the app, by voice (Alexa / Google /
 
 To disconnect: PalGate → ⋮ → Linked Devices → delete the "SmartThings" entry, and remove PalGate in SmartThings.
 
+### Automations (gate → light, etc.)
+Each gate is a **momentary** switch: on a successful open it reports `on`, then auto-returns to `off` a few seconds later via the SmartThings **state callback**, so routines triggered by the switch turning on will fire. This needs the callback grant, so existing users must **remove and re-add PalGate once** after this change. The exchange uses the schema app's own `stClientId`/`stClientSecret` (SmartThings does not send the secret in the grant) — set them as the `CB_CID` / `CB_CSEC` Lambda env vars, and give the Lambda `lambda:InvokeFunction` on itself (for the delayed-off self-invoke).
+
+### A device didn't appear, or linking got stuck
+- Make sure you tapped the green **Continue** button after scanning, and didn't close the linking screen.
+- Use a **second screen** for the QR (the PalGate app scans with its camera only).
+- If a gate is still missing or the switch is stuck, **remove PalGate and add it again**.
+
 ### A gate opens with "not authorized"?
 The gate admin has disabled **linked (secondary) devices** for your user on that gate — the PalGate app still opens it (your phone is the primary device), but a linked device cannot. If you are the gate admin, enable linked devices for your user in the PalGate app / `portal.pal-es.com` gate settings; otherwise ask whoever manages the gate. The gate still appears as a switch so you can see this status.
 

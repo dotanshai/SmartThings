@@ -10,6 +10,7 @@ log = logging.getLogger()
 log.setLevel(logging.INFO)
 
 TABLE = boto3.resource('dynamodb', region_name=os.environ.get('TABLE_REGION', 'us-east-1')).Table(os.environ.get('TABLE', 'PalGateSchema'))
+LAMBDA = boto3.client('lambda', region_name=os.environ.get('TABLE_REGION', 'us-east-1'))
 CLIENT_ID = os.environ.get('CLIENT_ID', '')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET', '')
 PG = 'https://api1.pal-es.com/v1/bt/'
@@ -18,6 +19,8 @@ SESSION_TTL = 1800
 TOKEN_LIFE = 10 * 365 * 86400
 PROFILE_ID = os.environ.get('PROFILE_ID', '')
 CAP_RESULT = os.environ.get('CAP_RESULT', '')
+CB_CID = os.environ.get('CB_CID', '')  # schema app stClientId
+CB_CSEC = os.environ.get('CB_CSEC', '')  # schema app stClientSecret (SmartThings does not send it in grant)
 try:
     from zoneinfo import ZoneInfo
     TZ = ZoneInfo('Asia/Jerusalem')
@@ -54,6 +57,59 @@ def pg_get(path, creds=None, timeout=15):
         return json.loads(body)
     except Exception:
         return {'status': 'failed', 'err': body[:200].decode('utf-8', 'replace')}
+
+
+def cb_exchange(url, itype, auth):
+    body = {'headers': {'schema': 'st-schema', 'version': '1.0', 'interactionType': itype, 'requestId': str(uuid.uuid4())},
+            'callbackAuthentication': auth}
+    data = json.dumps(body).encode()
+    req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            d = json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        log.error('cb_exchange %s -> %s %s', url, e.code, e.read()[:300])
+        raise
+    return d.get('callbackAuthentication') or {}
+
+def post_json(url, body, bearer):
+    data = json.dumps(body).encode()
+    req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + bearer})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return r.status, r.read()[:200]
+    except urllib.error.HTTPError as e:
+        return e.code, e.read()[:200]
+
+def ensure_cb_token(a):
+    cb = a['cb']
+    if now() < int(cb.get('exp', 0)) - 60:
+        return cb['access']
+    r = cb_exchange(cb['oauthToken'], 'refreshAccessTokens', {'grantType': 'refreshAccessTokens', 'refreshToken': cb['refresh'],
+                                       'clientId': cb.get('clientId') or CB_CID, 'clientSecret': cb.get('clientSecret') or CB_CSEC})
+    cb['access'] = r.get('accessToken')
+    cb['refresh'] = r.get('refreshToken', cb['refresh'])
+    cb['exp'] = now() + int(r.get('expiresIn', 86400))
+    db_put(a)
+    return cb['access']
+
+def push_switch(a, ext, value):
+    cb = a.get('cb')
+    if not cb:
+        return
+    tok = ensure_cb_token(a)
+    body = {'headers': {'schema': 'st-schema', 'version': '1.0', 'interactionType': 'stateCallback', 'requestId': str(uuid.uuid4())},
+            'authentication': {'tokenType': 'Bearer', 'token': tok},
+            'deviceState': [off_state(ext, a['creds'], switch=value)]}
+    code, txt = post_json(cb['stateCallback'], body, tok)
+    log.info('push %s=%s -> %s %s', ext, value, code, txt[:120])
+
+def schedule_off(acc_tok, ext):
+    try:
+        LAMBDA.invoke(FunctionName=os.environ['AWS_LAMBDA_FUNCTION_NAME'], InvocationType='Event',
+                      Payload=json.dumps({'_internal': 'off', 'acc': acc_tok, 'ext': ext}).encode())
+    except Exception:
+        log.exception('schedule_off failed')
 
 def resp(code, body, ctype='application/json', extra=None):
     h = {'Content-Type': ctype, 'Cache-Control': 'no-store, no-cache', 'Pragma': 'no-cache'}
@@ -225,8 +281,8 @@ def hhmm():
 def res_key(creds, ext):
     return 'res#%s#%s' % (creds['phone'], ext)
 
-def off_state(ext, creds=None, result=None):
-    states = [{'component': 'main', 'capability': 'st.switch', 'attribute': 'switch', 'value': 'off'},
+def off_state(ext, creds=None, result=None, switch='off'):
+    states = [{'component': 'main', 'capability': 'st.switch', 'attribute': 'switch', 'value': switch},
               {'component': 'main', 'capability': 'st.healthCheck', 'attribute': 'healthStatus', 'value': 'online'}]
     if CAP_RESULT and creds is not None:
         if result is None:
@@ -255,7 +311,7 @@ def discovery(req, creds):
                         'manufacturerInfo': {'manufacturerName': 'PalGate', 'modelName': model},
                         'deviceHandlerType': PROFILE_ID or 'c2c-switch'})
     log.info('discovery status=%s palgate=%d devices=%d', d.get('status'), len(d.get('devices', [])), len(out))
-    return {'headers': hdr(req, 'discoveryResponse'), 'requestGrantCallbackAccess': False, 'devices': out}
+    return {'headers': hdr(req, 'discoveryResponse'), 'requestGrantCallbackAccess': True, 'devices': out}
 
 def open_gate(ext, creds):
     did, _, outn = ext.partition(':')
@@ -269,11 +325,12 @@ def open_gate(ext, creds):
         return 'Not confirmed / \u05dc\u05d0 \u05d0\u05d5\u05e9\u05e8'
     return 'Error / \u05e9\u05d2\u05d9\u05d0\u05d4: ' + str(d.get('msg') or d.get('err') or 'unknown')[:40]
 
-def command(req, creds):
+def command(req, creds, acc_tok, has_cb):
     states = []
     for dev in req.get('devices', []):
         ext = dev['externalDeviceId']
         result = None
+        opened = False
         for c in dev.get('commands', []):
             if c.get('capability') == 'st.switch' and c.get('command') == 'on':
                 err = open_gate(ext, creds)
@@ -282,8 +339,13 @@ def command(req, creds):
                     result = '\u2716 %s %s' % (hhmm(), err)
                 else:
                     result = '\u2714 %s Opened / \u05e0\u05e4\u05ea\u05d7' % hhmm()
+                    opened = True
                 db_put({'pk': res_key(creds, ext), 'text': result})
-        states.append(off_state(ext, creds, result))
+        # momentary: report ON only if we can push OFF back via callback (avoids a stuck switch)
+        sw = 'on' if (opened and has_cb) else 'off'
+        states.append(off_state(ext, creds, result, switch=sw))
+        if opened and has_cb:
+            schedule_off(acc_tok, ext)
     return {'headers': hdr(req, 'commandResponse'), 'deviceState': states}
 
 def schema(body):
@@ -292,6 +354,25 @@ def schema(body):
     tok = (req.get('authentication') or {}).get('token', '')
     a = db_get('acc#' + tok) if tok else None
     log.info('ST %s token=..%s known=%s devices=%s', itype, tok[-4:], bool(a), [d.get('externalDeviceId') for d in req.get('devices', [])])
+    if itype == 'grantCallbackAccess':
+        ca = req.get('callbackAuthentication') or {}
+        urls = req.get('callbackUrls') or {}
+        if a and ca.get('code'):
+            try:
+                cid = ca.get('clientId') or CB_CID
+                csec = ca.get('clientSecret') or CB_CSEC
+                log.info('grant ca keys=%s', list(ca.keys()))
+                r = cb_exchange(urls['oauthToken'], 'accessTokenRequest', {'grantType': 'authorization_code', 'code': ca['code'],
+                                                     'clientId': cid, 'clientSecret': csec})
+                a['cb'] = {'stateCallback': urls.get('stateCallback'), 'oauthToken': urls.get('oauthToken'),
+                           'clientId': cid, 'clientSecret': csec,
+                           'access': r.get('accessToken'), 'refresh': r.get('refreshToken'),
+                           'exp': now() + int(r.get('expiresIn', 86400))}
+                db_put(a)
+                log.info('callback granted for ..%s token=%s', tok[-4:], bool(r.get('accessToken')))
+            except Exception:
+                log.exception('grantCallbackAccess failed')
+        return resp(200, {'headers': hdr(req, 'grantCallbackAccess')})
     if itype == 'integrationDeleted':
         if a:
             db_del('acc#' + tok)
@@ -309,12 +390,21 @@ def schema(body):
         return resp(200, {'headers': hdr(req, 'stateRefreshResponse'),
                           'deviceState': [off_state(d['externalDeviceId'], creds) for d in req.get('devices', [])]})
     if itype == 'commandRequest':
-        return resp(200, command(req, creds))
+        return resp(200, command(req, creds, tok, bool(a.get('cb'))))
     return resp(200, {'headers': hdr(req, 'interactionResult')})
 
 
 # ---------- router ----------
 def handler(event, context):
+    if event.get('_internal') == 'off':
+        time.sleep(4)
+        try:
+            a = db_get('acc#' + event['acc'])
+            if a and a.get('cb'):
+                push_switch(a, event['ext'], 'off')
+        except Exception:
+            log.exception('delayed off failed')
+        return {'ok': True}
     ctx = event.get('requestContext', {})
     m = ctx.get('http', {}).get('method', 'GET')
     p = event.get('rawPath', '/').rstrip('/') or '/'
