@@ -38,7 +38,7 @@ Any phone (Android or iPhone) on the same home network (subnet) as the hub. Mult
 | Away after (minutes offline) | Delay before "Not present", default 10 |
 | Clear learned IPs | Turn on, then off, to erase all learned IPs |
 | Add another phone | Turn on, then off, to create a presence device for another family member |
-| Ignore IPs during Learn | Other devices that interfere with learning, e.g. `192.168.1.100` |
+| Ignore IPs | IPs that are never learned or checked (e.g. another device that got learned by mistake), e.g. `192.168.1.106` |
 | IP labels | Name each IP, e.g. `119=2.4G, 136=5G` |
 
 ## How it works

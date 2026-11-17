@@ -52,8 +52,8 @@ preferences:
     definition:
       default: false
   - name: ignoreIps
-    title: "Ignore IPs during Learn"
-    description: "Comma-separated, e.g. 192.168.1.100"
+    title: "Ignore IPs"
+    description: "Never learned or checked. Comma-separated, e.g. 192.168.1.106"
     required: false
     preferenceType: string
     definition:

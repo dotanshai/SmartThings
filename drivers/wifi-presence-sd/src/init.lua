@@ -70,6 +70,7 @@ local function effective_ips(device)
   local ips = {}
   local function add(ip)
     if not valid_ip(ip) then return end
+    for ign in tostring(device.preferences.ignoreIps or ""):gmatch("[^,%s]+") do if ign == ip then return end end
     for _, x in ipairs(ips) do if x == ip then return end end
     table.insert(ips, ip)
   end
